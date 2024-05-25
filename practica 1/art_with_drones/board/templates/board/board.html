@@ -1,0 +1,58 @@
+<!-- board/templates/board/board.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art with Drones</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>********** ART WITH DRONES **********</h1>
+    <h2>FIGURA COMPLETADA</h2>
+    <table id="board">
+        {% for row in rows %}
+        <tr>
+            {% for col in cols %}
+            <td class="{% for pos in positions %}{% if pos.0 == row and pos.1 == col %}green{% endif %}{% endfor %}">
+                {% for pos in positions %}{% if pos.0 == row and pos.1 == col %}{{ pos.2 }}{% endif %}{% endfor %}
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <script>
+        function updateBoard(newPositions) {
+            $.ajax({
+                url: '{% url "update_positions" %}',
+                type: 'POST',
+                data: {
+                    positions: newPositions,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        // Actualizar solo las celdas que han cambiado
+                        newPositions.forEach(function(pos) {
+                            var position = pos.split(",");
+                            var row = parseInt(position[0]);
+                            var col = parseInt(position[1]);
+                            var value = position[2];
+                            $('#board tr:eq(' + (row - 1) + ') td:eq(' + (col - 1) + ')')
+                                .addClass('green')
+                                .text(value);
+                    });
+                    updateBoard(response['positions']);
+                }
+            });
+        }
+
+
+       
+    </script>
+</body>
+</html>

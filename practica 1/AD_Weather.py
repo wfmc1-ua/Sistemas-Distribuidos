@@ -1,19 +1,14 @@
 
 from pymongo import MongoClient
 import random
+import socket
 # Variables globales
 client = MongoClient('mongodb://localhost:27017/')
-
+db = client['SD']
+collection = db['Weather']
 #Funciones
 
 def crearDatos():
-    # Conectar al servidor MongoDB
-
-    # Crear o seleccionar la base de datos
-    db = client['SD']
-
-    # Crear o seleccionar la colección
-    collection = db['Weather']
 
     # Lista de ciudades
     ciudades = [
@@ -39,12 +34,32 @@ def crearDatos():
     # Verificar la inserción
     for doc in collection.find():
         print(doc)
+        
 def consultar():
-    print("en proceso")
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(('localhost', 2222))
+    print("Servidor escuchando en el puerto 2222...")
+    server_socket.listen(5)
+    while True:
+        client_socket, addr = server_socket.accept()
+        print(f"Conexión aceptada de {addr}")
+        
+        data = client_socket.recv(1024).decode('utf-8')
+        print(f"Se solicita la temperatura de la siguiente ciudad: {data}")
+        filtro = {"ciudad" : data}
+        result = collection.find(filtro)
+        for doc in result:
+            enviar = doc["temperatura"]
+            break
+        
+        enviar =str(enviar)
+        client_socket.send(enviar.encode('utf-8'))
+        client_socket.close()
+
+
+
 def main():
     consultar()
-
-    
 
 
 if __name__ == "__main__":
