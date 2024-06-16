@@ -16,7 +16,7 @@ def registrar(client_socket):
     
     print(f"Recibido: {data}")
     with IDs_lock:
-        token = "token " + str(IDs)
+        token = "token." + str(IDs)
         datos = {
             'Id' : IDs,
             'alias' : 'd' + str(IDs),

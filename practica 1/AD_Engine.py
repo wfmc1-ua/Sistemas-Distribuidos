@@ -7,8 +7,9 @@ from pymongo import MongoClient
 client = MongoClient("mongodb://localhost:27017/")
 db = client['SD']
 collection = db['Figuras']
-
-
+autentify = 0
+noautentify = 0
+lock = threading.Lock()
 def send_positions():
     # URL de la vista en Django que maneja la actualización de posiciones
     url = 'http://localhost:8000/update_positions/'
@@ -49,50 +50,132 @@ def consultar():
     
     response = int(response)
     return response
-def SendCoord(pos):
+def SendCoord(pos,nDrones):
     
     producer = KafkaProducer(bootstrap_servers='localhost:9092')
     topic = 'coordenadas'
-    coordinates_json = json.dumps(pos).encode('utf-8')
+    datos=pos + ":" + str(nDrones)
+    coordinates_json = json.dumps(datos).encode('utf-8')
     
+    print(nDrones)
     # Enviar el mensaje
     producer.send(topic, value=coordinates_json)
     producer.flush()
     producer.close()
+    
+def ReciveMovement(drones):
 
+
+    consumer = KafkaConsumer(
+    'movimiento',
+    bootstrap_servers='localhost:9092',
+    auto_offset_reset='earliest',
+    group_id='dron')
+    
+    try:
+        nmove=0 
+        for message in consumer:
+        #message = next(consumer)
+            datos = json.loads(message.value.decode('utf-8'))
+            id , coord ,movimiento = datos.split(":")
+            
+            nmove+=1
+            print(f"El dron { id } esta en la posicion {coord} y se mueve a { movimiento}")
+            coord = MoveDron(int(id),movimiento,coord)
+            print(f"El dron {id} se ha movido y ahora esta en {coord}")
+            if nmove == len(drones):
+                break
+    except KeyboardInterrupt:
+        print("Interrupcion del usuario")
+    finally:
+            
+        consumer.close()
+def MoveDron(id,move,coord):
+    
+    x, y = coord.split(',')
+    x = int(x)
+    y = int(y)
+           
+    # Define las reglas para los movimientos
+    if move == "NORTE":
+        if x < 0:
+            x = 20  # Si estamos en el límite superior, apareceremos en el inferior
+        else:
+            x -= 1
+    elif move == "SUR":
+        if x > 20:
+            x = 1  # Si estamos en el límite inferior, apareceremos en el superior
+        else:
+            x += 1
+    elif move == "ESTE":
+        y = (y + 1) % 20  # Si estamos en el límite derecho, apareceremos en el izquierdo
+    elif move == "OESTE":
+        y = (y - 1) % 20  # Si estamos en el límite izquierdo, apareceremos en el derecho
+
+    return (x,y)
+    
 def autentificar(client_socket,drones):
+    global autentify
+    global noautentify
     data = client_socket.recv(1024).decode('utf-8')
+    print(f" {data}")
     texto,data = data.split(':')
-    print(f"Recibido: {data}")
-
-
-
-    # Iterar sobre los resultados y mostrarlos
+    texto,ids=data.split('.')
+    
+    
+    print(len(drones))
+    with lock:
+        for documento in drones:
+            print(f" doc: {documento['ID']} / ids: {ids}")
+            if documento['ID'] == int(ids):
+                autentify+=1
+            else:
+                noautentify+=1
+    print(f" autentify : {autentify}")
+    
+    client_socket.send("Te has autentificado".encode('utf-8'))
+    
     for documento in drones:
-        if documento['ID'] == int(data):
-            pos = documento['POS']
-            SendCoord(pos)
-            print(f"Enviando coordenada {pos} ")
-            client_socket.send("Envio correcto de coordenadas".encode('utf-8'))
-            client_socket.close()
-            break
+    
+        pos = documento['POS']
+        SendCoord(pos,len(drones))
+        print(f"Enviando coordenada {pos} ")
+    client_socket.close()
+# def espectaculo(client_socket,drones):
+#     data = client_socket.recv(1024).decode('utf-8')
+#     print(f"recibido: {data}")
+#     client_socket.send("True".encode('utf-8'))
+#     client_socket.close()
 
 
         
-    
 def handle_Cliente(drones):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind(('localhost', 3333))
     print("Servidor escuchando en el puerto 12345...")
     server_socket.listen(5)
+    threads=[]
     while True:
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
         client_handler = threading.Thread(target=autentificar, args=(client_socket,drones))
         client_handler.start()
+        threads.append(client_handler)
         
+        if len(threads) == len(drones):
+            for thread in threads:
+                thread.join()
+        
+            break
     
-    
+    print("Hora de enviar coordenadas")
+    # while True:
+    #     client_socket, addr = server_socket.accept()
+    #     print(f"Conexión aceptada de {addr}")
+    #     client_handler = threading.Thread(target=espectaculo, args=(client_socket,drones))
+    #     client_handler.start()            
+
+
         
     
 def main():
