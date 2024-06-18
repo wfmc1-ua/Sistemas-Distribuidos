@@ -1,13 +1,16 @@
 import socket
 from kafka import KafkaConsumer, KafkaProducer
+from colorama import init, Fore, Style
 import json
 import time
 #### Variables ####
 Id = 0
 Alias = ""
 Token = ""
-Coord = (1,1)
 CoordsF = []
+CoordsI = []
+TABLERO = []
+esperar = True
 def registrar():
     global Id
     global Token
@@ -24,7 +27,9 @@ def registrar():
 def reciveCoord():
     
     global CoordsF
+    global CoordsI
     global Id
+    
     consumer = KafkaConsumer(
     'coordenadas',
     bootstrap_servers='localhost:9092',
@@ -38,6 +43,7 @@ def reciveCoord():
             if coordinates not in CoordsF:
                 print(f"Coordenadas a guardar: {coordinates}")
                 CoordsF.append(coordinates)
+                CoordsI.append((1,1))
                 
             if int(nDrones) == len(CoordsF):
                 break
@@ -48,11 +54,34 @@ def reciveCoord():
             
         consumer.close()
         
+def ReciveMap():
+    global TABLERO
+    global CoordsI
+    global Id
+    consumer = KafkaConsumer(
+    'mapa',
+    bootstrap_servers='localhost:9092',
+    auto_offset_reset='earliest',
+    group_id='dron' + str(Id))
+    try:
+        #for message in consumer:
+        message = next(consumer)
+        datos = json.loads(message.value.decode('utf-8'))
+        CoordsI = datos['coordenadas']
+        TABLERO = datos['mapa']
+        #break
+    except KeyboardInterrupt:
+        print("Interrupcion del usuario")
+    finally:
+        consumer.close()
+                    
 def SendMovement(move):
+    
+    global CoordsI
     
     producer = KafkaProducer(bootstrap_servers='localhost:9092')
     topic = 'movimiento'
-    x, y = Coord
+    x, y = CoordsI[Id-1]
      
     coord = str(x) + "," + str(y)
     datos=str(Id) + ":" + coord + ":" + move
@@ -68,24 +97,55 @@ def SendMovement(move):
         producer.close()
         
 def selectMove():
-    global Coord
-    
-    x1,y1 = Coord
+    global CoordsI
+    global CoordsF
+    global Id
+
+    x1,y1 = CoordsI[Id-1]
     x2,y2 = CoordsF[Id-1].split(',')
-    x2=int(x2)
+    x2 = int(x2)
     y2 = int(y2)
     if x1 < x2:
+        print("ME muevo al SUR")
         return "SUR"
     elif x1 > x2:
+        print("ME muevo al NORTE")
         return "NORTE"
     elif y1 < y2:
+        print("ME muevo al ESTE")
         return "ESTE"
     elif y1 > y2:
+        print("ME muevo al OESTE")
         return "OESTE"
-    else:
+    elif x1 == x2 and y1 == y2:
         return "DESTINO ALCANZADO"
     
+def imprimir_tablero(fin):
+    global Id
+    global TABLERO
+    print()
+    print()
+    print(f"MI ID ES {Id}")
+    for fila in TABLERO:
+        print("[",end="")
+        for i,x in enumerate(fila):
+            if x == "" + str(Id) + "" and fin == False:
+                print(Fore.RED + " " + x + " " + Style.RESET_ALL,end="")
+            elif x == "" + str(Id) + "" and fin:
+                print(Fore.GREEN + " " + x + " "  + Style.RESET_ALL,end="")
+            elif x != " x ":
+                print(Fore.RED + " " + x + " " + Style.RESET_ALL,end="")
+            else:
+                print(" x ",end="")
+            
+            if  i == len(fila)-1:
+                print("]")
+                    
 def espectaculo():
+    global esperar
+    global CoordsI
+    global CoordsF
+    global Id
     
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(('localhost', 3333)) # Establece conexion
@@ -94,19 +154,33 @@ def espectaculo():
     response = client_socket.recv(1024)
 ########################Confirmacion de que todos estan autentificados##################
 
-
-    # solicitud = "Puede comenzar el espectaculo?"
-    # client_socket.send(solicitud.encode('utf-8')) # Envio de solicitud
-    # response = client_socket.recv(1024)
-
-    # if response.strip() == "True":
     reciveCoord()
     movimiento=selectMove()
     SendMovement(movimiento)
+    ReciveMap()
+    
     while movimiento != "DESTINO ALCANZADO":
-        reciveCoord()
         movimiento=selectMove()
+        
         SendMovement(movimiento)
+        ReciveMap()
+        print("recibio mapa")
+        #sigue = client_socket.recv(1024)
+        
+        if CoordsI[Id-1] == CoordsF[Id-1]:
+            fin = True
+        else:
+            fin = False
+        imprimir_tablero(fin)
+        
+    while esperar == True:
+        
+        imprimir_tablero(fin)
+        espera = client_socket.recv(1024)
+        if espera == "Termina":
+            esperar = False
+        
+
     client_socket.close() ## confirmacion que tu estas autentificado
     
 
