@@ -1,0 +1,686 @@
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "find", "topologyDescription": "<TopologyDescription id: 6673015d3e054d0ad7b2ba34, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "6673015d3e054d0ad7b2ba34"}, "remainingTimeMS": 30}
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.producer.kafka:Closing the Kafka producer with 4294967.0 secs timeout.
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 1
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:root:El dron 1 está en la posición (1, 1) y se mueve a 1,19
+INFO:root:El dron 1 se ha movido y ahora está en (1, 19)
+INFO:root:nmovee 1 la longitud de drones es 4
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:root:El dron 2 está en la posición (1, 1) y se mueve a 2,1
+INFO:root:El dron 2 se ha movido y ahora está en (2, 1)
+INFO:root:nmovee 3 la longitud de drones es 4
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 2
+INFO:kafka.coordinator:Successfully joined group engine with generation 2
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "find", "topologyDescription": "<TopologyDescription id: 667309e228a0afacdac664ad, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "667309e228a0afacdac664ad"}, "remainingTimeMS": 30}
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.producer.kafka:Closing the Kafka producer with 4294967.0 secs timeout.
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 1
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:root:El dron 1 está en la posición (1, 1) y se mueve a 1,19
+INFO:root:El dron 1 se ha movido y ahora está en (1, 19)
+INFO:root:nmovee 1 la longitud de drones es 4
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:root:El dron 2 está en la posición (1, 1) y se mueve a 2,1
+INFO:root:El dron 2 se ha movido y ahora está en (2, 1)
+INFO:root:nmovee 3 la longitud de drones es 4
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 2
+INFO:kafka.coordinator:Successfully joined group engine with generation 2
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:root:El dron 3 está en la posición (1, 1) y se mueve a 2,1
+INFO:root:El dron 3 se ha movido y ahora está en (2, 1)
+INFO:root:nmovee 5 la longitud de drones es 4
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 3
+INFO:kafka.coordinator:Successfully joined group engine with generation 3
+INFO:kafka.coordinator:Successfully joined group engine with generation 3
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:root:El dron 4 está en la posición (1, 1) y se mueve a 1,2
+INFO:root:El dron 4 se ha movido y ahora está en (1, 2)
+INFO:root:nmovee 7 la longitud de drones es 4
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 4
+INFO:kafka.coordinator:Successfully joined group engine with generation 4
+INFO:kafka.coordinator:Successfully joined group engine with generation 4
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.coordinator:Successfully joined group engine with generation 4
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:pymongo.serverSelection:{"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "find", "topologyDescription": "<TopologyDescription id: 66730ab3d1869b8f9eed0ac1, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "66730ab3d1869b8f9eed0ac1"}, "remainingTimeMS": 30}
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.producer.kafka:Closing the Kafka producer with 4294967.0 secs timeout.
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 1
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:root:El dron 1 está en la posición (1, 1) y se mueve a 1,19
+INFO:root:El dron 1 se ha movido y ahora está en (1, 19)
+INFO:root:nmovee 1 la longitud de drones es 4
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:root:El dron 2 está en la posición (1, 1) y se mueve a 2,1
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:root:El dron 2 se ha movido y ahora está en (2, 1)
+INFO:root:nmovee 3 la longitud de drones es 4
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 2
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.coordinator:Successfully joined group engine with generation 2
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:root:El dron 3 está en la posición (1, 1) y se mueve a 2,1
+INFO:root:El dron 3 se ha movido y ahora está en (2, 1)
+INFO:root:nmovee 5 la longitud de drones es 4
+INFO:kafka.coordinator:Stopping heartbeat thread
+INFO:kafka.coordinator:Leaving consumer group (engine).
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 3
+INFO:kafka.coordinator:Successfully joined group engine with generation 3
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connected> [IPv4 ('172.28.0.1', 9092)]>: Closing connection. 
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:Probing node bootstrap-0 broker version
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+INFO:root:El dron 4 está en la posición (1, 1) y se mueve a 1,2
+INFO:root:El dron 4 se ha movido y ahora está en (1, 2)
+INFO:root:nmovee 1 la longitud de drones es 4
+INFO:kafka.conn:Broker version identified as 2.5.0
+INFO:kafka.conn:Set configuration api_version=(2, 5, 0) to skip auto check_version requests on startup
+INFO:kafka.consumer.subscription_state:Updating subscribed topics to: ('movimiento',)
+INFO:kafka.cluster:Group coordinator for engine is BrokerMetadata(nodeId='coordinator-1', host='LAPTOP-J6SPSTTC.mshome.net', port=9092, rack=None)
+INFO:kafka.coordinator:Discovered coordinator coordinator-1 for group engine
+INFO:kafka.coordinator:Starting new heartbeat thread
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: connecting to LAPTOP-J6SPSTTC.mshome.net:9092 [('172.28.0.1', 9092) IPv4]
+INFO:kafka.conn:<BrokerConnection node_id=coordinator-1 host=LAPTOP-J6SPSTTC.mshome.net:9092 <connecting> [IPv4 ('172.28.0.1', 9092)]>: Connection complete.
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+INFO:kafka.conn:<BrokerConnection node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+WARNING:kafka.coordinator:Heartbeat failed for group engine because it is rebalancing
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions set() for group engine
+INFO:kafka.coordinator.consumer:Revoking previously assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:(Re-)joining group engine
+INFO:kafka.coordinator:Elected group leader -- performing partition assignments using range
+INFO:kafka.coordinator:Successfully joined group engine with generation 4
+INFO:kafka.coordinator:Successfully joined group engine with generation 4
+INFO:kafka.coordinator:Successfully joined group engine with generation 4
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.consumer.subscription_state:Updated partition assignment: []
+INFO:kafka.consumer.subscription_state:Updated partition assignment: [TopicPartition(topic='movimiento', partition=0)]
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions set() for group engine
+INFO:kafka.coordinator.consumer:Setting newly assigned partitions {TopicPartition(topic='movimiento', partition=0)} for group engine

@@ -3,8 +3,10 @@ import threading
 import requests
 import json
 from colorama import init, Fore, Style
+from confluent_kafka import Consumer,Producer, KafkaException, KafkaError
 from kafka import KafkaConsumer, KafkaProducer
 from pymongo import MongoClient
+
 client = MongoClient("mongodb://localhost:27017/")
 db = client['SD']
 collection = db['Figuras']
@@ -16,7 +18,7 @@ TABLERO =[]
 coordDrones = []
 parar=0
 lock = threading.Lock()
-
+nmove = 1
 def consultar():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(('localhost', 2222)) # Establece conexion
@@ -26,6 +28,7 @@ def consultar():
     
     response = int(response)
     return response
+
 
 def SendCoord(pos,nDrones):
     
@@ -51,6 +54,7 @@ def SendMap():
            "coordenadas": coordDrones,
            "mapa":TABLERO
         }
+    
     map_json = json.dumps(datos).encode('utf-8')
     
     try:
@@ -60,70 +64,57 @@ def SendMap():
     except Exception as e:
         print(f"Error al enviar las coordenadas: {e}")
     finally:
-        producer.close()    
+        producer.close()  
+          
 def ReciveMovement(drones):
     
     global parar
     global coordDrones
-    
+    global nmove
     consumer = KafkaConsumer(
     'movimiento',
     bootstrap_servers='localhost:9092',
     auto_offset_reset='earliest',
+    enable_auto_commit=True,
+    max_poll_interval_ms = 10000,
     group_id='engine')
     
     try:
-        nmove=0 
-        for message in consumer:
-        #message = next(consumer)
-            datos = json.loads(message.value.decode('utf-8'))
-            id , coord ,movimiento = datos.split(":")
-            
-            nmove+=1
-            print(f"El dron { id } esta en la posicion {coord} y se mueve a { movimiento}")
-            MoveDron(int(id),movimiento,coord)
-            print(f"El dron {id} se ha movido y ahora esta en {coordDrones[int(id) -1]}")
-            actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
-            
-            if movimiento == "DESTINO ALCANZADO":
-                parar +=1
-                
-            
-            break
+       
+        # for message in consumer:
+        message = next(consumer)
+        datos = json.loads(message.value.decode('utf-8'))
+        id ,movimiento,destino = datos.split(":")
+        x, y = movimiento.split(',')
+        x = int(x)
+        y = int(y)
+        # if coordDrones[int(id) - 1] == (x,y):
+        #     continue
+        print(f"El dron {id} está en la posición {coordDrones[int(id) - 1]} y se mueve a {movimiento}")
+
+        print(f"El dron {id} se ha movido y ahora está en {coordDrones[int(id) - 1]}")
+        actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
+        coordDrones[int(id) -1] = (x,y)
+        actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
+        #consumer.commit()
+        print(f"nmove vale { nmove}")
+        # if nmove >= len(drones):
+        #     print("Sale del bucle")
+        #     nmove = 1
+        #     break
+        # else: 
+        #     nmove+=1
+        if destino == "True":
+            parar +=1
+
+            #break
     except KeyboardInterrupt:
         print("Interrupcion del usuario")
     finally:
             
         consumer.close()
-        
-def MoveDron(id,move,coord):
-    
-    global coordDrones
-    
-    x, y = coord.split(',')
-    x = int(x)
-    y = int(y)
-           
-    # Define las reglas para los movimientos
-    if move == "NORTE":
-        if x < 0:
-            x = 20  # Si estamos en el límite superior, apareceremos en el inferior
-        else:
-            x -= 1
-    elif move == "SUR":
-        if x > 20:
-            x = 1  # Si estamos en el límite inferior, apareceremos en el superior
-        else:
-            x += 1
-    elif move == "ESTE":
-        y = (y + 1) % 20  # Si estamos en el límite derecho, apareceremos en el izquierdo
-    elif move == "OESTE":
-        y = (y - 1) % 20  # Si estamos en el límite izquierdo, apareceremos en el derecho
-    
-    if id > 0:
-        print(f"el id es {id}")
-        coordDrones[id-1] = (x,y) # Actualiza la posicion en el array de posiciones actuales de cada dron
-    
+
+
 def autentificar(client_socket,drones):
     global autentify
     global coordDrones
@@ -161,18 +152,19 @@ def espectaculo(client_socket,drones):
         print(f"Enviando coordenada {pos} ")
         
     fin = False
+
+    
     while fin != True:
-        
         ReciveMovement(drones)
-        print('PERO ENTRAS?')
-        imprimir_tablero(fin)
-        print("PERO LLEGAS?")
+        imprimir_tablero(False)
         SendMap()
-        #client_socket.send("Sigue".encode('utf-8'))
         
         if parar == len(drones):
             print("paro")
             fin = True
+
+    #     #client_socket.send("Sigue".encode('utf-8'))
+        
     client_socket.send("Termina".encode('utf-8'))
 
     client_socket.close()
@@ -198,12 +190,7 @@ def handle_Cliente(drones):
         
             break
     
-    print("Hora de enviar coordenadas")
-    # while True:
-    #     client_socket, addr = server_socket.accept()
-    #     print(f"Conexión aceptada de {addr}")
-    #     client_handler = threading.Thread(target=espectaculo, args=(client_socket,drones))
-    #     client_handler.start()            
+
 
 
 def createTablero(filas, columnas):
@@ -227,9 +214,9 @@ def imprimir_tablero(fin=False):
     print()
     print()
     for fila in TABLERO:
-        print("[",end="")
+        print("[",end="")   
         for i,x in enumerate(fila):
-            if x != " x "and fin == False:
+            if x != " x " and fin == False:
                 print(Fore.RED +" " + x + " " + Style.RESET_ALL,end="")
             elif x != " x " and fin:
                 print(Fore.GREEN + " "+ x + " " + Style.RESET_ALL,end="")

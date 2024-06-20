@@ -1,5 +1,7 @@
 import socket
 from kafka import KafkaConsumer, KafkaProducer
+from confluent_kafka import Producer,Consumer,TopicPartition, KafkaException, KafkaError
+
 from colorama import init, Fore, Style
 import json
 import time
@@ -23,7 +25,7 @@ def registrar():
     ID, Alias,Token = response.split('|')
     Id = int(ID)
     print(f"Soy el dron: {Id} con el alias {Alias} y token {Token}")
-    
+            
 def reciveCoord():
     
     global CoordsF
@@ -53,7 +55,7 @@ def reciveCoord():
     finally:
             
         consumer.close()
-        
+
 def ReciveMap():
     global TABLERO
     global CoordsI
@@ -67,7 +69,6 @@ def ReciveMap():
         #for message in consumer:
         message = next(consumer)
         datos = json.loads(message.value.decode('utf-8'))
-        CoordsI = datos['coordenadas']
         TABLERO = datos['mapa']
         #break
     except KeyboardInterrupt:
@@ -75,51 +76,65 @@ def ReciveMap():
     finally:
         consumer.close()
                     
-def SendMovement(move):
+def SendMovement(move,destino):
     
     global CoordsI
     
     producer = KafkaProducer(bootstrap_servers='localhost:9092')
     topic = 'movimiento'
-    x, y = CoordsI[Id-1]
+    x, y = move
      
     coord = str(x) + "," + str(y)
-    datos=str(Id) + ":" + coord + ":" + move
+    datos=str(Id) + ":" + coord + ":" + destino
     coordinates_json = json.dumps(datos).encode('utf-8')
-    
+    time.sleep(3)
     try:
         # Enviar el mensaje
+        
         producer.send(topic, value=coordinates_json)
         producer.flush()
     except Exception as e:
         print(f"Error al enviar las coordenadas: {e}")
     finally:
         producer.close()
-        
+
 def selectMove():
     global CoordsI
     global CoordsF
     global Id
 
-    x1,y1 = CoordsI[Id-1]
-    x2,y2 = CoordsF[Id-1].split(',')
-    x2 = int(x2)
-    y2 = int(y2)
-    if x1 < x2:
-        print("ME muevo al SUR")
-        return "SUR"
-    elif x1 > x2:
-        print("ME muevo al NORTE")
-        return "NORTE"
-    elif y1 < y2:
-        print("ME muevo al ESTE")
-        return "ESTE"
-    elif y1 > y2:
-        print("ME muevo al OESTE")
-        return "OESTE"
-    elif x1 == x2 and y1 == y2:
-        return "DESTINO ALCANZADO"
-    
+    # Definir los movimientos posibles
+    movimientos = [(-1, 0), (0, 1), (1, 0), (0, -1), (1, 1), (1, -1), (-1, -1), (-1, 1)]
+    posiciones = []
+    camino_min = float('inf')  # Utilizar infinito para comparación inicial
+
+    # Coordenadas iniciales y finales
+    x1, y1 = CoordsI[Id - 1]
+    x2, y2 = map(int, CoordsF[Id - 1].split(','))
+
+    # Calcular las posiciones posibles y sus correspondientes distancias
+    for movimiento in movimientos:
+        posicion_x = (x1 + movimiento[0]) % 20  # Envolvimiento de 0 a 19
+        posicion_y = (y1 + movimiento[1]) % 20  # Envolvimiento de 0 a 19
+
+        if posicion_x == 0:
+            posicion_x = 19
+        if posicion_y == 0:
+            posicion_y = 19
+
+        posiciones.append((posicion_x, posicion_y))
+
+    # Encontrar el movimiento con el camino mínimo
+    for posicion in posiciones:
+        camino = (x2 - posicion[0], y2 - posicion[1])
+        maximo = max(abs(camino[0]), abs(camino[1]))
+
+        if maximo < camino_min:
+            camino_min = maximo
+            bestmove = posicion
+
+    return bestmove
+
 def imprimir_tablero(fin):
     global Id
     global TABLERO
@@ -146,6 +161,7 @@ def espectaculo():
     global CoordsI
     global CoordsF
     global Id
+    global TABLERO
     
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(('localhost', 3333)) # Establece conexion
@@ -155,17 +171,35 @@ def espectaculo():
 ########################Confirmacion de que todos estan autentificados##################
 
     reciveCoord()
-    movimiento=selectMove()
-    SendMovement(movimiento)
-    ReciveMap()
     
-    while movimiento != "DESTINO ALCANZADO":
+    x,y = CoordsF[Id-1].split(',')
+    x = int(x)
+    y = int(y)
+    
+    movimiento=selectMove()
+    CoordsI[Id - 1] = movimiento
+    
+    if movimiento == (x,y):
+        destino = "True"
+    else:
+        destino = "False"
+        
+    SendMovement(movimiento,destino)
+    ReciveMap()
+    imprimir_tablero(False)
+    
+    while destino != "True":
         movimiento=selectMove()
         
-        SendMovement(movimiento)
+        if movimiento == (x,y):
+            destino = "True"
+        else:
+            destino = "False"
+        
+        CoordsI[Id - 1] = movimiento
+        SendMovement(movimiento,destino)
+        
         ReciveMap()
-        print("recibio mapa")
-        #sigue = client_socket.recv(1024)
         
         if CoordsI[Id-1] == CoordsF[Id-1]:
             fin = True
