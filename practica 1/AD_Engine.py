@@ -229,8 +229,8 @@ def imprimir_tablero(fin=False):
 def main():
     
     createTablero(FILAS,COLUMNAS)
+    temperatura = consultar()
     for figura in collection.find():
-        temperatura = consultar()
         if temperatura >= 0:
             
             handle_Cliente(figura["Drones"])
