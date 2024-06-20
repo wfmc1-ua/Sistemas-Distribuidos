@@ -6,27 +6,27 @@ client = MongoClient("mongodb://localhost:27017/")
 ##### VARIABLES #########
 db = client['SD']
 collection = db['Drones']
-IDs = 1
+ID= 1
 IDs_lock = threading.Lock() # para evitar que la comunicacion entre hilos altere de forma
                             # no deseada los ids
 def registrar(client_socket):
-    global IDs
+    global ID
 
     data = client_socket.recv(1024).decode('utf-8')
     
-    print(f"Recibido: {data}")
+    data, alias = data.split(':')
     with IDs_lock:
-        token = "token." + str(IDs)
+        token = "token." + str(ID)
         datos = {
-            'Id' : IDs,
-            'alias' : 'd' + str(IDs),
+            'Id' : ID,
+            'alias' : alias,
             "token" : token
             
         }
         
         collection.insert_one(datos)
-        enviar = f"{IDs}|{'d' + str(IDs)}| {token}"
-        IDs += 1
+        enviar = f"{ID}|{'d' + str(ID)}| {token}"
+        ID += 1
     client_socket.send(enviar.encode('utf-8'))
     client_socket.close()
         

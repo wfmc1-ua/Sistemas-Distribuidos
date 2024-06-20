@@ -13,14 +13,14 @@ CoordsF = []
 CoordsI = []
 TABLERO = []
 esperar = True
-def registrar():
+def registrar(alias):
     global Id
     global Token
     global Alias
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(('localhost', 12345)) # Establece conexion
-
-    client_socket.send("Solicitud de registro".encode('utf-8')) # Envio de solicitud
+    mensaje = "Solicitud de registro y va tener el  alias:" + alias
+    client_socket.send(mensaje.encode('utf-8')) # Envio de solicitud
     response = client_socket.recv(1024).decode('utf-8')
     ID, Alias,Token = response.split('|')
     Id = int(ID)
@@ -66,11 +66,10 @@ def ReciveMap():
     auto_offset_reset='earliest',
     group_id='dron' + str(Id))
     try:
-        #for message in consumer:
         message = next(consumer)
         datos = json.loads(message.value.decode('utf-8'))
         TABLERO = datos['mapa']
-        #break
+        
     except KeyboardInterrupt:
         print("Interrupcion del usuario")
     finally:
@@ -87,7 +86,7 @@ def SendMovement(move,destino):
     coord = str(x) + "," + str(y)
     datos=str(Id) + ":" + coord + ":" + destino
     coordinates_json = json.dumps(datos).encode('utf-8')
-    time.sleep(3)
+
     try:
         # Enviar el mensaje
         
@@ -140,7 +139,7 @@ def imprimir_tablero(fin):
     global TABLERO
     print()
     print()
-    print(f"MI ID ES {Id}")
+
     for fila in TABLERO:
         print("[",end="")
         for i,x in enumerate(fila):
@@ -168,6 +167,7 @@ def espectaculo():
     solicitud = "Solicitud de registro del dron:" + Token 
     client_socket.send(solicitud.encode('utf-8')) # Envio de solicitud
     response = client_socket.recv(1024)
+    print(response)
 ########################Confirmacion de que todos estan autentificados##################
 
     reciveCoord()
@@ -208,9 +208,14 @@ def espectaculo():
         imprimir_tablero(fin)
         
     while esperar == True:
-        
+        ReciveMap()
         imprimir_tablero(fin)
-        espera = client_socket.recv(1024)
+        
+        print("TERMINA")
+        
+        espera = client_socket.recv(1024).decode('utf-8')
+        print("PASA DEL ESPERA")
+        print(espera)
         if espera == "Termina":
             esperar = False
         
@@ -219,6 +224,7 @@ def espectaculo():
     
 
 def main():
+    global Id
     opcion = 0
     while opcion != 3:
         
@@ -229,7 +235,12 @@ def main():
 
         opcion = int(input("Opcion:"))
         if opcion == 1:
-            registrar()
+            if  Id == 0:
+                alias = input("Inserte un alias para el dron: ")
+                registrar(alias)
+            else:
+                print(f"Ya esta registrado con el id {Id}")
+                
         elif opcion == 2:
             espectaculo()
         elif opcion == 3:

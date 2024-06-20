@@ -70,7 +70,7 @@ def ReciveMovement(drones):
     
     global parar
     global coordDrones
-    global nmove
+    
     consumer = KafkaConsumer(
     'movimiento',
     bootstrap_servers='localhost:9092',
@@ -81,33 +81,21 @@ def ReciveMovement(drones):
     
     try:
        
-        # for message in consumer:
         message = next(consumer)
         datos = json.loads(message.value.decode('utf-8'))
+        
         id ,movimiento,destino = datos.split(":")
         x, y = movimiento.split(',')
         x = int(x)
         y = int(y)
-        # if coordDrones[int(id) - 1] == (x,y):
-        #     continue
-        print(f"El dron {id} está en la posición {coordDrones[int(id) - 1]} y se mueve a {movimiento}")
 
-        print(f"El dron {id} se ha movido y ahora está en {coordDrones[int(id) - 1]}")
         actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
         coordDrones[int(id) -1] = (x,y)
         actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
-        #consumer.commit()
-        print(f"nmove vale { nmove}")
-        # if nmove >= len(drones):
-        #     print("Sale del bucle")
-        #     nmove = 1
-        #     break
-        # else: 
-        #     nmove+=1
+
         if destino == "True":
             parar +=1
 
-            #break
     except KeyboardInterrupt:
         print("Interrupcion del usuario")
     finally:
@@ -134,10 +122,7 @@ def autentificar(client_socket,drones):
     if len(coordDrones) != len(drones):
         for i in range(len(drones)):
             coordDrones.append((1,1))
-                
-
-    print(f" autentify : {autentify}")
-    
+                    
     client_socket.send("Te has autentificado".encode('utf-8'))
     espectaculo(client_socket,drones)
     
@@ -166,7 +151,7 @@ def espectaculo(client_socket,drones):
     #     #client_socket.send("Sigue".encode('utf-8'))
         
     client_socket.send("Termina".encode('utf-8'))
-
+    print("putita")
     client_socket.close()
 
 
