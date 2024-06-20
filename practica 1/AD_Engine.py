@@ -2,6 +2,7 @@ import socket
 import threading
 import requests
 import json
+import time
 from colorama import init, Fore, Style
 from confluent_kafka import Consumer,Producer, KafkaException, KafkaError
 from kafka import KafkaConsumer, KafkaProducer
@@ -40,13 +41,13 @@ def consultar():
         if response.status_code == 200:
             data = response.json()
             temperatura = int(data['temperatura'])
-            return temperatura
+            return temperatura, ciudad
         else:
             print(f"Error al obtener el clima: {response.text}")
-            return None
+            return None, ciudad
     except requests.RequestException as e:
         print(f"Error al conectar con AD_Weather: {e}")
-        return None
+        return None, ciudad
 
 def SendCoord(pos,nDrones):
     
@@ -121,7 +122,7 @@ def ReciveMovement(drones):
         consumer.close()
 
 
-def autentificar(client_socket,drones):
+def autentificar(client_socket, drones, stop_event):
     global autentify
     global coordDrones
     data = client_socket.recv(1024).decode('utf-8')
@@ -142,21 +143,18 @@ def autentificar(client_socket,drones):
             coordDrones.append((1,1))
                     
     client_socket.send("Te has autentificado".encode('utf-8'))
-    espectaculo(client_socket,drones)
+    espectaculo(client_socket,drones, stop_event)
     
-def espectaculo(client_socket,drones):
+def espectaculo(client_socket,drones, stop_event):
     
     global parar
     
     for documento in drones:
-    
         pos = documento['POS']
         SendCoord(pos,len(drones))
         print(f"Enviando coordenada {pos} ")
         
     fin = False
-
-    
     while fin != True:
         ReciveMovement(drones)
         imprimir_tablero(False)
@@ -167,14 +165,15 @@ def espectaculo(client_socket,drones):
             fin = True
 
     #     #client_socket.send("Sigue".encode('utf-8'))
-        
+    if stop_event.is_set():
+        print("Espectáculo detenido debido a baja temperatura.")
+
     client_socket.send("Termina".encode('utf-8'))
-    print("putita")
     client_socket.close()
 
 
         
-def handle_Cliente(drones):
+def handle_Cliente(drones, stop_event):
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind(('localhost', 3333))
     print("Servidor escuchando en el puerto 12345...")
@@ -183,7 +182,7 @@ def handle_Cliente(drones):
     while True:
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
-        client_handler = threading.Thread(target=autentificar, args=(client_socket,drones))
+        client_handler = threading.Thread(target=autentificar, args=(client_socket,drones, stop_event))
         client_handler.start()
         threads.append(client_handler)
         
@@ -229,20 +228,43 @@ def imprimir_tablero(fin=False):
             
             if  i == len(fila)-1:
                 print("]")
+
+def monitorear_temperatura(ciudad, stop_event):
+    while not stop_event.is_set():
+        try:
+            response = requests.get(f"{WEATHER_API_URL}?ciudad={ciudad}")
+            if response.status_code == 200:
+                data = response.json()
+                temperatura = int(data['temperatura'])
+                print(f"Temperatura actual en {ciudad}: {temperatura}°C")
+                if temperatura <= 0:
+                    print("Temperatura demasiado baja. Finalizando espectáculo.")
+                    stop_event.set()  # Detiene el espectáculo
+            else:
+                print(f"Error al obtener el clima: {response.text}")
+        except requests.RequestException as e:
+            print(f"Error al conectar con AD_Weather: {e}")
+
+        time.sleep(10)  # Espera 10 segundos antes de la siguiente verificación
+
 def main():
     
     createTablero(FILAS,COLUMNAS)
-    temperatura = consultar()
+    temperatura, ciudad = consultar()
     print(f"TEMPERATURA: {temperatura}")
-    for figura in collection.find():
-        if temperatura >= 0:
-            
+
+    stop_event = threading.Event()
+    monitor_thread = threading.Thread(target=monitorear_temperatura, args=(ciudad, stop_event))
+    monitor_thread.start()
+    
+    if temperatura is not None and temperatura > 0:
+        for figura in collection.find():
             handle_Cliente(figura["Drones"])
-        else:
-            print("No se puede iniciar el espectaculo")
-
-            
-
+    else:
+        print("No se puede iniciar el espectáculo. Temperatura no adecuada.")
+    
+    stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
+    monitor_thread.join()
 
 if __name__ == "__main__":
     main()
