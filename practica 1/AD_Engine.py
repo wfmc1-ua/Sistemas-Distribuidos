@@ -19,6 +19,10 @@ coordDrones = []
 parar=0
 lock = threading.Lock()
 nmove = 1
+
+WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
+
+"""
 def consultar():
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(('localhost', 2222)) # Establece conexion
@@ -28,7 +32,21 @@ def consultar():
     
     response = int(response)
     return response
-
+"""
+def consultar():
+    ciudad = input("Indique la ciudad donde se realiza el espectaculo: ")
+    try:
+        response = requests.get(f"{WEATHER_API_URL}?ciudad={ciudad}")
+        if response.status_code == 200:
+            data = response.json()
+            temperatura = int(data['temperatura'])
+            return temperatura
+        else:
+            print(f"Error al obtener el clima: {response.text}")
+            return None
+    except requests.RequestException as e:
+        print(f"Error al conectar con AD_Weather: {e}")
+        return None
 
 def SendCoord(pos,nDrones):
     
@@ -215,6 +233,7 @@ def main():
     
     createTablero(FILAS,COLUMNAS)
     temperatura = consultar()
+    print(f"TEMPERATURA: {temperatura}")
     for figura in collection.find():
         if temperatura >= 0:
             

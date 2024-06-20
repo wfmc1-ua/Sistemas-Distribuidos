@@ -7,9 +7,9 @@ from flask import Flask, request, jsonify
 import requests
 
 # Variables globales
-client = MongoClient('mongodb://localhost:27017/')
-db = client['SD']
-collection = db['Weather']
+#client = MongoClient('mongodb://localhost:27017/')
+#db = client['SD']
+#collection = db['Weather']
 
 ##################################################################3 Paula
 app = Flask(__name__)
@@ -21,28 +21,28 @@ BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
 #Funciones
 
-@app.route('/weather', methods=['GET'])
+@app.route('/api/clima', methods=['GET'])
 def get_weather():
-    city = request.args.get('city')
-    if not city:
+    ciudad = request.args.get('ciudad')
+    if not ciudad:
         return jsonify({'error': 'Debe proporcionar el nombre de una ciudad'}), 400
 
     # Construir la URL para la solicitud a la API
-    url = f'{BASE_URL}?q={city}&appid={API_KEY}&units=metric'
-    
+    url = f'{BASE_URL}?q={ciudad}&appid={API_KEY}&units=metric'
+    print(f"Consultando URL: {url}")
     response = requests.get(url)
-    if response.status_code != 200:
-        return jsonify({'error': 'No se pudo obtener el clima'}), 500
+    print(f"Estado de respuesta de OpenWeather: {response.status_code}")
+    print(f"Contenido de la respuesta: {response.text}")
     
-    data = response.json()
-    temperature = data.get('main', {}).get('temp')
-    
-    if temperature is None:
-        return jsonify({'error': 'No se encontró información de temperatura para la ciudad proporcionada'}), 404
+    if response.status_code == 200:
+        data = response.json()
+        temperatura = data.get('main', {}).get('temp')
+        return jsonify({'ciudad': ciudad, 'temperatura': temperatura})
+    else:
+        print(f"Error al obtener el clima: {response.text}")
+        return jsonify({'error': 'No se pudo obtener el clima'}), response.status_code
 
-    return jsonify({'city': city, 'temperature': temperature})
-
-
+"""
 def crearDatos():
 
     # Lista de ciudades
@@ -69,11 +69,12 @@ def crearDatos():
     # Verificar la inserción
     for doc in collection.find():
         print(doc)
-        
+"""
+"""
 def consultar():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('localhost', 2222))
-    print("Servidor escuchando en el puerto 2222...")
+    server_socket.bind(('localhost', 5000))
+    print("Servidor escuchando en el puerto 5000...")
     server_socket.listen(5)
     while True:
         client_socket, addr = server_socket.accept()
@@ -105,11 +106,12 @@ def consultar():
         #enviar =str(enviar)
         client_socket.send(enviar.encode('utf-8'))
         client_socket.close()
-
+"""
 
 
 def main():
-    consultar()
+    app.run(host='0.0.0.0', port=5000)
+    #consultar()
 
 
 if __name__ == "__main__":
