@@ -2,11 +2,19 @@
 from pymongo import MongoClient
 import random
 import socket
-# Variables globales
+import sys
+
+#### CONSTANTES #####
+HOST = ""
+PORT = 0
+Host_ENGINE = ""
+PORT_ENGINE = ""
+
+#### Variables globales ######
 client = MongoClient('mongodb://localhost:27017/')
 db = client['SD']
 collection = db['Weather']
-#Funciones
+
 
 def crearDatos():
 
@@ -37,7 +45,7 @@ def crearDatos():
         
 def consultar():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('localhost', 2222))
+    server_socket.bind((HOST, PORT))
     print("Servidor escuchando en el puerto 2222...")
     server_socket.listen(5)
     while True:
@@ -57,8 +65,49 @@ def consultar():
         client_socket.close()
 
 
+def readArgs():
+    
+    global HOST
+    global PORT
+    global Host_ENGINE
+    global PORT_ENGINE
 
+    while True:
+            try:
+                # Obtener los argumentos de la línea de comandos
+                argumentos = sys.argv
+
+                # Verificar si se proporcionaron suficientes argumentos
+                if len(argumentos) == 3:  # El primer argumento es el nombre del script
+                    # Asignar los valores de los puertos
+                    mi_data = str(argumentos[1])
+                    data_E = str(argumentos[2])
+                    
+                    W = mi_data.split(":")
+                    E = data_E.split(":")
+                    
+                    HOST = W[0]
+                    PORT = int(W[1])
+                    
+                    Host_ENGINE = E[0]
+                    PORT_ENGINE = int(E[1])
+                    
+
+                    # Mostrar los valores asignados
+                    print(f"El valor de server_host es: {Host_ENGINE}")
+                    print(f"El valor de server_port es: {PORT_ENGINE}")
+                    break  # Romper el bucle si los valores son válidos
+
+                else:
+                    print("Por favor, proporcione los valores para HOST y PORT_E.")
+                    sys.exit(1)  # Salir del programa si los argumentos no son suficientes
+
+            except (ValueError, IndexError) as e:
+                print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT_E")
+    
 def main():
+    
+    readArgs()
     consultar()
 
 

@@ -5,6 +5,16 @@ from confluent_kafka import Producer,Consumer,TopicPartition, KafkaException, Ka
 from colorama import init, Fore, Style
 import json
 import time
+import sys
+
+#### CONSTANTES #####
+HOST = ""
+PORT = 0
+HOST_REGISTRY = ""
+PORT_REGISTRY = 0
+HOST_ENGINE = ""
+PORT_ENGINE = 0
+KAFKA_ADDR = ""
 #### Variables ####
 Id = 0
 Alias = ""
@@ -13,12 +23,14 @@ CoordsF = []
 CoordsI = []
 TABLERO = []
 esperar = True
+
 def registrar(alias):
+    
     global Id
     global Token
     global Alias
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('localhost', 12345)) # Establece conexion
+    client_socket.connect((HOST_REGISTRY, PORT_REGISTRY)) # Establece conexion
     mensaje = "Solicitud de registro y va tener el  alias:" + alias
     client_socket.send(mensaje.encode('utf-8')) # Envio de solicitud
     response = client_socket.recv(1024).decode('utf-8')
@@ -34,7 +46,7 @@ def reciveCoord():
     
     consumer = KafkaConsumer(
     'coordenadas',
-    bootstrap_servers='localhost:9092',
+    bootstrap_servers=KAFKA_ADDR,
     auto_offset_reset='earliest',
     group_id='dron' + str(Id))
     try:
@@ -62,7 +74,7 @@ def ReciveMap():
     global Id
     consumer = KafkaConsumer(
     'mapa',
-    bootstrap_servers='localhost:9092',
+    bootstrap_servers=KAFKA_ADDR,
     auto_offset_reset='earliest',
     group_id='dron' + str(Id))
     try:
@@ -79,7 +91,7 @@ def SendMovement(move,destino):
     
     global CoordsI
     
-    producer = KafkaProducer(bootstrap_servers='localhost:9092')
+    producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
     topic = 'movimiento'
     x, y = move
      
@@ -89,7 +101,6 @@ def SendMovement(move,destino):
 
     try:
         # Enviar el mensaje
-        
         producer.send(topic, value=coordinates_json)
         producer.flush()
     except Exception as e:
@@ -98,6 +109,7 @@ def SendMovement(move,destino):
         producer.close()
 
 def selectMove():
+    
     global CoordsI
     global CoordsF
     global Id
@@ -135,6 +147,7 @@ def selectMove():
     return bestmove
 
 def imprimir_tablero(fin):
+    
     global Id
     global TABLERO
     print()
@@ -163,12 +176,14 @@ def espectaculo():
     global TABLERO
     
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('localhost', 3333)) # Establece conexion
+    client_socket.connect((HOST_ENGINE, PORT_ENGINE)) # Establece conexion
     solicitud = "Solicitud de registro del dron:" + Token 
     client_socket.send(solicitud.encode('utf-8')) # Envio de solicitud
-    response = client_socket.recv(1024)
+    response = client_socket.recv(1024).decode('utf-8')
     print(response)
-########################Confirmacion de que todos estan autentificados##################
+    
+    while response != "All": 
+        response = client_socket.recv(1024).decode('utf-8')
 
     reciveCoord()
     
@@ -222,10 +237,63 @@ def espectaculo():
 
     client_socket.close() ## confirmacion que tu estas autentificado
     
+def readArgs():
+    
+    global HOST
+    global PORT
+    global HOST_ENGINE
+    global PORT_ENGINE
+    global HOST_REGISTRY
+    global PORT_REGISTRY
+    global KAFKA_ADDR
+    
+    while True:
+            try:
+                # Obtener los argumentos de la línea de comandos
+                argumentos = sys.argv
 
+                # Verificar si se proporcionaron suficientes argumentos
+                if len(argumentos) == 5:  # El primer argumento es el nombre del script
+                    # Asignar los valores de los puertos
+                    HOST_Local = str(argumentos[1])
+                    Conx_Registry = str(argumentos[2])
+                    Conx_Engine = str(argumentos[3])
+                    KAFKA_ADDR = str(argumentos[4])
+
+                    H= HOST_Local.split(":")
+                    R = Conx_Registry.split(":")
+                    E=  Conx_Engine.split(":")
+                    
+                    HOST = H[0]
+                    PORT= H[1]
+                    
+                    HOST_ENGINE = E[0]
+                    PORT_ENGINE = int(E[1])
+
+                    HOST_REGISTRY = R[0]
+                    PORT_REGISTRY = int(R[1])
+                    # Mostrar los valores asignados
+                    print(f"El valor de HOST es: {HOST}")
+                    print(f"El valor de PORT_Registry es: {PORT_REGISTRY}")
+                    print(f"El valor de PORT_Engine es: {PORT_ENGINE}")
+                    print(f"El valor de la ip de kafka es: {KAFKA_ADDR}")
+                    break  # Romper el bucle si los valores son válidos
+
+                else:
+                    print("Por favor, proporcione los valores para HOST, PORT_Registry, PORT_Engine y KAFKA_ADDR")
+                    sys.exit(1)  # Salir del programa si los argumentos no son suficientes
+
+            except (ValueError, IndexError) as e:
+                print("Error: Asegúrate de proporcionar valores enteros para HOST, PORT_Registry, PORT_Engine y KAFKA_ADDR")
+
+    
 def main():
+    
     global Id
     opcion = 0
+    
+    readArgs()
+    
     while opcion != 3:
         
         print("Selecciona una opcion:")

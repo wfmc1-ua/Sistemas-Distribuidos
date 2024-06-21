@@ -6,22 +6,35 @@ from colorama import init, Fore, Style
 from confluent_kafka import Consumer,Producer, KafkaException, KafkaError
 from kafka import KafkaConsumer, KafkaProducer
 from pymongo import MongoClient
+import sys
 
 client = MongoClient("mongodb://localhost:27017/")
 db = client['SD']
 collection = db['Figuras']
-
-autentify = 0
+##### CONSTANTES ######
 FILAS = 20
 COLUMNAS = 20
 TABLERO =[]
+HOST = ""
+PORT = 0
+HOST_WEATHER = ""
+PORT_WEATHER= 0
+HOST_DRON = ""
+PORT_DRON = 0
+KAFKA_ADDR = ""
+##### VARIABLES ######
 coordDrones = []
+autentify = False
 parar=0
 lock = threading.Lock()
 nmove = 1
+authenticated_clients = []
+
+
 def consultar():
+    
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect(('localhost', 2222)) # Establece conexion
+    client_socket.connect((HOST_WEATHER, PORT_WEATHER)) # Establece conexion
     ciudad=input("Indique la ciudad donde se realiza el espectaculo: ")
     client_socket.send(ciudad.encode('utf-8')) # Envio de solicitud
     response = client_socket.recv(1024).decode('utf-8')
@@ -29,10 +42,10 @@ def consultar():
     response = int(response)
     return response
 
-
+####### FUNCIONES KAFKA ##################################################
 def SendCoord(pos,nDrones):
     
-    producer = KafkaProducer(bootstrap_servers='localhost:9092')
+    producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
     topic = 'coordenadas'
     datos=pos + ":" + str(nDrones)
     coordinates_json = json.dumps(datos).encode('utf-8')
@@ -42,12 +55,13 @@ def SendCoord(pos,nDrones):
     producer.send(topic, value=coordinates_json)
     producer.flush()
     producer.close()
+    
 def SendMap():
     
     global coordDrones
     global TABLERO
     
-    producer = KafkaProducer(bootstrap_servers='localhost:9092')
+    producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
     topic = 'mapa'
     
     datos = { 
@@ -73,7 +87,7 @@ def ReciveMovement(drones):
     
     consumer = KafkaConsumer(
     'movimiento',
-    bootstrap_servers='localhost:9092',
+    bootstrap_servers=KAFKA_ADDR,
     auto_offset_reset='earliest',
     enable_auto_commit=True,
     max_poll_interval_ms = 10000,
@@ -104,28 +118,41 @@ def ReciveMovement(drones):
 
 
 def autentificar(client_socket,drones):
+    
     global autentify
     global coordDrones
+    global authenticated_clients
+    
     data = client_socket.recv(1024).decode('utf-8')
     print(f" {data}")
     texto,data = data.split(':')
     texto,ids=data.split('.')
     
-    
-    print(len(drones))
-    with lock: #me sobra pero son para hacer un debug
+    with lock: 
         for documento in drones:
-            print(f" doc: {documento['ID']} / ids: {ids}")
             if documento['ID'] == int(ids):
-                autentify+=1
+                autentify = True
                 
-    if len(coordDrones) != len(drones):
-        for i in range(len(drones)):
-            coordDrones.append((1,1))
-                    
-    client_socket.send("Te has autentificado".encode('utf-8'))
-    espectaculo(client_socket,drones)
-    
+    if autentify:               
+        if len(coordDrones) != len(drones):
+            for i in range(len(drones)):
+                coordDrones.append((1,1))
+
+        client_socket.send("Te has autentificado".encode('utf-8'))
+        
+        authenticated_clients.append(client_socket)
+        
+        if len(authenticated_clients) == len(coordDrones):
+
+            for client in authenticated_clients:
+                client.send("All".encode('utf-8'))
+                
+            espectaculo(client_socket,drones)                 
+    else:
+        autentify = False
+        client_socket.send("No te puedes  autentificar".encode('utf-8'))
+
+        
 def espectaculo(client_socket,drones):
     
     global parar
@@ -138,38 +165,40 @@ def espectaculo(client_socket,drones):
         
     fin = False
 
-    
     while fin != True:
         ReciveMovement(drones)
         imprimir_tablero(False)
         SendMap()
         
         if parar == len(drones):
-            print("paro")
             fin = True
-
-    #     #client_socket.send("Sigue".encode('utf-8'))
         
     client_socket.send("Termina".encode('utf-8'))
-    print("putita")
     client_socket.close()
+
+    
 
 
         
 def handle_Cliente(drones):
+    
+    global authenticated_clients
+    
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('localhost', 3333))
+    server_socket.bind((HOST, PORT))
     print("Servidor escuchando en el puerto 12345...")
     server_socket.listen(5)
     threads=[]
+    
     while True:
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
         client_handler = threading.Thread(target=autentificar, args=(client_socket,drones))
         client_handler.start()
         threads.append(client_handler)
-        
+
         if len(threads) == len(drones):
+            
             for thread in threads:
                 thread.join()
         
@@ -179,25 +208,31 @@ def handle_Cliente(drones):
 
 
 def createTablero(filas, columnas):
-    #tablero = []
+
     global TABLERO
     for i in range(filas):
         fila = []
         for j in range(columnas):
             fila.append(' x ')
-        TABLERO.append(fila)    
+        TABLERO.append(fila) 
+           
 def actualizar_tablero(x,y,id,avanza=False):
+    
     global TABLERO
+    
     if 0 <= x <len(TABLERO) and 0 <= y <len(TABLERO):
         if avanza == False:
             TABLERO[x][y]=' x '
         else:
-            TABLERO[x][y] = "" + str(id) + ""#cambiar por id
+            TABLERO[x][y] = "" + str(id) + ""
 
 def imprimir_tablero(fin=False):
+    
     global TABLERO
+    
     print()
     print()
+    
     for fila in TABLERO:
         print("[",end="")   
         for i,x in enumerate(fila):
@@ -211,10 +246,64 @@ def imprimir_tablero(fin=False):
             
             if  i == len(fila)-1:
                 print("]")
+                
+def readArgs():
+    
+    global HOST
+    global PORT
+    global HOST_WEATHER
+    global PORT_WEATHER
+    global HOST_DRON
+    global PORT_DRON
+    global KAFKA_ADDR
+    
+    while True:
+            try:
+                # Obtener los argumentos de la línea de comandos
+                argumentos = sys.argv
+
+                # Verificar si se proporcionaron suficientes argumentos
+                if len(argumentos) == 5:  # El primer argumento es el nombre del script
+                    # Asignar los valores de los puertos
+                    mi_data = str(argumentos[1])
+                    data_Weather = str(argumentos[2])
+                    data_Dron = str(argumentos[3])
+                    KAFKA_ADDR = str(argumentos[4])
+                    
+                    E= mi_data.split(":")
+                    W = data_Weather.split(":")
+                    D = data_Dron.split(":")
+                    
+                    HOST=E[0]
+                    PORT = int(E[1])
+                    
+                    HOST_WEATHER = W[0]
+                    PORT_WEATHER = int(W[1])
+                    
+                    HOST_DRON= D[0]
+                    PORT_DRON = int(D[1])
+                    
+
+                    # Mostrar los valores asignados
+                    print(f"El valor de server_host es: {HOST}")
+                    print(f"El valor de server_port para el Weather es: {PORT_WEATHER}")
+                    print(f"El valor de server_port para los drones es: {PORT_DRON}")
+                    print(f"El valor de la ip de kafka es: {KAFKA_ADDR}")
+                    break  # Romper el bucle si los valores son válidos
+
+                else:
+                    print("Por favor, proporcione los valores para HOST, PORT_WeatheR, PORT_Dron Y kafka_addr.")
+                    sys.exit(1)  # Salir del programa si los argumentos no son suficientes
+
+            except (ValueError, IndexError) as e:
+                print("Error: Asegúrate de proporcionar valores enteros para HOST, PORT_Weather, PORT_Dron y kafka_addr")
+    
 def main():
     
+    readArgs()
     createTablero(FILAS,COLUMNAS)
     temperatura = consultar()
+    
     for figura in collection.find():
         if temperatura >= 0:
             

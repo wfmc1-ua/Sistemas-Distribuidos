@@ -1,8 +1,13 @@
 from pymongo import MongoClient
 import socket
 import threading
+import sys
 client = MongoClient("mongodb://localhost:27017/")
-
+##### CONSTANTES ########
+HOST = ""
+PORT = 0
+HOST_DRON = ""
+PORT_DRON = 0
 ##### VARIABLES #########
 db = client['SD']
 collection = db['Drones']
@@ -31,9 +36,10 @@ def registrar(client_socket):
     client_socket.close()
         
 def handle_Cliente():
+    
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('localhost', 12345))
-    print("Servidor escuchando en el puerto 12345...")
+    server_socket.bind((HOST, PORT))
+    print(f"Servidor escuchando en el puerto {PORT_DRON}...")
     server_socket.listen(5)
     while True:
         client_socket, addr = server_socket.accept()
@@ -41,7 +47,46 @@ def handle_Cliente():
 
         client_handler = threading.Thread(target=registrar, args=(client_socket,))
         client_handler.start()
+
+def readArgs():
+    
+    global HOST
+    global PORT
+    global HOST_DRON
+    global PORT_DRON
+
+    while True:
+            try:
+                # Obtener los argumentos de la línea de comandos
+                argumentos = sys.argv
+
+                # Verificar si se proporcionaron suficientes argumentos
+                if len(argumentos) == 3:  # El primer argumento es el nombre del script
+                    # Asignar los valores de los puertos
+                    mi_data = str(argumentos[1])
+                    data_Dron = str(argumentos[2])
+                    R= mi_data.split(":")
+                    D=data_Dron.split(":")
+                    HOST = R[0]
+                    PORT = int(R[1])
+                    HOST_DRON = D[0]
+                    PORT_DRON = int(D[1])
+
+                    # Mostrar los valores asignados
+                    print(f"El valor de server_host es: {HOST}")
+                    print(f"El valor de server_port es: {PORT_DRON}")
+                    break  # Romper el bucle si los valores son válidos
+
+                else:
+                    print("Por favor, proporcione los valores para HOST y PORT_Dron.")
+                    sys.exit(1)  # Salir del programa si los argumentos no son suficientes
+
+            except (ValueError, IndexError) as e:
+                print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT_Dron")
+        
 def main():
+    
+    readArgs()
     handle_Cliente()
 
     
