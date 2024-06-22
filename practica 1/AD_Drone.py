@@ -34,6 +34,7 @@ def registrar(alias):
     mensaje = "Solicitud de registro y va tener el  alias:" + alias
     client_socket.send(mensaje.encode('utf-8')) # Envio de solicitud
     response = client_socket.recv(1024).decode('utf-8')
+    print(response)
     ID, Alias,Token = response.split('|')
     Id = int(ID)
     print(f"Soy el dron: {Id} con el alias {Alias} y token {Token}")
@@ -232,6 +233,8 @@ def espectaculo():
         print("PASA DEL ESPERA")
         print(espera)
         if espera == "Termina":
+            CoordsI = []
+            CoordsF = []
             esperar = False
         
 
