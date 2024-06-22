@@ -17,8 +17,6 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['SD']
 collection = db['Weather']
 
-
-
 # Variables globales
 #client = MongoClient('mongodb://localhost:27017/')
 #db = client['SD']
@@ -155,18 +153,19 @@ def readArgs():
                     break  # Romper el bucle si los valores son válidos
 
                 else:
-                    print("Por favor, proporcione los valores para HOST y PORT_E.")
+                    print("Por favor, proporcione los valores para HOST y PORT.")
                     sys.exit(1)  # Salir del programa si los argumentos no son suficientes
 
             except (ValueError, IndexError) as e:
                 print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT_E")
     
 def main():
-    
+    global Host_ENGINE
+    global PORT_ENGINE
     readArgs()
 
-    # app.run(host='0.0.0.0', port=5000)
-    consultar()
+    app.run(host=Host_ENGINE, port=PORT_ENGINE)
+    #consultar()
 
 
 if __name__ == "__main__":

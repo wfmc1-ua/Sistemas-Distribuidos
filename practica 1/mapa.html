@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa 20x20</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid black;
+            width: 20px;
+            height: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        #DIV-BOT{
+            align-content: center;
+            vertical-align:middle;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div id="consoleOutput"></div>
+    <h1>ART WITH DRONES</h1>
+    <div class="container">
+        <table id="tablero"></table>
+    </div>
+</div>
+<table>
+
+</table>
+<div id = DIV-BOT>
+    <button id="startButton" onclick="obtenerMapaDesdeServidor()">Start</button>
+</div>
+<div>
+    <h1>Auditoria LOG</h1>
+    <ul>
+        {% for entry in audit_entries %}
+            <li>{{ entry }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabla = document.getElementById('tablero');
+    
+        function logToConsole(message){
+            consoleOutput.innerText = message + '\n' + consoleOutput.innerText;
+        }
+    
+        function applyStyleToCell(celda, codigoColor) {
+            celda.style.backgroundColor = getBackgroundColor(codigoColor);
+        }
+    
+        function getBackgroundColor(codigoColor) {
+            // Implementa la lógica para mapear los códigos ANSI a colores HTML
+            // Puedes agregar más casos según tus necesidades
+            switch (codigoColor) {
+                case '\u001b[31m': // Rojo
+                    return 'red';
+                case '\u001b[32m': // Verde
+                    return 'green';
+                // Agrega más casos según tus necesidades
+                default:
+                    return 'white'; // Color predeterminado
+            }
+        }
+    
+        function actualizarTabla(MAPA) {
+            logToConsole('Actualizando la tabla con el siguiente MAPA: ' + JSON.stringify(MAPA));
+            tabla.innerHTML = '';
+    
+            for (let i = 0; i < MAPA.length; i++) {
+                const fila = document.createElement('tr');
+    
+                for (let j = 0; j < MAPA[i].length; j++) {
+                    const celda = document.createElement('td');
+                    const contenido = MAPA[i][j];
+    
+                    // Verifica si el contenido contiene un código de color ANSI
+                    const codigoColor = contenido.match(/\u001b\[.*?m/);
+                    if (codigoColor) {
+                        // Si hay un código de color, aplica el estilo correspondiente
+                        applyStyleToCell(celda, codigoColor[0]);
+                        // Elimina el código de color del contenido
+                        contenido = contenido.replace(/\u001b\[.*?m/, '');
+                    }
+    
+                    // Establece el contenido y agrega la celda a la fila
+                    celda.innerText = contenido;
+                    fila.appendChild(celda);
+                }
+    
+                // Agrega la fila a la tabla
+                tabla.appendChild(fila);
+            }
+        }
+    
+        function obtenerMapaDesdeServidor() {
+            logToConsole('Haciendo solicitud al servidor para obtener el MAPA...');
+            fetch('/get-mapa')
+                .then(response => response.json())
+                .then(data => {
+                    const MAPA = JSON.parse(data.mapaJson);
+                    logToConsole('MAPA obtenido exitosamente: ' + JSON.stringify(MAPA));
+                    actualizarTabla(MAPA);
+                })
+                .catch(error => logToConsole('Error al obtener el MAPA: ' + error));
+        }
+    
+        setInterval(() => {
+            logToConsole('Iniciando la recarga del MAPA...');
+            obtenerMapaDesdeServidor();
+        }, 5000);
+    });
+    
+</script>
+
+</body>
+</html>
