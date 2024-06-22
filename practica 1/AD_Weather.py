@@ -165,7 +165,7 @@ def main():
     readArgs()
 
     app.run(host=Host_ENGINE, port=PORT_ENGINE)
-    #consultar()
+    consultar()
 
 
 if __name__ == "__main__":
