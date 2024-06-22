@@ -26,7 +26,6 @@ def registrar(client_socket):
             'Id' : ID,
             'alias' : alias,
             "token" : token
-            
         }
         
         collection.insert_one(datos)

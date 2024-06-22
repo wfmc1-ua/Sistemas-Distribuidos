@@ -172,7 +172,7 @@ def autentificar(client_socket, drones, stop_event):
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
 
         
-def espectaculo(client_socket,drones):
+def espectaculo(client_socket,drones, stop_event):
     
     global parar
     
@@ -350,7 +350,7 @@ def main():
     
     if temperatura is not None and temperatura > 0:
         for figura in collection.find():
-            handle_Cliente(figura["Drones"])
+            handle_Cliente(figura["Drones"], stop_event)
     else:
         print("No se puede iniciar el espectáculo. Temperatura no adecuada.")
     
