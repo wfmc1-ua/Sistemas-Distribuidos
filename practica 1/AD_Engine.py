@@ -84,8 +84,8 @@ def SendMap():
     topic = 'mapa'
     
     datos = { 
-           "coordenadas": coordDrones,
-           "mapa":TABLERO
+        "coordenadas": coordDrones,
+        "mapa":TABLERO
         }
     
     map_json = json.dumps(datos).encode('utf-8')
@@ -98,7 +98,7 @@ def SendMap():
         print(f"Error al enviar las coordenadas: {e}")
     finally:
         producer.close()  
-          
+        
 def ReciveMovement(drones):
     
     global parar
@@ -113,7 +113,7 @@ def ReciveMovement(drones):
     group_id='engine')
     
     try:
-       
+    
         message = next(consumer)
         datos = json.loads(message.value.decode('utf-8'))
         
@@ -232,7 +232,7 @@ def createTablero(filas, columnas):
         for j in range(columnas):
             fila.append(' x ')
         TABLERO.append(fila) 
-           
+        
 def actualizar_tablero(x,y,id,avanza=False):
     
     global TABLERO
