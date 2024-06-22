@@ -233,6 +233,8 @@ def espectaculo():
         print("PASA DEL ESPERA")
         print(espera)
         if espera == "Termina":
+            CoordsI = []
+            CoordsF = []
             esperar = False
         
 

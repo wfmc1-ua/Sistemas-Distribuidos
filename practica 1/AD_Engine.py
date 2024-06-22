@@ -175,7 +175,7 @@ def autentificar(client_socket, drones, stop_event):
 def espectaculo(client_socket,drones,stop_event):
     
     global parar
-    
+    global authenticated_clients
     for documento in drones:
         pos = documento['POS']
         SendCoord(pos,len(drones))
@@ -201,7 +201,7 @@ def espectaculo(client_socket,drones,stop_event):
 
         for client in authenticated_clients:
             client.send("Termina".encode('utf-8'))
-                
+    authenticated_clients =[]
     client_socket.close()
 
     
@@ -355,7 +355,9 @@ def main():
     
     if temperatura is not None and temperatura > 0:
         for figura in collection.find():
+            print(figura["Drones"])
             handle_Cliente(figura["Drones"],stop_event)
+            print("siguiente figura")
     else:
         print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
     
