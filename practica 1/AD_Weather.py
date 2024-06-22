@@ -78,7 +78,7 @@ def crearDatos():
     for doc in collection.find():
         print(doc)
 """
-"""
+
 def consultar():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
@@ -114,7 +114,7 @@ def consultar():
         #enviar =str(enviar)
         client_socket.send(enviar.encode('utf-8'))
         client_socket.close()
-"""
+
 
 def readArgs():
     

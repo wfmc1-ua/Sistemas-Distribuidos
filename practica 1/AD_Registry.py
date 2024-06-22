@@ -36,10 +36,11 @@ def registrar(client_socket):
     client_socket.close()
         
 def handle_Cliente():
-    
+    global HOST
+    global PORT
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
-    print(f"Servidor escuchando en el puerto {PORT_DRON}...")
+    print(f"Servidor escuchando en el puerto {PORT}...")
     server_socket.listen(5)
     while True:
         client_socket, addr = server_socket.accept()
