@@ -1,22 +1,5 @@
 {
   "drones": [
-    {
-      "id": 1,
-      "alias": "d1",
-      "posicion": [
-        0,
-        0
-      ],
-      "token": "TOKEN1"
-    },
-    {
-      "id": 2,
-      "alias": "d2",
-      "posicion": [
-        0,
-        0
-      ],
-      "token": "TOKEN2"
-    }
+  
   ]
 }

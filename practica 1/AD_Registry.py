@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import socket
 import threading
 import sys
+import json
 client = MongoClient("mongodb://localhost:27017/")
 ##### CONSTANTES ########
 HOST = ""
@@ -14,12 +15,22 @@ collection = db['Drones']
 ID= 1
 IDs_lock = threading.Lock() # para evitar que la comunicacion entre hilos altere de forma
                             # no deseada los ids
-def registrar(client_socket):
+
+def load_database():
+    try:
+        with open('drones.json', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {}
+
+
+def registrar(client_socket, client_database):
     global ID
 
     data = client_socket.recv(1024).decode('utf-8')
     
     data, alias = data.split(':')
+    
     with IDs_lock:
         token = "token." + str(ID)
         datos = {
@@ -27,10 +38,16 @@ def registrar(client_socket):
             'alias' : alias,
             "token" : token
         }
+
+        client_database["drones"].append(datos)
+        #collection.insert_one(datos)
         
-        collection.insert_one(datos)
+        with open('drones.json', 'w') as file:
+            json.dump(client_database, file, indent=2)
+        
         enviar = f"{ID}|{'d' + str(ID)}| {token}"
         ID += 1
+
     client_socket.send(enviar.encode('utf-8'))
     client_socket.close()
         
@@ -41,11 +58,14 @@ def handle_Cliente():
     server_socket.bind((HOST, PORT))
     print(f"Servidor escuchando en el puerto {PORT}...")
     server_socket.listen(5)
+
+    client_database = load_database()  # Cargar la base de datos de clientes desde el archivo drones.json
+
     while True:
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
 
-        client_handler = threading.Thread(target=registrar, args=(client_socket,))
+        client_handler = threading.Thread(target=registrar, args=(client_socket, client_database))
         client_handler.start()
 
 def readArgs():

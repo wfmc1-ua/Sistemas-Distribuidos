@@ -137,24 +137,26 @@ def ReciveMovement(drones):
         consumer.close()
 
 
-def autentificar(client_socket, drones, stop_event):
+def autentificar(client_socket, figuras, stop_event, drones):
     global autentify
     global coordDrones
     global authenticated_clients
     
-    data = client_socket.recv(1024).decode('utf-8')
+    data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
     print(f" {data}")
     texto,data = data.split(':')
     texto,ids=data.split('.')
     
     with lock: 
-        for documento in drones:
-            if documento['ID'] == int(ids):
-                autentify = True
+        for documento in figuras:
+            for dron in drones:
+                if dron['token'] == data:
+                    #if documento['ID'] == int(ids): # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+                    autentify = True
                 
     if autentify:               
-        if len(coordDrones) != len(drones):
-            for i in range(len(drones)):
+        if len(coordDrones) != len(figuras):
+            for i in range(len(figuras)):
                 coordDrones.append((1,1))
 
         client_socket.send("Te has autentificado".encode('utf-8'))
@@ -166,17 +168,14 @@ def autentificar(client_socket, drones, stop_event):
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
                 
-            espectaculo(client_socket,drones,stop_event)                 
+            espectaculo(client_socket, figuras,stop_event)                 
     else:
         autentify = False
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
+        #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
         
-<<<<<<< HEAD
-def espectaculo(client_socket,drones, stop_event):
-=======
 def espectaculo(client_socket,drones,stop_event):
->>>>>>> 97114024e9e0d5ad02f2583874d50b4943d2e9c6
     
     global parar
     global authenticated_clients
@@ -209,7 +208,7 @@ def espectaculo(client_socket,drones,stop_event):
     client_socket.close()
 
     
-def handle_Cliente(drones, stop_event):
+def handle_Cliente(figuras, stop_event, drones):
     global authenticated_clients
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
@@ -220,7 +219,7 @@ def handle_Cliente(drones, stop_event):
     while True:
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
-        client_handler = threading.Thread(target=autentificar, args=(client_socket,drones, stop_event))
+        client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event, drones))
         client_handler.start()
         threads.append(client_handler)
 
@@ -357,20 +356,28 @@ def main():
     monitor_thread = threading.Thread(target=monitorear_temperatura, args=(ciudad, stop_event))
     monitor_thread.start()
     
-    if temperatura is not None and temperatura > 0:
-        for figura in collection.find():
-<<<<<<< HEAD
-            handle_Cliente(figura["Drones"], stop_event)
-=======
-            print(figura["Drones"])
-            handle_Cliente(figura["Drones"],stop_event)
-            print("siguiente figura")
->>>>>>> 97114024e9e0d5ad02f2583874d50b4943d2e9c6
+    with open('AwD_figuras.json', 'r') as file:# file es como le voy a llamar al archivo cuando se mete en la variable
+        datos = json.load(file) # El archivo de json esta en la variable datos
+
+    with open('drones.json', 'r') as file:
+            drones = json.load(file)
+
+    figuras = datos.get("figuras", [])  # Obtiene la lista de figuras
+
+    if not figuras:
+        print("No quedan figuras en el archivo JSON.")
     else:
-        print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
+        if temperatura is not None and temperatura > 0:
+            for figura in figuras:
+                print(figura["Drones"])
+                handle_Cliente(figura["Drones"],stop_event, drones)
+                print("siguiente figura")
+        else:
+            print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
+        
+        stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
+        monitor_thread.join()
     
-    stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
-    monitor_thread.join()
 
 if __name__ == "__main__":
     main()
