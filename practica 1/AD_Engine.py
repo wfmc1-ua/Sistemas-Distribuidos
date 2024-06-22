@@ -166,13 +166,13 @@ def autentificar(client_socket, drones, stop_event):
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
                 
-            espectaculo(client_socket,drones)                 
+            espectaculo(client_socket,drones,stop_event)                 
     else:
         autentify = False
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
 
         
-def espectaculo(client_socket,drones):
+def espectaculo(client_socket,drones,stop_event):
     
     global parar
     
@@ -193,10 +193,15 @@ def espectaculo(client_socket,drones):
         
 
     #     #client_socket.send("Sigue".encode('utf-8'))
+    
     if stop_event.is_set():
         print("Espectáculo detenido debido a baja temperatura.")
 
-    client_socket.send("Termina".encode('utf-8'))
+    if len(authenticated_clients) == len(coordDrones):
+
+        for client in authenticated_clients:
+            client.send("Termina".encode('utf-8'))
+                
     client_socket.close()
 
     
@@ -350,9 +355,9 @@ def main():
     
     if temperatura is not None and temperatura > 0:
         for figura in collection.find():
-            handle_Cliente(figura["Drones"])
+            handle_Cliente(figura["Drones"],stop_event)
     else:
-        print("No se puede iniciar el espectáculo. Temperatura no adecuada.")
+        print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
     
     stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
     monitor_thread.join()
