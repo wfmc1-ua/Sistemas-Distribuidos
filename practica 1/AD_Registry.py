@@ -1,72 +1,111 @@
+import uuid
 from pymongo import MongoClient
 import socket
 import threading
 import sys
 import json
-client = MongoClient("mongodb://localhost:27017/")
+import time
+from flask import Flask, request, jsonify
+#client = MongoClient("mongodb://localhost:27017/")
 ##### CONSTANTES ########
 HOST = ""
 PORT = 0
 HOST_DRON = ""
 PORT_DRON = 0
 ##### VARIABLES #########
-db = client['SD']
-collection = db['Drones']
+#db = client['SD']
+#collection = db['Drones']
 ID= 1
 IDs_lock = threading.Lock() # para evitar que la comunicacion entre hilos altere de forma
                             # no deseada los ids
+DB_FILE = 'drones.json'
+
+app = Flask(__name__)
 
 def load_database():
     try:
-        with open('drones.json', 'r') as file:
+        with open('DB_FILE', 'r') as file:
             return json.load(file)
     except FileNotFoundError:
-        return {}
+        return {"drones": []}
+
+def save_database(database):
+    with open(DB_FILE, 'w') as file:
+        json.dump(database, file, indent=4)
+
+def emitir_token():
+    token = str(uuid.uuid4())
+    expiration_time = time.time() + 20  # Expira en 20 segundos
+    return token, expiration_time
 
 
-def registrar(client_socket, client_database):
+@app.route('/register', methods=['POST'])
+def register(client_socket, client_database):
     global ID
 
-    data = client_socket.recv(1024).decode('utf-8')
-    
-    data, alias = data.split(':')
-    
-    with IDs_lock:
-        token = "token." + str(ID)
-        datos = {
-            'Id' : ID,
-            'alias' : alias,
-            "token" : token
+    data = request.json  # Obtiene los datos de la solicitud JSON enviada por el dron
+    drone_id = data.get('drone_id')  # Extrae el ID del dron de los datos recibidos
+    alias = data.get('alias')  # Extrae el alias del dron de los datos recibidos
+
+    if not drone_id or not alias:
+        return jsonify({'error': 'Missing drone_id or alias'}), 400
+
+    database = load_database()
+    for drone in database['drones']:
+        if drone['Id'] == drone_id:
+            return jsonify({'error': 'Drone already registered'}), 409
+
+    token, expiration_time = emitir_token()
+    new_drone = {
+        'Id': drone_id,
+        'alias': alias,
+        'token': {
+            'value': token,
+            'expires_at': expiration_time
         }
+    }
+    database['drones'].append(new_drone)
+    save_database(database)
+    return jsonify({'token': token, 'expires_in': 20})
 
-        client_database["drones"].append(datos)
-        #collection.insert_one(datos)
-        
-        with open('drones.json', 'w') as file:
-            json.dump(client_database, file, indent=2)
-        
-        enviar = f"{ID}|{'d' + str(ID)}| {token}"
-        ID += 1
+@app.route('/request-token', methods=['POST'])
+def request_token():
+    data = request.json
+    drone_id = data.get('drone_id')
 
-    client_socket.send(enviar.encode('utf-8'))
-    client_socket.close()
-        
-def handle_Cliente():
-    global HOST
-    global PORT
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOST, PORT))
-    print(f"Servidor escuchando en el puerto {PORT}...")
-    server_socket.listen(5)
+    if not drone_id:
+        return jsonify({'error': 'Missing drone_id'}), 400
 
-    client_database = load_database()  # Cargar la base de datos de clientes desde el archivo drones.json
+    database = load_database()
+    for drone in database['drones']:
+        if drone['Id'] == drone_id:
+            token, expiration_time = emitir_token()
+            drone['token'] = {
+                'value': token,
+                'expires_at': expiration_time
+            }
+            save_database(database)
+            return jsonify({'token': token, 'expires_in': 20})
 
-    while True:
-        client_socket, addr = server_socket.accept()
-        print(f"Conexión aceptada de {addr}")
+    return jsonify({'error': 'Drone not registered'}), 404
 
-        client_handler = threading.Thread(target=registrar, args=(client_socket, client_database))
-        client_handler.start()
+@app.route('/validate-token', methods=['POST'])
+def validate_token():
+    token = request.json.get('token')
+    if not token:
+        return jsonify({'error': 'Missing token'}), 400
+
+    database = load_database()
+    for drone in database['drones']:
+        if 'token' in drone and drone['token']['value'] == token:
+            if drone['token']['expires_at'] > time.time():
+                return jsonify({'valid': True, 'drone_id': drone['Id']})
+            else:
+                del drone['token']  # Elimina token expirado
+                save_database(database)
+                return jsonify({'valid': False, 'reason': 'Token expired'}), 401
+
+    return jsonify({'valid': False, 'reason': 'Token not found'}), 401
 
 def readArgs():
     
@@ -105,12 +144,11 @@ def readArgs():
                 print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT_Dron")
         
 def main():
-    
+    global HOST
+    global PORT
     readArgs()
-    handle_Cliente()
-
-    
-
+    app.run(host=HOST, port=PORT)
+    #handle_Cliente()
 
 if __name__ == "__main__":
     main()

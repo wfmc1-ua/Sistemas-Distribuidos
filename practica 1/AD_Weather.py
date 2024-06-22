@@ -12,20 +12,11 @@ PORT = 0
 Host_ENGINE = ""
 PORT_ENGINE = ""
 
-#### Variables globales ######
-
-# Variables globales
-#client = MongoClient('mongodb://localhost:27017/')
-#db = client['SD']
-#collection = db['Weather']
-
-##################################################################3 Paula
 app = Flask(__name__)
 
 # API Key de OpenWeather
 API_KEY = 'b8480b4264c16a8e8ac372939983013c'
 BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
-################################################################## Paula
 
 #Funciones
 
@@ -49,35 +40,6 @@ def get_weather():
     else:
         print(f"Error al obtener el clima: {response.text}")
         return jsonify({'error': 'No se pudo obtener el clima'}), response.status_code
-
-"""
-def crearDatos():
-
-    # Lista de ciudades
-    ciudades = [
-        "Madrid", "Barcelona", "Valencia", "Sevilla", "Zaragoza",
-        "Málaga", "Murcia", "Palma", "Las Palmas", "Bilbao",
-        "Alicante", "Córdoba", "Valladolid", "Vigo", "Gijón",
-        "Hospitalet", "A Coruña", "Vitoria", "Granada", "Elche"
-    ]
-
-    # Generar datos de temperaturas y crear documentos
-    documentos = []
-    for ciudad in ciudades:
-        temperatura = random.randint(-5, 20)
-        documento = {
-            'ciudad': ciudad,
-            'temperatura': temperatura
-        }
-        documentos.append(documento)
-
-    # Insertar los documentos en la colección
-    collection.insert_many(documentos)
-
-    # Verificar la inserción
-    for doc in collection.find():
-        print(doc)
-"""
 
 def consultar():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
