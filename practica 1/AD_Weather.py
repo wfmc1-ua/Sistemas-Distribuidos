@@ -13,9 +13,6 @@ Host_ENGINE = ""
 PORT_ENGINE = ""
 
 #### Variables globales ######
-client = MongoClient('mongodb://localhost:27017/')
-db = client['SD']
-collection = db['Weather']
 
 # Variables globales
 #client = MongoClient('mongodb://localhost:27017/')
@@ -162,10 +159,17 @@ def readArgs():
 def main():
     global Host_ENGINE
     global PORT_ENGINE
+    global HOST
+    global PORT
     readArgs()
 
+<<<<<<< HEAD
     app.run(host=Host_ENGINE, port=PORT_ENGINE)
     consultar()
+=======
+    app.run(host=HOST, port=PORT)
+    #consultar()
+>>>>>>> bec4fc4fab4d29934813259efbf0c4b8a9bc53c1
 
 
 if __name__ == "__main__":

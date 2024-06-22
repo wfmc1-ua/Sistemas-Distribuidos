@@ -31,7 +31,8 @@ lock = threading.Lock()
 nmove = 1
 authenticated_clients = []
 
-WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
+#WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
+WEATHER_API_URL = ""
 
 """
 def consultar():
@@ -273,6 +274,7 @@ def readArgs():
     global HOST_DRON
     global PORT_DRON
     global KAFKA_ADDR
+    global WEATHER_API_URL
     
     while True:
             try:
@@ -296,6 +298,7 @@ def readArgs():
                     
                     HOST_WEATHER = W[0]
                     PORT_WEATHER = int(W[1])
+                    WEATHER_API_URL = f'http://{HOST_WEATHER}:{PORT_WEATHER}/api/clima'
                     
                     HOST_DRON= D[0]
                     PORT_DRON = int(D[1])
