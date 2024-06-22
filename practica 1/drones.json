@@ -1,5 +1,24 @@
 {
   "drones": [
-  
+    {
+      "Id": 1,
+      "alias": "d1",
+      "token": "token.1"
+    },
+    {
+      "Id": 2,
+      "alias": "d2",
+      "token": "token.2"
+    },
+    {
+      "Id": 3,
+      "alias": "d3",
+      "token": "token.3"
+    },
+    {
+      "Id": 4,
+      "alias": "d4",
+      "token": "token.4"
+    }
   ]
 }

@@ -45,7 +45,7 @@ def registrar(client_socket, client_database):
         with open('drones.json', 'w') as file:
             json.dump(client_database, file, indent=2)
         
-        enviar = f"{ID}|{'d' + str(ID)}| {token}"
+        enviar = f"{ID}|{'d' + str(ID)}|{token}"
         ID += 1
 
     client_socket.send(enviar.encode('utf-8'))

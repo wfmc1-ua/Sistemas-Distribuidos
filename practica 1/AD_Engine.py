@@ -137,23 +137,26 @@ def ReciveMovement(drones):
         consumer.close()
 
 
-def autentificar(client_socket, figuras, stop_event, drones):
+def autentificar(client_socket, figuras, stop_event):
     global autentify
     global coordDrones
     global authenticated_clients
     
     data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
-    print(f" {data}")
     texto,data = data.split(':')
     texto,ids=data.split('.')
     
+    with open('drones.json', 'r') as file:
+        drones = json.load(file)
+    drones = drones.get("drones", [])
+
     with lock: 
-        for documento in figuras:
-            for dron in drones:
-                if dron['token'] == data:
-                    #if documento['ID'] == int(ids): # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
-                    autentify = True
-                
+        print(drones)
+        for dron in drones:
+
+            if dron['token'] == data:
+                autentify = True
+            
     if autentify:               
         if len(coordDrones) != len(figuras):
             for i in range(len(figuras)):
@@ -208,7 +211,7 @@ def espectaculo(client_socket,drones,stop_event):
     client_socket.close()
 
     
-def handle_Cliente(figuras, stop_event, drones):
+def handle_Cliente(figuras, stop_event):
     global authenticated_clients
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
@@ -219,11 +222,11 @@ def handle_Cliente(figuras, stop_event, drones):
     while True:
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
-        client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event, drones))
+        client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
         client_handler.start()
         threads.append(client_handler)
 
-        if len(threads) == len(drones):
+        if len(threads) == len(figuras):
             
             for thread in threads:
                 thread.join()
@@ -359,19 +362,16 @@ def main():
     with open('AwD_figuras.json', 'r') as file:# file es como le voy a llamar al archivo cuando se mete en la variable
         datos = json.load(file) # El archivo de json esta en la variable datos
 
-    with open('drones.json', 'r') as file:
-            drones = json.load(file)
+
 
     figuras = datos.get("figuras", [])  # Obtiene la lista de figuras
-
     if not figuras:
         print("No quedan figuras en el archivo JSON.")
     else:
         if temperatura is not None and temperatura > 0:
             for figura in figuras:
-                print(figura["Drones"])
-                handle_Cliente(figura["Drones"],stop_event, drones)
-                print("siguiente figura")
+                
+                handle_Cliente(figura["Drones"],stop_event)
         else:
             print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
         
