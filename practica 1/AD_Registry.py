@@ -68,10 +68,21 @@ def register(client_socket, client_database):
     save_database(database)
     return jsonify({'token': token, 'expires_in': 20})
 
+<<<<<<< HEAD
 @app.route('/request-token', methods=['POST'])
 def request_token():
     data = request.json
     drone_id = data.get('drone_id')
+=======
+        client_database["drones"].append(datos)
+        #collection.insert_one(datos)
+        
+        with open('drones.json', 'w') as file:
+            json.dump(client_database, file, indent=2)
+        
+        enviar = f"{ID}|{'d' + str(ID)}|{token}"
+        ID += 1
+>>>>>>> 2ed22f5557a485a3f865e8b782e792bdb04057e9
 
     if not drone_id:
         return jsonify({'error': 'Missing drone_id'}), 400
