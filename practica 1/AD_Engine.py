@@ -30,24 +30,11 @@ parar=0
 lock = threading.Lock()
 nmove = 1
 authenticated_clients = []
+DB_FILE = 'drones.json'
 
 #WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
 WEATHER_API_URL = ""
 
-"""
-def consultar():
-    
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOST_WEATHER, PORT_WEATHER)) # Establece conexion
-    ciudad=input("Indique la ciudad donde se realiza el espectaculo: ")
-    client_socket.send(ciudad.encode('utf-8')) # Envio de solicitud
-    response = client_socket.recv(1024).decode('utf-8')
-    
-    response = int(response)
-    return response
-
-####### FUNCIONES KAFKA ##################################################
-"""
 def consultar():
     ciudad = input("Indique la ciudad donde se realiza el espectaculo: ")
     try:
@@ -137,45 +124,66 @@ def ReciveMovement(drones):
         consumer.close()
 
 
+def load_database():
+    try:
+        with open(DB_FILE, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {"drones": []}
+
+def validar_token(token):
+    database = load_database()
+    for drone in database['drones']:
+        # Verifica que 'token' esté en el dron y que sea un diccionario
+        if 'token' in drone and isinstance(drone['token'], dict):
+            # Verifica si el token coincide
+            if drone['token']['value'] == token:
+                # Verifica si el token ha expirado
+                if drone['token']['expires_at'] > time.time():
+                    return drone['Id']  # Retorna el ID del dron
+                else:
+                    print(f"Token {token} ha expirado.")
+                    return None  # Token ha expirado
+    print(f"Token {token} no encontrado.")
+    return None  # Token no encontrado
+
 def autentificar(client_socket, figuras, stop_event):
     global autentify
     global coordDrones
     global authenticated_clients
     
     data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
-    texto,data = data.split(':')
-    texto,ids=data.split('.')
-    
-    with open('drones.json', 'r') as file:
-        drones = json.load(file)
-    drones = drones.get("drones", [])
+    print(f"data del drone para autentificar:{data}")
+    texto,token = data.split(':')
 
-    with lock: 
-        print(drones)
-        for dron in drones:
-
-            if dron['token'] == data:
-                autentify = True
-            
-    if autentify:               
+    drone_id = validar_token(token)
+    if drone_id:
+        autentify = True
+        print(f"Dron {drone_id} autentificado con éxito")
         if len(coordDrones) != len(figuras):
-            for i in range(len(figuras)):
-                coordDrones.append((1,1))
-
+            for _ in range(len(figuras)):
+                coordDrones.append((1, 1))
         client_socket.send("Te has autentificado".encode('utf-8'))
-        
         authenticated_clients.append(client_socket)
-        
         if len(authenticated_clients) == len(coordDrones):
-
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
-                
-            espectaculo(client_socket, figuras,stop_event)                 
+            espectaculo(client_socket, figuras, stop_event)
     else:
-        autentify = False
+        print("Token inválido o expirado.")
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
-        #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        client_socket.close()
+    
+    # with open(DB_FILE, 'r') as file:
+    #     drones = json.load(file)
+    # drones = drones.get("drones", [])
+
+    # with lock: 
+    #     print(drones)
+    #     for dron in drones:
+
+    #         if dron['token'] == data:
+    #             autentify = True
 
         
 def espectaculo(client_socket,drones,stop_event):

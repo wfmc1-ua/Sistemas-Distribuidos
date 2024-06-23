@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 def load_database():
     try:
-        with open('DB_FILE', 'r') as file:
+        with open(DB_FILE, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
         return {"drones": []}
@@ -40,22 +40,22 @@ def emitir_token():
 
 
 @app.route('/register', methods=['POST'])
-def register(client_socket, client_database):
+def register():
     global ID
 
     data = request.json  # Obtiene los datos de la solicitud JSON enviada por el dron
-    drone_id = data.get('drone_id')  # Extrae el ID del dron de los datos recibidos
     alias = data.get('alias')  # Extrae el alias del dron de los datos recibidos
 
-    if not drone_id or not alias:
-        return jsonify({'error': 'Missing drone_id or alias'}), 400
+    if not alias:
+        return jsonify({'error': 'Missing alias'}), 400
 
     database = load_database()
-    for drone in database['drones']:
-        if drone['Id'] == drone_id:
-            return jsonify({'error': 'Drone already registered'}), 409
 
+    # Generar un nuevo drone_id único
+    drone_id = ID
+    ID += 1
     token, expiration_time = emitir_token()
+        
     new_drone = {
         'Id': drone_id,
         'alias': alias,
@@ -66,23 +66,12 @@ def register(client_socket, client_database):
     }
     database['drones'].append(new_drone)
     save_database(database)
-    return jsonify({'token': token, 'expires_in': 20})
+    return jsonify({'Id': drone_id, 'token': token, 'expires_in': 20})
 
-<<<<<<< HEAD
 @app.route('/request-token', methods=['POST'])
 def request_token():
     data = request.json
-    drone_id = data.get('drone_id')
-=======
-        client_database["drones"].append(datos)
-        #collection.insert_one(datos)
-        
-        with open('drones.json', 'w') as file:
-            json.dump(client_database, file, indent=2)
-        
-        enviar = f"{ID}|{'d' + str(ID)}|{token}"
-        ID += 1
->>>>>>> 2ed22f5557a485a3f865e8b782e792bdb04057e9
+    drone_id = data.get('Id')
 
     if not drone_id:
         return jsonify({'error': 'Missing drone_id'}), 400
@@ -99,24 +88,6 @@ def request_token():
             return jsonify({'token': token, 'expires_in': 20})
 
     return jsonify({'error': 'Drone not registered'}), 404
-
-@app.route('/validate-token', methods=['POST'])
-def validate_token():
-    token = request.json.get('token')
-    if not token:
-        return jsonify({'error': 'Missing token'}), 400
-
-    database = load_database()
-    for drone in database['drones']:
-        if 'token' in drone and drone['token']['value'] == token:
-            if drone['token']['expires_at'] > time.time():
-                return jsonify({'valid': True, 'drone_id': drone['Id']})
-            else:
-                del drone['token']  # Elimina token expirado
-                save_database(database)
-                return jsonify({'valid': False, 'reason': 'Token expired'}), 401
-
-    return jsonify({'valid': False, 'reason': 'Token not found'}), 401
 
 def readArgs():
     

@@ -6,6 +6,7 @@ from colorama import init, Fore, Style
 import json
 import time
 import sys
+import requests
 
 #### CONSTANTES #####
 HOST = ""
@@ -15,6 +16,9 @@ PORT_REGISTRY = 0
 HOST_ENGINE = ""
 PORT_ENGINE = 0
 KAFKA_ADDR = ""
+
+REGISTER_URL= ""
+REQUEST_TOKEN_URL = ""
 #### Variables ####
 Id = 0
 Alias = ""
@@ -24,20 +28,44 @@ CoordsI = []
 TABLERO = []
 esperar = True
 
-def registrar(alias):
+def registrar():
+    global REGISTER_URL
+    global Id, Token, Alias
+    response = requests.post(REGISTER_URL, json={'alias': Alias})
+    if response.status_code == 200:
+        result = response.json()
+        Id = result.get('Id')
+        Token = result.get('token')
+        print(f"Dron registrado con ID: {Id} y Token: {Token}")
+        return True
+    print(f"Error al registrar dron: {response.text}")
+    return False
+
+def solicitar_token():
+    global REQUEST_TOKEN_URL
+    global Id, Token
+    response = requests.post(REQUEST_TOKEN_URL, json={'Id': Id})
+    if response.status_code == 200:
+        Token = response.json().get('token')
+        print(f"Nuevo token recibido: {Token}")
+        return True
+    print(f"Error al solicitar token: {response.text}")
+    return False
+
+# def registrar(alias):
     
-    global Id
-    global Token
-    global Alias
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOST_REGISTRY, PORT_REGISTRY)) # Establece conexion
-    mensaje = "Solicitud de registro y va tener el  alias:" + alias
-    client_socket.send(mensaje.encode('utf-8')) # Envio de solicitud
-    response = client_socket.recv(1024).decode('utf-8')
-    print(response)
-    ID, Alias,Token = response.split('|')
-    Id = int(ID)
-    print(f"Soy el dron: {Id} con el alias {Alias} y token {Token}")
+#     global Id
+#     global Token
+#     global Alias
+#     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     client_socket.connect((HOST_REGISTRY, PORT_REGISTRY)) # Establece conexion
+#     mensaje = "Solicitud de registro y va tener el  alias:" + alias
+#     client_socket.send(mensaje.encode('utf-8')) # Envio de solicitud
+#     response = client_socket.recv(1024).decode('utf-8')
+#     print(response)
+#     ID, Alias,Token = response.split('|')
+#     Id = int(ID)
+#     print(f"Soy el dron: {Id} con el alias {Alias} y token {Token}")
             
 def reciveCoord():
     
@@ -95,7 +123,7 @@ def SendMovement(move,destino):
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
     topic = 'movimiento'
     x, y = move
-     
+    
     coord = str(x) + "," + str(y)
     datos=str(Id) + ":" + coord + ":" + destino
     coordinates_json = json.dumps(datos).encode('utf-8')
@@ -171,19 +199,28 @@ def imprimir_tablero(fin):
                     
 def espectaculo():
     global esperar
-    global CoordsI
-    global CoordsF
-    global Id
+    global CoordsI, CoordsF
+    global Id, Token
     global TABLERO
-    
+
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((HOST_ENGINE, PORT_ENGINE)) # Establece conexion
     solicitud = "Solicitud de registro del dron:" + Token 
     client_socket.send(solicitud.encode('utf-8')) # Envio de solicitud
     response = client_socket.recv(1024).decode('utf-8')
-    print(response)
-    
+    print(f"Respuesta del Engine: {response}")
+
+    if response == "No te puedes  autentificar":
+        print("Solicitando nuevo token...")
+        while not solicitar_token():
+            print("Solicitando nuevo token...")
+            time.sleep(8)
+        espectaculo()  # Reintenta la autenticación con el nuevo token
+        return
+    print(" ESTOY AUTENTIFICADO ")
+
     while response != "All": 
+        print("Estoy esperando para comenzar el espectaculo")
         response = client_socket.recv(1024).decode('utf-8')
 
     reciveCoord()
@@ -249,6 +286,8 @@ def readArgs():
     global HOST_REGISTRY
     global PORT_REGISTRY
     global KAFKA_ADDR
+    global REGISTER_URL
+    global REQUEST_TOKEN_URL
     
     while True:
             try:
@@ -275,6 +314,10 @@ def readArgs():
 
                     HOST_REGISTRY = R[0]
                     PORT_REGISTRY = int(R[1])
+
+                    REGISTER_URL = f'http://{HOST_REGISTRY}:{PORT_REGISTRY}/register'
+                    REQUEST_TOKEN_URL = f'http://{HOST_REGISTRY}:{PORT_REGISTRY}/request-token'
+                    
                     # Mostrar los valores asignados
                     print(f"El valor de HOST es: {HOST}")
                     print(f"El valor de PORT_Registry es: {PORT_REGISTRY}")
@@ -293,6 +336,7 @@ def readArgs():
 def main():
     
     global Id
+    global Alias
     opcion = 0
     
     readArgs()
@@ -307,8 +351,8 @@ def main():
         opcion = int(input("Opcion:"))
         if opcion == 1:
             if  Id == 0:
-                alias = input("Inserte un alias para el dron: ")
-                registrar(alias)
+                Alias = input("Inserte un alias para el dron: ")
+                registrar()
             else:
                 print(f"Ya esta registrado con el id {Id}")
                 
