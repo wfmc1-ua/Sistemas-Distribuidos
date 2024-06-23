@@ -1,3 +1,4 @@
+import datetime
 import os
 import socket
 from kafka import KafkaConsumer, KafkaProducer
@@ -62,20 +63,6 @@ def solicitar_token():
     print(f"Error al solicitar token: {response.text}")
     return False
 
-# def registrar(alias):
-    
-#     global Id
-#     global Token
-#     global Alias
-#     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     client_socket.connect((HOST_REGISTRY, PORT_REGISTRY)) # Establece conexion
-#     mensaje = "Solicitud de registro y va tener el  alias:" + alias
-#     client_socket.send(mensaje.encode('utf-8')) # Envio de solicitud
-#     response = client_socket.recv(1024).decode('utf-8')
-#     print(response)
-#     ID, Alias,Token = response.split('|')
-#     Id = int(ID)
-#     print(f"Soy el dron: {Id} con el alias {Alias} y token {Token}")
 
 # Incluir la función para cargar o generar claves
 def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file = 'coord_key.txt'):

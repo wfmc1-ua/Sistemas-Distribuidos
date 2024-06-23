@@ -1,4 +1,5 @@
 import atexit
+import datetime
 import os
 import socket
 import threading
@@ -58,79 +59,148 @@ def consultar():
             return None, ciudad
     except requests.RequestException as e:
         print(f"Error al conectar con AD_Weather: {e}")
+        
         return None, ciudad
+    
+# Función para registrar eventos de auditoría
+def registrar_evento(evento, descripcion, detalles, ip):
+    global HOST, PORT
+    registro = {
+        'fecha_hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'ip_ENGINE': {'HOST': HOST, 'PORT' : PORT},
+        'ip_ORIGEN': ip,
+        'evento': evento,
+        'descripcion': descripcion,
+        'detalles': detalles
+    }
+    
+    log_file = 'auditoria_log.json'
+    try:
+        # Verifica si el archivo ya existe y agrega el nuevo evento
+        if os.path.exists(log_file):
+            with open(log_file, 'r') as file:
+                registros = json.load(file)
+            registros.append(registro)
+        else:
+            registros = [registro]
+
+        # Escribe los registros en el archivo
+        with open(log_file, 'w') as file:
+            json.dump(registros, file, indent=4)
+
+        print(f"Evento registrado: {registro}")
+    except Exception as e:
+        print(f"Error al registrar evento: {e}")
+
 
 # Incluir la función para cargar o generar claves
 def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file='coord_key.txt'):
     global map_cipher, movement_cipher, coord_cipher
+    global HOST, PORT
+    try:
+        if os.path.exists(map_key_file):
+            with open(map_key_file, 'rb') as file:
+                map_key = file.read()
+        else:
+            map_key = Fernet.generate_key()
+            with open(map_key_file, 'wb') as file:
+                file.write(map_key)
 
-    if os.path.exists(map_key_file):
-        with open(map_key_file, 'rb') as file:
-            map_key = file.read()
-    else:
-        map_key = Fernet.generate_key()
-        with open(map_key_file, 'wb') as file:
-            file.write(map_key)
+        if os.path.exists(movement_key_file):
+            with open(movement_key_file, 'rb') as file:
+                movement_key = file.read()
+        else:
+            movement_key = Fernet.generate_key()
+            with open(movement_key_file, 'wb') as file:
+                file.write(movement_key)
+        
+        if os.path.exists(coord_key_file):
+            with open(coord_key_file, 'rb') as file:
+                coord_key = file.read()
+        else:
+            coord_key = Fernet.generate_key()
+            with open(coord_key_file, 'wb') as file:
+                file.write(map_key)
 
-    if os.path.exists(movement_key_file):
-        with open(movement_key_file, 'rb') as file:
-            movement_key = file.read()
-    else:
-        movement_key = Fernet.generate_key()
-        with open(movement_key_file, 'wb') as file:
-            file.write(movement_key)
+        map_cipher = Fernet(map_key)
+        movement_cipher = Fernet(movement_key)
+        coord_cipher = Fernet(coord_key)
+        print(f"Map_cipher: {map_cipher}")
+        print(f"Movement_cipher: {movement_cipher}")
+        print(f"Coord_cipher: {coord_cipher}")
+    except Exception as e:
+        registrar_evento(
+            evento='Generación de Keys de cifrado Simétrico - ERROR',
+            descripcion='Error al cargar o generar claves',
+            detalles={'map_cipher' : map_cipher, 'movement_cipher' : movement_cipher, 'coor_cipher' : coord_cipher},
+            ip={'HOST' : HOST, 'PORT' : PORT}
+        )
+        print(f"Error al cargar o generar claves: {e}")
+
+# # Función para eliminar archivos de claves si existen
+# def delete_key_files():
+#     if os.path.exists('map_key.txt'):
+#         os.remove('map_key.txt')
+#         print("Archivo 'map_key.txt' eliminado.")
+#     else:
+#         print("Archivo 'map_key.txt' no existe o ya fue eliminado.")
+
+#     if os.path.exists('movement_key.txt'):
+#         os.remove('movement_key.txt')
+#         print("Archivo 'movement_key.txt' eliminado.")
+#     else:
+#         print("Archivo 'movement_key.txt' no existe o ya fue eliminado.")
     
-    if os.path.exists(coord_key_file):
-        with open(coord_key_file, 'rb') as file:
-            coord_key = file.read()
-    else:
-        coord_key = Fernet.generate_key()
-        with open(coord_key_file, 'wb') as file:
-            file.write(map_key)
+#     if os.path.exists('coord_key.txt'):
+#         os.remove('coord_key.txt')
+#         print("Archivo 'coord_key.txt' eliminado.")
+#     else:
+#         print("Archivo 'coord_key.txt' no existe o ya fue eliminado.")
 
-    map_cipher = Fernet(map_key)
-    movement_cipher = Fernet(movement_key)
-    coord_cipher = Fernet(coord_key)
-    print(f"Map_cipher: {map_cipher}")
-    print(f"Movement_cipher: {movement_cipher}")
-    print(f"Coord_cipher: {coord_cipher}")
-
-# Función para eliminar archivos de claves si existen
 def delete_key_files():
-    if os.path.exists('map_key.txt'):
-        os.remove('map_key.txt')
-        print("Archivo 'map_key.txt' eliminado.")
-    else:
-        print("Archivo 'map_key.txt' no existe o ya fue eliminado.")
+    for key_file in ['map_key.txt', 'movement_key.txt', 'coord_key.txt']:
+        try:
+            if os.path.exists(key_file):
+                os.remove(key_file)
+                print(f"Archivo '{key_file}' eliminado.")
+            else:
+                print(f"Archivo '{key_file}' no existe o ya fue eliminado.")
+        except Exception as e:
+            print(f"Error al eliminar el archivo '{key_file}': {e}")
 
-    if os.path.exists('movement_key.txt'):
-        os.remove('movement_key.txt')
-        print("Archivo 'movement_key.txt' eliminado.")
-    else:
-        print("Archivo 'movement_key.txt' no existe o ya fue eliminado.")
-    
-    if os.path.exists('coord_key.txt'):
-        os.remove('coord_key.txt')
-        print("Archivo 'coord_key.txt' eliminado.")
-    else:
-        print("Archivo 'coord_key.txt' no existe o ya fue eliminado.")
 
 ############################### FUNCIONES KAFKA #####################################
 
 def SendCoord(pos,nDrones):
-    
+    global HOST_DRON, PORT_DRON
+    registrar_evento(
+        evento='Enviar coordenada a Dron',
+        descripcion='Envio por Kafka encriptado con la clave',
+        detalles={'coord_cipher': coord_cipher, 'Coordenada': pos, 'nDrones' : nDrones},
+        ip={'HOST_DRONE' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+    )
+
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
     topic = 'coordenadas'
     datos=pos + ":" + str(nDrones)
     coordinates_json = json.dumps(datos).encode('utf-8')
     # Cifrar los datos
-    encrypted_data = map_cipher.encrypt(coordinates_json)
-    
-    print(nDrones)
-    # Enviar el mensaje
-    producer.send(topic, value=encrypted_data)
-    producer.flush()
-    producer.close()
+    encrypted_data = coord_cipher.encrypt(coordinates_json)
+    try:
+        print(nDrones)
+        # Enviar el mensaje
+        producer.send(topic, value=encrypted_data)
+        producer.flush()
+    except Exception as e:
+        registrar_evento(
+            evento='Enviar coordenada a Dron - ERROR',
+            descripcion='Fallo en el envio por Kafka encriptado con la clave',
+            detalles={'coord_cipher': coord_cipher, 'Coordenada': pos, 'nDrones' : nDrones},
+            ip={'HOST_DRONE' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
+        print(f"Error al enviar las coordenadas: {e}")
+    finally:
+        producer.close()
     
 def SendMap():
     
@@ -143,7 +213,7 @@ def SendMap():
     datos = { 
         "coordenadas": coordDrones,
         "mapa":TABLERO
-        }
+    }
     
     map_json = json.dumps(datos).encode('utf-8')
 
@@ -155,7 +225,7 @@ def SendMap():
         producer.send(topic, value=encrypted_data)
         producer.flush()
     except Exception as e:
-        print(f"Error al enviar las coordenadas: {e}")
+        print(f"Error al enviar el mapa: {e}")
     finally:
         producer.close()  
         
@@ -163,14 +233,16 @@ def ReciveMovement(drones):
     
     global parar
     global coordDrones
+    global HOST_DRON, PORT_DRON
     
     consumer = KafkaConsumer(
-    'movimiento',
-    bootstrap_servers=KAFKA_ADDR,
-    auto_offset_reset='earliest',
-    enable_auto_commit=True,
-    max_poll_interval_ms = 10000,
-    group_id='engine')
+        'movimiento',
+        bootstrap_servers=KAFKA_ADDR,
+        auto_offset_reset='earliest',
+        enable_auto_commit=True,
+        max_poll_interval_ms = 10000,
+        group_id='engine'
+    )
     
     try:
     
@@ -191,6 +263,13 @@ def ReciveMovement(drones):
         x = int(x)
         y = int(y)
 
+        registrar_evento(
+            evento='Recepción de movimiento de Dron',
+            descripcion='Movimiento recibido',
+            detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
+            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
+
         actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
         coordDrones[int(id) -1] = (x,y)
         actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
@@ -199,6 +278,12 @@ def ReciveMovement(drones):
             parar +=1
 
     except KeyboardInterrupt:
+        registrar_evento(
+            evento='Recepción de movimiento de Dron - ERROR',
+            descripcion='Fallo en Movimiento recibido',
+            detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
+            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
         print("Interrupcion del usuario")
     finally:
             
@@ -233,6 +318,7 @@ def autentificar(client_socket, figuras, stop_event):
     global autentify
     global coordDrones
     global authenticated_clients
+    global HOST_DRON, PORT_DRON
     
     data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
     print(f"data del drone para autentificar:{data}")
@@ -242,6 +328,14 @@ def autentificar(client_socket, figuras, stop_event):
     if drone_id:
         autentify = True
         print(f"Dron {drone_id} autentificado con éxito")
+
+        registrar_evento(
+            evento='Autenticación exitosa',
+            descripcion='Autenticación de dron',
+            detalles={'drone_id': drone_id, 'token': token},
+            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
+
         if len(coordDrones) != len(figuras):
             for _ in range(len(figuras)):
                 coordDrones.append((1, 1))
@@ -252,6 +346,12 @@ def autentificar(client_socket, figuras, stop_event):
                 client.send("All".encode('utf-8'))
             espectaculo(client_socket, figuras, stop_event)
     else:
+        registrar_evento(
+            evento='Autenticación INVALIDA',
+            descripcion='Fallo en la Autenticación de dron',
+            detalles={'drone_id': drone_id, 'token': token},
+            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
         print("Token inválido o expirado.")
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
         client_socket.close()
@@ -272,7 +372,17 @@ def espectaculo(client_socket,drones,stop_event):
     
     global parar
     global authenticated_clients
+    global map_cipher, movement_cipher, coord_cipher
+    global HOST_DRON, PORT_DRON
+
     load_or_generate_keys()
+
+    registrar_evento(
+        evento='Generación de Keys de cifrado Simétrico',
+        descripcion='Keys generadas',
+        detalles={'map_cipher' : map_cipher, 'movement_cipher' : movement_cipher, 'coor_cipher' : coord_cipher},
+        ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+    )
 
     for documento in drones:
         pos = documento['POS']
@@ -299,6 +409,12 @@ def espectaculo(client_socket,drones,stop_event):
 
         for client in authenticated_clients:
             client.send("Termina".encode('utf-8'))
+    registrar_evento(
+        evento='FINALIZACION DEL ESPECTACULO',
+        descripcion='Todos los drones han finalizado',
+        detalles="",
+        ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+    )
     authenticated_clients =[]
     client_socket.close()
 
@@ -423,6 +539,8 @@ def readArgs():
     
 
 def monitorear_temperatura(ciudad, stop_event):
+    global HOST_WEATHER, PORT_WEATHER
+
     while not stop_event.is_set():
         try:
             response = requests.get(f"{WEATHER_API_URL}?ciudad={ciudad}")
@@ -430,10 +548,30 @@ def monitorear_temperatura(ciudad, stop_event):
                 data = response.json()
                 temperatura = int(data['temperatura'])
                 print(f"Temperatura actual en {ciudad}: {temperatura}°C")
+
+                registrar_evento(
+                    evento='Comprobación de temperatura',
+                    descripcion='Temperatura valida',
+                    detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
+                    ip={'HOST_WEATHER' : HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+                )
+
                 if temperatura <= 0:
+                    registrar_evento(
+                        evento='Comprobación de temperatura',
+                        descripcion='Temperatura INvalida',
+                        detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
+                        ip={'HOST_WEATHER' : HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+                    )
                     print("Temperatura demasiado baja. Finalizando espectáculo.")
                     stop_event.set()  # Detiene el espectáculo
             else:
+                registrar_evento(
+                    evento='Obtencion de la temperatura - ERROR',
+                    descripcion='Temperatura INvalida',
+                    detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
+                    ip={'HOST_WEATHER' : HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+                )
                 print(f"Error al obtener el clima: {response.text}")
         except requests.RequestException as e:
             print(f"Error al conectar con AD_Weather: {e}")
