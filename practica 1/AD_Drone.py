@@ -15,6 +15,7 @@ from cryptography.fernet import Fernet
 # Crear cifradores para cada clave
 map_cipher = None
 movement_cipher = None
+coord_cipher = None
 
 
 #### CONSTANTES #####
@@ -77,8 +78,8 @@ def solicitar_token():
 #     print(f"Soy el dron: {Id} con el alias {Alias} y token {Token}")
 
 # Incluir la función para cargar o generar claves
-def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt'):
-    global map_cipher, movement_cipher
+def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file = 'coord_key.txt'):
+    global map_cipher, movement_cipher, coord_cipher
     if os.path.exists(map_key_file):
         with open(map_key_file, 'rb') as file:
             map_key = file.read()
@@ -94,9 +95,21 @@ def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movemen
         movement_key = Fernet.generate_key()
         with open(movement_key_file, 'wb') as file:
             file.write(movement_key)
+    
+    if os.path.exists(coord_key_file):
+        with open(coord_key_file, 'rb') as file:
+            coord_key = file.read()
+    else:
+        coord_key = Fernet.generate_key()
+        with open(coord_key_file, 'wb') as file:
+            file.write(map_key)
 
     map_cipher = Fernet(map_key)
     movement_cipher = Fernet(movement_key)
+    coord_cipher = Fernet(coord_key)
+    print(f"Map_cipher: {map_cipher}")
+    print(f"Movement_cipher: {movement_cipher}")
+    print(f"Coord_cipher: {coord_cipher}")
 
 #####################################33 FUNCIONES KAFKA ##########################################3
 def reciveCoord():
@@ -112,8 +125,11 @@ def reciveCoord():
     group_id='dron' + str(Id))
     try:
         for message in consumer:
-        #message = next(consumer)
-            datos = json.loads(message.value.decode('utf-8'))
+            #message = next(consumer)
+            encrypted_data = message.value
+            # Descifrar los datos
+            decrypted_data = map_cipher.decrypt(encrypted_data)
+            datos = json.loads(decrypted_data.value.decode('utf-8'))
             coordinates , nDrones = datos.split(":")
             if coordinates not in CoordsF:
                 print(f"Coordenadas a guardar: {coordinates}")

@@ -17,6 +17,7 @@ from cryptography.fernet import Fernet
 # Crear cifradores para cada clave
 map_cipher = None
 movement_cipher = None
+coord_cipher = None
 
 # client = MongoClient("mongodb://localhost:27017/")
 # db = client['SD']
@@ -60,8 +61,8 @@ def consultar():
         return None, ciudad
 
 # Incluir la función para cargar o generar claves
-def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt'):
-    global map_cipher, movement_cipher
+def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file='coord_key.txt'):
+    global map_cipher, movement_cipher, coord_cipher
 
     if os.path.exists(map_key_file):
         with open(map_key_file, 'rb') as file:
@@ -78,11 +79,21 @@ def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movemen
         movement_key = Fernet.generate_key()
         with open(movement_key_file, 'wb') as file:
             file.write(movement_key)
+    
+    if os.path.exists(coord_key_file):
+        with open(coord_key_file, 'rb') as file:
+            coord_key = file.read()
+    else:
+        coord_key = Fernet.generate_key()
+        with open(coord_key_file, 'wb') as file:
+            file.write(map_key)
 
     map_cipher = Fernet(map_key)
     movement_cipher = Fernet(movement_key)
+    coord_cipher = Fernet(coord_key)
     print(f"Map_cipher: {map_cipher}")
     print(f"Movement_cipher: {movement_cipher}")
+    print(f"Coord_cipher: {coord_cipher}")
 
 # Función para eliminar archivos de claves si existen
 def delete_key_files():
@@ -97,6 +108,12 @@ def delete_key_files():
         print("Archivo 'movement_key.txt' eliminado.")
     else:
         print("Archivo 'movement_key.txt' no existe o ya fue eliminado.")
+    
+    if os.path.exists('coord_key.txt'):
+        os.remove('coord_key.txt')
+        print("Archivo 'coord_key.txt' eliminado.")
+    else:
+        print("Archivo 'coord_key.txt' no existe o ya fue eliminado.")
 
 ############################### FUNCIONES KAFKA #####################################
 
@@ -106,10 +123,12 @@ def SendCoord(pos,nDrones):
     topic = 'coordenadas'
     datos=pos + ":" + str(nDrones)
     coordinates_json = json.dumps(datos).encode('utf-8')
+    # Cifrar los datos
+    encrypted_data = map_cipher.encrypt(coordinates_json)
     
     print(nDrones)
     # Enviar el mensaje
-    producer.send(topic, value=coordinates_json)
+    producer.send(topic, value=encrypted_data)
     producer.flush()
     producer.close()
     
