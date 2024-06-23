@@ -67,36 +67,40 @@ def solicitar_token():
 # Incluir la función para cargar o generar claves
 def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file = 'coord_key.txt'):
     global map_cipher, movement_cipher, coord_cipher
-    if os.path.exists(map_key_file):
-        with open(map_key_file, 'rb') as file:
-            map_key = file.read()
-    else:
-        map_key = Fernet.generate_key()
-        with open(map_key_file, 'wb') as file:
-            file.write(map_key)
 
-    if os.path.exists(movement_key_file):
-        with open(movement_key_file, 'rb') as file:
-            movement_key = file.read()
-    else:
-        movement_key = Fernet.generate_key()
-        with open(movement_key_file, 'wb') as file:
-            file.write(movement_key)
-    
-    if os.path.exists(coord_key_file):
-        with open(coord_key_file, 'rb') as file:
-            coord_key = file.read()
-    else:
-        coord_key = Fernet.generate_key()
-        with open(coord_key_file, 'wb') as file:
-            file.write(map_key)
+    try:
+        if os.path.exists(map_key_file):
+            with open(map_key_file, 'rb') as file:
+                map_key = file.read()
+        else:
+            map_key = Fernet.generate_key()
+            with open(map_key_file, 'wb') as file:
+                file.write(map_key)
 
-    map_cipher = Fernet(map_key)
-    movement_cipher = Fernet(movement_key)
-    coord_cipher = Fernet(coord_key)
-    print(f"Map_cipher: {map_cipher}")
-    print(f"Movement_cipher: {movement_cipher}")
-    print(f"Coord_cipher: {coord_cipher}")
+        if os.path.exists(movement_key_file):
+            with open(movement_key_file, 'rb') as file:
+                movement_key = file.read()
+        else:
+            movement_key = Fernet.generate_key()
+            with open(movement_key_file, 'wb') as file:
+                file.write(movement_key)
+        
+        if os.path.exists(coord_key_file):
+            with open(coord_key_file, 'rb') as file:
+                coord_key = file.read()
+        else:
+            coord_key = Fernet.generate_key()
+            with open(coord_key_file, 'wb') as file:
+                file.write(coord_key)
+
+        map_cipher = Fernet(map_key)
+        movement_cipher = Fernet(movement_key)
+        coord_cipher = Fernet(coord_key)
+        print(f"Map_cipher: {map_cipher}")
+        print(f"Movement_cipher: {movement_cipher}")
+        print(f"Coord_cipher: {coord_cipher}")
+    except Exception as e:
+        print(f"Error al cargar o generar claves: {e}")
 
 #####################################33 FUNCIONES KAFKA ##########################################3
 def reciveCoord():
@@ -106,16 +110,18 @@ def reciveCoord():
     global Id
     global coord_cipher
     consumer = KafkaConsumer(
-    'coordenadas',
-    bootstrap_servers=KAFKA_ADDR,
-    auto_offset_reset='earliest',
-    group_id='dron' + str(Id))
+        'coordenadas',
+        bootstrap_servers=KAFKA_ADDR,
+        auto_offset_reset='earliest',
+        group_id='dron' + str(Id))
     try:
         for message in consumer:
             #message = next(consumer)
             encrypted_data = message.value
+            print(f"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {encrypted_data}")
             # Descifrar los datos
             decrypted_data = coord_cipher.decrypt(encrypted_data)
+            print(f"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {decrypted_data}")
             datos = json.loads(decrypted_data.decode('utf-8'))
             coordinates , nDrones = datos.split(":")
             if coordinates not in CoordsF:
@@ -245,7 +251,7 @@ def espectaculo():
     global CoordsI, CoordsF
     global Id, Token
     global TABLERO
-
+    
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((HOST_ENGINE, PORT_ENGINE)) # Establece conexion
     solicitud = "Solicitud de registro del dron:" + Token 
@@ -268,7 +274,9 @@ def espectaculo():
         print("Estoy esperando para comenzar el espectaculo")
         response = client_socket.recv(1024).decode('utf-8')
 
+    print("PREPARADO PARA RECIBIR MI COORENADA")
     reciveCoord()
+    print("Tengo mi coordenada")
     
     x,y = CoordsF[Id-1].split(',')
     x = int(x)
@@ -299,10 +307,9 @@ def espectaculo():
         
         ReciveMap()
         
+        fin = False
         if CoordsI[Id-1] == CoordsF[Id-1]:
             fin = True
-        else:
-            fin = False
         imprimir_tablero(fin)
         
     while esperar == True:

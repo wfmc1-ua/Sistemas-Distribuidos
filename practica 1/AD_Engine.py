@@ -65,6 +65,7 @@ def consultar():
 # Función para registrar eventos de auditoría
 def registrar_evento(evento, descripcion, detalles, ip):
     global HOST, PORT
+    global map_cipher, movement_cipher, coord_cipher
     registro = {
         'fecha_hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'ip_ENGINE': {'HOST': HOST, 'PORT' : PORT},
@@ -128,34 +129,29 @@ def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movemen
         print(f"Map_cipher: {map_cipher}")
         print(f"Movement_cipher: {movement_cipher}")
         print(f"Coord_cipher: {coord_cipher}")
+
+        # Creación de detalles para el registro de auditoría
+        detalles = {
+            'map_cipher_key': map_key.decode('utf-8'),
+            'movement_cipher_key': movement_key.decode('utf-8'),
+            'coord_cipher_key': coord_key.decode('utf-8')
+        }
+
+        registrar_evento(
+            evento='Generacion de Keys de cifrado Simetrico',
+            descripcion='Keys generadas',
+            detalles=detalles,
+            ip={'HOST_DRON': HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
+
     except Exception as e:
         registrar_evento(
-            evento='Generación de Keys de cifrado Simétrico - ERROR',
+            evento='Generacion de Keys de cifrado Simetrico - ERROR',
             descripcion='Error al cargar o generar claves',
-            detalles={'map_cipher' : map_cipher, 'movement_cipher' : movement_cipher, 'coor_cipher' : coord_cipher},
-            ip={'HOST' : HOST, 'PORT' : PORT}
+            detalles={'error': str(e)},
+            ip={'HOST': HOST, 'PORT': PORT}
         )
         print(f"Error al cargar o generar claves: {e}")
-
-# # Función para eliminar archivos de claves si existen
-# def delete_key_files():
-#     if os.path.exists('map_key.txt'):
-#         os.remove('map_key.txt')
-#         print("Archivo 'map_key.txt' eliminado.")
-#     else:
-#         print("Archivo 'map_key.txt' no existe o ya fue eliminado.")
-
-#     if os.path.exists('movement_key.txt'):
-#         os.remove('movement_key.txt')
-#         print("Archivo 'movement_key.txt' eliminado.")
-#     else:
-#         print("Archivo 'movement_key.txt' no existe o ya fue eliminado.")
-    
-#     if os.path.exists('coord_key.txt'):
-#         os.remove('coord_key.txt')
-#         print("Archivo 'coord_key.txt' eliminado.")
-#     else:
-#         print("Archivo 'coord_key.txt' no existe o ya fue eliminado.")
 
 def delete_key_files():
     for key_file in ['map_key.txt', 'movement_key.txt', 'coord_key.txt']:
@@ -173,11 +169,13 @@ def delete_key_files():
 
 def SendCoord(pos,nDrones):
     global HOST_DRON, PORT_DRON
+    global coord_cipher
+
     registrar_evento(
         evento='Enviar coordenada a Dron',
         descripcion='Envio por Kafka encriptado con la clave',
-        detalles={'coord_cipher': coord_cipher, 'Coordenada': pos, 'nDrones' : nDrones},
-        ip={'HOST_DRONE' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        detalles={'coord_cipher': str(coord_cipher), 'Coordenada': pos, 'nDrones': nDrones},
+        ip={'HOST_DRONE': HOST_DRON, 'PORT_DRON': PORT_DRON}
     )
 
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
@@ -195,8 +193,8 @@ def SendCoord(pos,nDrones):
         registrar_evento(
             evento='Enviar coordenada a Dron - ERROR',
             descripcion='Fallo en el envio por Kafka encriptado con la clave',
-            detalles={'coord_cipher': coord_cipher, 'Coordenada': pos, 'nDrones' : nDrones},
-            ip={'HOST_DRONE' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+            detalles={'coord_cipher': str(coord_cipher), 'Coordenada': pos, 'nDrones': nDrones},
+            ip={'HOST_DRONE': HOST_DRON, 'PORT_DRON': PORT_DRON}
         )
         print(f"Error al enviar las coordenadas: {e}")
     finally:
@@ -264,7 +262,7 @@ def ReciveMovement(drones):
         y = int(y)
 
         registrar_evento(
-            evento='Recepción de movimiento de Dron',
+            evento='Recepcion de movimiento de Dron',
             descripcion='Movimiento recibido',
             detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
             ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
@@ -279,7 +277,7 @@ def ReciveMovement(drones):
 
     except KeyboardInterrupt:
         registrar_evento(
-            evento='Recepción de movimiento de Dron - ERROR',
+            evento='Recepcion de movimiento de Dron - ERROR',
             descripcion='Fallo en Movimiento recibido',
             detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
             ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
@@ -330,8 +328,8 @@ def autentificar(client_socket, figuras, stop_event):
         print(f"Dron {drone_id} autentificado con éxito")
 
         registrar_evento(
-            evento='Autenticación exitosa',
-            descripcion='Autenticación de dron',
+            evento='Autenticacion exitosa',
+            descripcion='Autenticacion de dron',
             detalles={'drone_id': drone_id, 'token': token},
             ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
         )
@@ -347,8 +345,8 @@ def autentificar(client_socket, figuras, stop_event):
             espectaculo(client_socket, figuras, stop_event)
     else:
         registrar_evento(
-            evento='Autenticación INVALIDA',
-            descripcion='Fallo en la Autenticación de dron',
+            evento='Autenticacion INVALIDA',
+            descripcion='Fallo en la Autenticacion de dron',
             detalles={'drone_id': drone_id, 'token': token},
             ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
         )
@@ -376,13 +374,6 @@ def espectaculo(client_socket,drones,stop_event):
     global HOST_DRON, PORT_DRON
 
     load_or_generate_keys()
-
-    registrar_evento(
-        evento='Generación de Keys de cifrado Simétrico',
-        descripcion='Keys generadas',
-        detalles={'map_cipher' : map_cipher, 'movement_cipher' : movement_cipher, 'coor_cipher' : coord_cipher},
-        ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
-    )
 
     for documento in drones:
         pos = documento['POS']
@@ -550,7 +541,7 @@ def monitorear_temperatura(ciudad, stop_event):
                 print(f"Temperatura actual en {ciudad}: {temperatura}°C")
 
                 registrar_evento(
-                    evento='Comprobación de temperatura',
+                    evento='Comprobacion de temperatura',
                     descripcion='Temperatura valida',
                     detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
                     ip={'HOST_WEATHER' : HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
@@ -558,10 +549,10 @@ def monitorear_temperatura(ciudad, stop_event):
 
                 if temperatura <= 0:
                     registrar_evento(
-                        evento='Comprobación de temperatura',
+                        evento='Comprobacion de temperatura',
                         descripcion='Temperatura INvalida',
                         detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
-                        ip={'HOST_WEATHER' : HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+                        ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER': PORT_WEATHER}
                     )
                     print("Temperatura demasiado baja. Finalizando espectáculo.")
                     stop_event.set()  # Detiene el espectáculo
@@ -570,7 +561,7 @@ def monitorear_temperatura(ciudad, stop_event):
                     evento='Obtencion de la temperatura - ERROR',
                     descripcion='Temperatura INvalida',
                     detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
-                    ip={'HOST_WEATHER' : HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+                    ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER': PORT_WEATHER}
                 )
                 print(f"Error al obtener el clima: {response.text}")
         except requests.RequestException as e:
