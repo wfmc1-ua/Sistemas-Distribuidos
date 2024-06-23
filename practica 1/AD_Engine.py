@@ -1,5 +1,5 @@
 import atexit
-import datetime
+from datetime import datetime
 import os
 import socket
 import threading
@@ -256,7 +256,7 @@ def ReciveMovement(drones):
         
         # Convertir los datos desencriptados de nuevo a JSON
 
-        datos = json.loads(decrypted_data.value.decode('utf-8'))
+        datos = json.loads(decrypted_data.decode('utf-8'))
         
         id ,movimiento,destino = datos.split(":")
         x, y = movimiento.split(',')

@@ -104,7 +104,7 @@ def reciveCoord():
     global CoordsF
     global CoordsI
     global Id
-    
+    global coord_cipher
     consumer = KafkaConsumer(
     'coordenadas',
     bootstrap_servers=KAFKA_ADDR,
@@ -115,8 +115,8 @@ def reciveCoord():
             #message = next(consumer)
             encrypted_data = message.value
             # Descifrar los datos
-            decrypted_data = map_cipher.decrypt(encrypted_data)
-            datos = json.loads(decrypted_data.value.decode('utf-8'))
+            decrypted_data = coord_cipher.decrypt(encrypted_data)
+            datos = json.loads(decrypted_data.decode('utf-8'))
             coordinates , nDrones = datos.split(":")
             if coordinates not in CoordsF:
                 print(f"Coordenadas a guardar: {coordinates}")
@@ -146,7 +146,7 @@ def ReciveMap():
         encrypted_data = message.value
         # Descifrar los datos
         decrypted_data = map_cipher.decrypt(encrypted_data)
-        datos = json.loads(decrypted_data.value.decode('utf-8'))
+        datos = json.loads(decrypted_data.decode('utf-8'))
         TABLERO = datos['mapa']
         
     except KeyboardInterrupt:
