@@ -1,3 +1,4 @@
+import os
 import socket
 from kafka import KafkaConsumer, KafkaProducer
 from confluent_kafka import Producer,Consumer,TopicPartition, KafkaException, KafkaError
@@ -7,6 +8,14 @@ import json
 import time
 import sys
 import requests
+
+from cryptography.fernet import Fernet
+
+# CIFRADO SIMÉTRICO
+# Crear cifradores para cada clave
+map_cipher = None
+movement_cipher = None
+
 
 #### CONSTANTES #####
 HOST = ""
@@ -66,7 +75,30 @@ def solicitar_token():
 #     ID, Alias,Token = response.split('|')
 #     Id = int(ID)
 #     print(f"Soy el dron: {Id} con el alias {Alias} y token {Token}")
-            
+
+# Incluir la función para cargar o generar claves
+def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt'):
+    global map_cipher, movement_cipher
+    if os.path.exists(map_key_file):
+        with open(map_key_file, 'rb') as file:
+            map_key = file.read()
+    else:
+        map_key = Fernet.generate_key()
+        with open(map_key_file, 'wb') as file:
+            file.write(map_key)
+
+    if os.path.exists(movement_key_file):
+        with open(movement_key_file, 'rb') as file:
+            movement_key = file.read()
+    else:
+        movement_key = Fernet.generate_key()
+        with open(movement_key_file, 'wb') as file:
+            file.write(movement_key)
+
+    map_cipher = Fernet(map_key)
+    movement_cipher = Fernet(movement_key)
+
+#####################################33 FUNCIONES KAFKA ##########################################3
 def reciveCoord():
     
     global CoordsF
@@ -108,7 +140,10 @@ def ReciveMap():
     group_id='dron' + str(Id))
     try:
         message = next(consumer)
-        datos = json.loads(message.value.decode('utf-8'))
+        encrypted_data = message.value
+        # Descifrar los datos
+        decrypted_data = map_cipher.decrypt(encrypted_data)
+        datos = json.loads(decrypted_data.value.decode('utf-8'))
         TABLERO = datos['mapa']
         
     except KeyboardInterrupt:
@@ -128,14 +163,19 @@ def SendMovement(move,destino):
     datos=str(Id) + ":" + coord + ":" + destino
     coordinates_json = json.dumps(datos).encode('utf-8')
 
+    # Cifrar los datos
+    encrypted_data = movement_cipher.encrypt(coordinates_json)
+    
     try:
         # Enviar el mensaje
-        producer.send(topic, value=coordinates_json)
+        producer.send(topic, value=encrypted_data)
         producer.flush()
     except Exception as e:
         print(f"Error al enviar las coordenadas: {e}")
     finally:
         producer.close()
+
+#####################################33 FUNCIONES KAFKA ##########################################3
 
 def selectMove():
     
@@ -218,6 +258,8 @@ def espectaculo():
         espectaculo()  # Reintenta la autenticación con el nuevo token
         return
     print(" ESTOY AUTENTIFICADO ")
+
+    load_or_generate_keys()
 
     while response != "All": 
         print("Estoy esperando para comenzar el espectaculo")

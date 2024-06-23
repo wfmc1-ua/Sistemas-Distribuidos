@@ -1,3 +1,5 @@
+import atexit
+import os
 import socket
 import threading
 import requests
@@ -9,9 +11,16 @@ from kafka import KafkaConsumer, KafkaProducer
 from pymongo import MongoClient
 import sys
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client['SD']
-collection = db['Figuras']
+from cryptography.fernet import Fernet
+
+# CIFRADO SIMÉTRICO
+# Crear cifradores para cada clave
+map_cipher = None
+movement_cipher = None
+
+# client = MongoClient("mongodb://localhost:27017/")
+# db = client['SD']
+# collection = db['Figuras']
 ##### CONSTANTES ######
 FILAS = 20
 COLUMNAS = 20
@@ -50,6 +59,47 @@ def consultar():
         print(f"Error al conectar con AD_Weather: {e}")
         return None, ciudad
 
+# Incluir la función para cargar o generar claves
+def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt'):
+    global map_cipher, movement_cipher
+
+    if os.path.exists(map_key_file):
+        with open(map_key_file, 'rb') as file:
+            map_key = file.read()
+    else:
+        map_key = Fernet.generate_key()
+        with open(map_key_file, 'wb') as file:
+            file.write(map_key)
+
+    if os.path.exists(movement_key_file):
+        with open(movement_key_file, 'rb') as file:
+            movement_key = file.read()
+    else:
+        movement_key = Fernet.generate_key()
+        with open(movement_key_file, 'wb') as file:
+            file.write(movement_key)
+
+    map_cipher = Fernet(map_key)
+    movement_cipher = Fernet(movement_key)
+    print(f"Map_cipher: {map_cipher}")
+    print(f"Movement_cipher: {movement_cipher}")
+
+# Función para eliminar archivos de claves si existen
+def delete_key_files():
+    if os.path.exists('map_key.txt'):
+        os.remove('map_key.txt')
+        print("Archivo 'map_key.txt' eliminado.")
+    else:
+        print("Archivo 'map_key.txt' no existe o ya fue eliminado.")
+
+    if os.path.exists('movement_key.txt'):
+        os.remove('movement_key.txt')
+        print("Archivo 'movement_key.txt' eliminado.")
+    else:
+        print("Archivo 'movement_key.txt' no existe o ya fue eliminado.")
+
+############################### FUNCIONES KAFKA #####################################
+
 def SendCoord(pos,nDrones):
     
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
@@ -77,10 +127,13 @@ def SendMap():
         }
     
     map_json = json.dumps(datos).encode('utf-8')
+
+    # Cifrar los datos
+    encrypted_data = map_cipher.encrypt(map_json)
     
     try:
         # Enviar el mensaje
-        producer.send(topic, value=map_json)
+        producer.send(topic, value=encrypted_data)
         producer.flush()
     except Exception as e:
         print(f"Error al enviar las coordenadas: {e}")
@@ -103,7 +156,16 @@ def ReciveMovement(drones):
     try:
     
         message = next(consumer)
-        datos = json.loads(message.value.decode('utf-8'))
+
+        # Obtener el mensaje cifrado
+        encrypted_data = message.value
+        
+        # Desencriptar los datos
+        decrypted_data = movement_cipher.decrypt(encrypted_data)
+        
+        # Convertir los datos desencriptados de nuevo a JSON
+
+        datos = json.loads(decrypted_data.value.decode('utf-8'))
         
         id ,movimiento,destino = datos.split(":")
         x, y = movimiento.split(',')
@@ -123,6 +185,7 @@ def ReciveMovement(drones):
             
         consumer.close()
 
+############################### FUNCIONES KAFKA #####################################
 
 def load_database():
     try:
@@ -190,6 +253,8 @@ def espectaculo(client_socket,drones,stop_event):
     
     global parar
     global authenticated_clients
+    load_or_generate_keys()
+
     for documento in drones:
         pos = documento['POS']
         SendCoord(pos,len(drones))
@@ -385,6 +450,9 @@ def main():
         
         stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
         monitor_thread.join()
+    
+    # Registrar la función de eliminación para que se ejecute al finalizar
+    atexit.register(delete_key_files)
     
 
 if __name__ == "__main__":

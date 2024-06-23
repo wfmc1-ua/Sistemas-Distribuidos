@@ -1,36 +1,4 @@
 {
     "drones": [
-        {
-            "Id": 1,
-            "alias": "paula",
-            "token": {
-                "value": "3f58a99a-718a-4b4d-a720-44a27e7ae6de",
-                "expires_at": 1719108344.8194444
-            }
-        },
-        {
-            "Id": 2,
-            "alias": "p3",
-            "token": {
-                "value": "a668e5f0-32d3-4036-90ca-079d2793c1df",
-                "expires_at": 1719107821.9451041
-            }
-        },
-        {
-            "Id": 1,
-            "alias": "pau1",
-            "token": {
-                "value": "8916d486-7ef3-45f4-9c37-b1529beecb0b",
-                "expires_at": 1719108297.0354338
-            }
-        },
-        {
-            "Id": 2,
-            "alias": "d2",
-            "token": {
-                "value": "bc5db2bb-4d6a-46b4-beb4-7752a451ac2e",
-                "expires_at": 1719108306.2442625
-            }
-        }
     ]
 }
