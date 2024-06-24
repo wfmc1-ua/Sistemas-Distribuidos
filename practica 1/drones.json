@@ -63,6 +63,174 @@
                 "value": "e024e7d0-6758-4a6c-9968-820a6932aa7b",
                 "expires_at": 1719263985.561722
             }
+        },
+        {
+            "Id": 1,
+            "alias": "d1",
+            "token": {
+                "value": "9acd15ff-5019-4546-b7c7-56eb9546b54d",
+                "expires_at": 1719267640.8511057
+            }
+        },
+        {
+            "Id": 2,
+            "alias": "d2",
+            "token": {
+                "value": "d68ac315-145b-4a3d-b6e8-9bebdc6b6529",
+                "expires_at": 1719267648.5573294
+            }
+        },
+        {
+            "Id": 3,
+            "alias": "d3",
+            "token": {
+                "value": "1350b937-d780-4d0b-a7eb-ac9fca5cd665",
+                "expires_at": 1719267671.5852587
+            }
+        },
+        {
+            "Id": 4,
+            "alias": "d4",
+            "token": {
+                "value": "b3e1c1cb-0035-43d6-9771-82109f601f55",
+                "expires_at": 1719267679.2258072
+            }
+        },
+        {
+            "Id": 5,
+            "alias": "dd",
+            "token": {
+                "value": "ce8d28c2-4b66-4129-88a7-0b18ed6b4ddc",
+                "expires_at": 1719267743.574912
+            }
+        },
+        {
+            "Id": 1,
+            "alias": "d1",
+            "token": {
+                "value": "68998d98-9a4a-409f-a6e3-b01a003cd4e7",
+                "expires_at": 1719267892.458
+            }
+        },
+        {
+            "Id": 2,
+            "alias": "d2",
+            "token": {
+                "value": "a60ec78f-b613-4c68-932d-0e6e97102571",
+                "expires_at": 1719267900.482396
+            }
+        },
+        {
+            "Id": 3,
+            "alias": "d3",
+            "token": {
+                "value": "551bce1c-06c2-4eeb-841f-866f1c97f3c7",
+                "expires_at": 1719267940.856926
+            }
+        },
+        {
+            "Id": 4,
+            "alias": "d4",
+            "token": {
+                "value": "c6475913-aee3-4117-a646-17905e551ff3",
+                "expires_at": 1719267949.3307104
+            }
+        },
+        {
+            "Id": 1,
+            "alias": "d1",
+            "token": {
+                "value": "b329f686-a680-4392-9de7-6122d3a340ae",
+                "expires_at": 1719268204.042555
+            }
+        },
+        {
+            "Id": 2,
+            "alias": "d2",
+            "token": {
+                "value": "af214fb8-1d07-485e-a902-1033f6cae90e",
+                "expires_at": 1719268215.8651886
+            }
+        },
+        {
+            "Id": 3,
+            "alias": "d3",
+            "token": {
+                "value": "d0f77bc9-c699-403c-8f11-06553e4145ff",
+                "expires_at": 1719268225.5976787
+            }
+        },
+        {
+            "Id": 4,
+            "alias": "d4",
+            "token": {
+                "value": "9bb51451-9d59-441e-9bac-b996c82184ad",
+                "expires_at": 1719268234.7828677
+            }
+        },
+        {
+            "Id": 1,
+            "alias": "d1",
+            "token": {
+                "value": "90730389-b930-436c-8c1d-d98c6da10d93",
+                "expires_at": 1719268449.6364884
+            }
+        },
+        {
+            "Id": 2,
+            "alias": "d2",
+            "token": {
+                "value": "17d56303-5240-4de2-9ccb-722072c4f4cf",
+                "expires_at": 1719268456.191991
+            }
+        },
+        {
+            "Id": 3,
+            "alias": "d3",
+            "token": {
+                "value": "4f2d23ed-69f5-4e1c-a72e-01a92e005b99",
+                "expires_at": 1719268464.227574
+            }
+        },
+        {
+            "Id": 4,
+            "alias": "d4",
+            "token": {
+                "value": "ea42ef0c-b6e0-4177-a0c0-3460b5b729d1",
+                "expires_at": 1719268477.0769167
+            }
+        },
+        {
+            "Id": 1,
+            "alias": "2",
+            "token": {
+                "value": "d6b3d895-848c-4f9f-a0c6-7f96adcf4552",
+                "expires_at": 1719268766.585113
+            }
+        },
+        {
+            "Id": 2,
+            "alias": "d2",
+            "token": {
+                "value": "546e057b-a5e8-40d5-8526-1bf0f8784fb2",
+                "expires_at": 1719268774.1767778
+            }
+        },
+        {
+            "Id": 3,
+            "alias": "d3",
+            "token": {
+                "value": "6805c211-c4e7-4952-848e-96483ea0d683",
+                "expires_at": 1719268781.3641422
+            }
+        },
+        {
+            "Id": 4,
+            "alias": "2",
+            "token": {
+                "value": "0517c7a8-cf68-4662-bb5a-d6cf8cda6b13",
+                "expires_at": 1719268798.7933335
+            }
         }
     ],
     "espectaculo": {
@@ -80,5 +248,8 @@
     },
     "1": {
         "estado": "END"
+    },
+    "5": {
+        "estado": "RUN"
     }
 }

@@ -49,15 +49,23 @@
             font-weight: bold;
             text-align: center;
         }
+        .header-space {
+            height: 50px; /* Altura del espacio superior */
+        }
+        .footer-space {
+            height: 50px; /* Altura del espacio inferior */
+        }
     </style>
 </head>
 <body>
+<div class="header-space"></div> <!-- Espacio superior -->
 <div class="container">
     <h1>******** ART WITH DRONES ********</h1>
     <div id="completado" class="completado" style="display: none;">FIGURA COMPLETADA</div>
     <table id="tablero"></table>
     <div id="estado"></div> <!-- Contenedor para el mensaje de estado -->
 </div>
+<div class="footer-space"></div> <!-- Espacio inferior -->
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -91,12 +99,14 @@
                 fila.forEach((celda, j) => {
                     const cell = document.createElement('td'); // Crea una nueva celda en la tabla
 
-                    if (celda.trim() === 'x') {
+                    if (celda.trim() === 'x' || celda.trim() === '') {
                         // Si la celda está vacía en el JSON, la celda en la tabla HTML se mantiene vacía
                         cell.innerText = '';
                     } else {
-                        // Separamos el contenido de la celda en ID del dron y su estado
-                        const [dronId, estado] = celda.split(' (');
+                        // Separamos los drones en la celda
+                        const drones = celda.split(', ');
+                        // Elegimos el primer dron de la lista (o podríamos elegir uno al azar)
+                        const [dronId, estado] = drones[0].split(' (');
                         cell.innerText = dronId; // Asigna el ID del dron como texto de la celda
                         const estadoLimpio = estado.replace(')', ''); // Limpia el estado quitando el paréntesis
 
@@ -109,6 +119,13 @@
                     }
                     row.appendChild(cell); // Agrega la celda a la fila
                 });
+
+                // Asegurar que todas las filas tengan el mismo número de celdas, incluso si están vacías
+                for (let j = fila.length; j < data[0].length; j++) {
+                    const cell = document.createElement('td');
+                    cell.innerText = '';
+                    row.appendChild(cell);
+                }
 
                 tablero.appendChild(row); // Agrega la fila completa al tablero
             });
