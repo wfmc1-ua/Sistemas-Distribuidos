@@ -361,7 +361,8 @@ def autentificar(client_socket, figuras, stop_event):
 # while not drone_id:
     drone_id = validar_token(token)
     if drone_id:
-
+        actualizar_estado_dron(drone_id, "-")
+        actualizar_tablero(1, 1, drone_id, "-")
         actualizar_estado_espectaculo('AUTENTIFICANDO')
 
         autentify = True
@@ -529,6 +530,10 @@ def eliminar_dron_de_posicion_anterior(dron_id):
 def actualizar_tablero(x, y, dron_id, estado):
     global TABLERO, posiciones_drones
     
+    # Ajustar las coordenadas para que empiecen desde 1
+    x -= 1
+    y -= 1
+
     dron_id_str = str(dron_id)
     
     # Eliminar el dron de su posición anterior

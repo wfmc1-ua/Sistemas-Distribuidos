@@ -40,6 +40,9 @@
         .dron-end {
             background-color: #0BF103;
         }
+        .dron-preparado {
+            background-color: azure;
+        }
         .completado {
             background-color: #ECB872;
             border: 2px solid #C8934C;
@@ -115,6 +118,8 @@
                             cell.classList.add('dron-run'); // Colorea de rojo si el estado es RUN
                         } else if (estadoLimpio === 'END') {
                             cell.classList.add('dron-end'); // Colorea de verde si el estado es END
+                        } else if (estadoLimpio === '-') {
+                            cell.classList.add('dron-preparado'); // Colorea de verde si el estado es END
                         }
                     }
                     row.appendChild(cell); // Agrega la celda a la fila
