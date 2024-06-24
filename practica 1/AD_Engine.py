@@ -42,6 +42,7 @@ lock = threading.Lock()
 nmove = 1
 authenticated_clients = []
 DB_FILE = 'drones.json'
+TABLERO_FILE = 'tablero.json'
 
 #WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
 WEATHER_API_URL = ""
@@ -256,7 +257,7 @@ def ReciveMovement(drones):
 
         datos = json.loads(decrypted_data.decode('utf-8'))
         
-        id ,movimiento,destino = datos.split(":")
+        id ,movimiento,destino, estado = datos.split(":")
         x, y = movimiento.split(',')
         x = int(x)
         y = int(y)
@@ -268,10 +269,17 @@ def ReciveMovement(drones):
             ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
         )
 
-        actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
-        coordDrones[int(id) -1] = (x,y)
-        actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
+        if destino == "True":
+            estado = "END"  # Actualizamos el estado a "END" cuando el dron llega a su destino
+        else:
+            estado = "RUN"  # Mantenemos el estado "RUN" mientras se está moviendo
 
+        actualizar_estado_dron(id, estado)
+        actualizar_tablero(x, y, id, estado)
+        # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
+        # coordDrones[int(id) -1] = (x,y)
+        # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
+        time.sleep(1)
         if destino == "True":
             parar +=1
 
@@ -289,15 +297,32 @@ def ReciveMovement(drones):
 
 ############################### FUNCIONES KAFKA #####################################
 
-def load_database():
+def load_database_drones():
     try:
         with open(DB_FILE, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
         return {"drones": []}
 
+# Guardar la base de datos de drones
+def save_database_drones(drones):
+    with open(DB_FILE, 'w') as file:
+        json.dump(drones, file, indent=4)
+
+def actualizar_estado_dron(dron_id, nuevo_estado):
+    drones = load_database_drones()
+    dron_id_str = str(dron_id)
+    if dron_id_str in drones:
+        drones[dron_id_str]['estado'] = nuevo_estado
+        print(f"Estado del dron {dron_id} actualizado a '{nuevo_estado}'.")
+    else:
+        drones[dron_id_str] = {'estado': nuevo_estado}
+        print(f"Añadido dron {dron_id} con estado '{nuevo_estado}'.")
+    save_database_drones(drones)
+
+
 def validar_token(token):
-    database = load_database()
+    database = load_database_drones()
     for drone in database['drones']:
         # Verifica que 'token' esté en el dron y que sea un diccionario
         if 'token' in drone and isinstance(drone['token'], dict):
@@ -337,12 +362,15 @@ def autentificar(client_socket, figuras, stop_event):
         if len(coordDrones) != len(figuras):
             for _ in range(len(figuras)):
                 coordDrones.append((1, 1))
+
         client_socket.send("Te has autentificado".encode('utf-8'))
         authenticated_clients.append(client_socket)
+
         if len(authenticated_clients) == len(coordDrones):
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
-            espectaculo(client_socket, figuras, stop_event)
+            
+            espectaculo(client_socket, figuras, stop_event, drone_id)
     else:
         registrar_evento(
             evento='Autenticacion INVALIDA',
@@ -366,7 +394,7 @@ def autentificar(client_socket, figuras, stop_event):
     #             autentify = True
 
         
-def espectaculo(client_socket,drones,stop_event):
+def espectaculo(client_socket,drones,stop_event, drone_id):
     
     global parar
     global authenticated_clients
@@ -374,6 +402,7 @@ def espectaculo(client_socket,drones,stop_event):
     global HOST_DRON, PORT_DRON
 
     load_or_generate_keys()
+    actualizar_estado_dron(drone_id, "RUN")
 
     for documento in drones:
         pos = documento['POS']
@@ -389,7 +418,8 @@ def espectaculo(client_socket,drones,stop_event):
         
         if parar == len(drones):
             fin = True
-        
+
+    
 
     #     #client_socket.send("Sigue".encode('utf-8'))
     
@@ -433,6 +463,51 @@ def handle_Cliente(figuras, stop_event):
             break
     
 
+###################################################################################
+
+# Cargar el tablero desde el archivo
+def load_database_tablero():
+    global TABLERO
+    try:
+        with open(TABLERO_FILE, 'r') as f:
+            TABLERO = json.load(f)
+    except FileNotFoundError:
+        TABLERO = [[" " for _ in range(20)] for _ in range(20)]
+        save_database_tablero()
+
+# Guardar el tablero en el archivo
+def save_database_tablero():
+    global TABLERO
+    with open(TABLERO_FILE, 'w') as f:
+        json.dump(TABLERO, f, indent=4)
+
+# Actualizar la posición y el estado del dron en el tablero
+# Diccionario para rastrear las posiciones actuales de los drones
+# Diccionario para rastrear las posiciones actuales de los drones
+posiciones_drones = {}
+
+# Actualizar la posición y el estado del dron en el tablero
+def actualizar_tablero(x, y, dron_id, estado):
+    global TABLERO, posiciones_drones
+    
+    dron_id_str = str(dron_id)
+    
+    # Limpiar la posición anterior del dron, si existe
+    if dron_id_str in posiciones_drones:
+        prev_x, prev_y = posiciones_drones[dron_id_str]
+        # Solo limpia la posición anterior si la nueva no es la misma
+        if (prev_x, prev_y) != (x, y):
+            TABLERO[prev_x][prev_y] = ' x '
+    
+    # Actualizar la nueva posición y estado del dron
+    if 0 <= x < 20 and 0 <= y < 20:
+        TABLERO[x][y] = f"{dron_id} ({estado})"
+    
+    # Guardar la nueva posición del dron
+    posiciones_drones[dron_id_str] = (x, y)
+    
+    save_database_tablero()
+
 
 
 def createTablero(filas, columnas):
@@ -444,15 +519,15 @@ def createTablero(filas, columnas):
             fila.append(' x ')
         TABLERO.append(fila) 
         
-def actualizar_tablero(x,y,id,avanza=False):
+# def actualizar_tablero(x,y,id,avanza=False):
     
-    global TABLERO
+#     global TABLERO
     
-    if 0 <= x <len(TABLERO) and 0 <= y <len(TABLERO):
-        if avanza == False:
-            TABLERO[x][y]=' x '
-        else:
-            TABLERO[x][y] = "" + str(id) + ""
+#     if 0 <= x <len(TABLERO) and 0 <= y <len(TABLERO):
+#         if avanza == False:
+#             TABLERO[x][y]=' x '
+#         else:
+#             TABLERO[x][y] = "" + str(id) + ""
 
 def imprimir_tablero(fin=False):
     

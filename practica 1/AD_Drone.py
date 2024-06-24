@@ -38,6 +38,7 @@ CoordsF = []
 CoordsI = []
 TABLERO = []
 esperar = True
+ESTADO = None
 
 def registrar():
     global REGISTER_URL
@@ -162,14 +163,14 @@ def ReciveMap():
                     
 def SendMovement(move,destino):
     
-    global CoordsI
+    global CoordsI, ESTADO
     
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
     topic = 'movimiento'
     x, y = move
     
     coord = str(x) + "," + str(y)
-    datos=str(Id) + ":" + coord + ":" + destino
+    datos=str(Id) + ":" + coord + ":" + destino + ":" + ESTADO
     coordinates_json = json.dumps(datos).encode('utf-8')
 
     # Cifrar los datos
@@ -249,7 +250,7 @@ def imprimir_tablero(fin):
 def espectaculo():
     global esperar
     global CoordsI, CoordsF
-    global Id, Token
+    global Id, Token, ESTADO
     global TABLERO
     
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -274,6 +275,7 @@ def espectaculo():
         print("Estoy esperando para comenzar el espectaculo")
         response = client_socket.recv(1024).decode('utf-8')
 
+    ESTADO = "RUN"
     print("PREPARADO PARA RECIBIR MI COORENADA")
     reciveCoord()
     print("Tengo mi coordenada")
@@ -311,7 +313,8 @@ def espectaculo():
         if CoordsI[Id-1] == CoordsF[Id-1]:
             fin = True
         imprimir_tablero(fin)
-        
+
+    ESTADO = "END"    
     while esperar == True:
         ReciveMap()
         imprimir_tablero(fin)

@@ -1,0 +1,501 @@
+[
+    {
+        "fecha_hora": "2024-06-24 01:59:36",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        },
+        "evento": "Comprobacion de temperatura",
+        "descripcion": "Temperatura valida",
+        "detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 21
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 01:59:43",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Autenticacion exitosa",
+        "descripcion": "Autenticacion de dron",
+        "detalles": {
+            "drone_id": 1,
+            "token": "b69be859-957b-4f62-8467-a4b16559bda0"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 01:59:49",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        },
+        "evento": "Comprobacion de temperatura",
+        "descripcion": "Temperatura valida",
+        "detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 21
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 01:59:53",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Autenticacion exitosa",
+        "descripcion": "Autenticacion de dron",
+        "detalles": {
+            "drone_id": 2,
+            "token": "bc7e5941-78fc-4002-9448-92650bfbe24a"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:02",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Autenticacion exitosa",
+        "descripcion": "Autenticacion de dron",
+        "detalles": {
+            "drone_id": 3,
+            "token": "8f472047-888d-4fbc-9eb9-9657b892a30e"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:09",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        },
+        "evento": "Comprobacion de temperatura",
+        "descripcion": "Temperatura valida",
+        "detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 21
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:14",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Autenticacion exitosa",
+        "descripcion": "Autenticacion de dron",
+        "detalles": {
+            "drone_id": 4,
+            "token": "ba716e4b-5a47-4d27-9137-82bb5041844b"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:15",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Generacion de Keys de cifrado Simetrico",
+        "descripcion": "Keys generadas",
+        "detalles": {
+            "map_cipher_key": "kSGQ0QxDWn93mXz-b8Nkq9ZLkGoFGvSZDuLFxN7fPnk=",
+            "movement_cipher_key": "59EX0kK2LWnlyfY1Kpw6txv-Y-nuXMz0MOBWPQZQxXo=",
+            "coord_cipher_key": "aE23BNKHhelUq2AaXPSfGJKpqTeXDSbaIHq1pMWzuBw="
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:15",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Enviar coordenada a Dron",
+        "descripcion": "Envio por Kafka encriptado con la clave",
+        "detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000015670FDB790>",
+            "Coordenada": "2,5",
+            "nDrones": 4
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:16",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Enviar coordenada a Dron",
+        "descripcion": "Envio por Kafka encriptado con la clave",
+        "detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000015670FDB790>",
+            "Coordenada": "2,10",
+            "nDrones": 4
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:16",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Enviar coordenada a Dron",
+        "descripcion": "Envio por Kafka encriptado con la clave",
+        "detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000015670FDB790>",
+            "Coordenada": "7,5",
+            "nDrones": 4
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:16",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Enviar coordenada a Dron",
+        "descripcion": "Envio por Kafka encriptado con la clave",
+        "detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000015670FDB790>",
+            "Coordenada": "7,10",
+            "nDrones": 4
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:16",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "2",
+            "movimiento": "1,2",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:17",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "3",
+            "movimiento": "2,1",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:17",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "4",
+            "movimiento": "1,2",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:17",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "1",
+            "movimiento": "1,2",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:18",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "1",
+            "movimiento": "1,3",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:18",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "4",
+            "movimiento": "1,3",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:19",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "2",
+            "movimiento": "1,3",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:19",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "3",
+            "movimiento": "3,1",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:19",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "1",
+            "movimiento": "1,4",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:20",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "3",
+            "movimiento": "4,2",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:20",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "2",
+            "movimiento": "1,4",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:20",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "4",
+            "movimiento": "1,4",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:21",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "1",
+            "movimiento": "2,5",
+            "destino": "True"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:21",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "3",
+            "movimiento": "5,3",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:21",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        },
+        "evento": "Recepcion de movimiento de Dron",
+        "descripcion": "Movimiento recibido",
+        "detalles": {
+            "id": "2",
+            "movimiento": "1,5",
+            "destino": "False"
+        }
+    },
+    {
+        "fecha_hora": "2024-06-24 02:00:22",
+        "ip_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "ip_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        },
+        "evento": "Comprobacion de temperatura",
+        "descripcion": "Temperatura valida",
+        "detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 21
+        }
+    }
+]lse"
+        }
+    }
+]

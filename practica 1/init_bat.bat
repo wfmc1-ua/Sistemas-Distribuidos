@@ -8,3 +8,4 @@ start cmd /k python AD_Drone.py localhost:7777 localhost:6666 localhost:5555 loc
 start cmd /k python AD_Drone.py localhost:7777 localhost:6666 localhost:5555 localhost:9092
 start cmd /k python AD_Drone.py localhost:7777 localhost:6666 localhost:5555 localhost:9092
 start cmd /k python AD_Drone.py localhost:7777 localhost:6666 localhost:5555 localhost:9092
+
