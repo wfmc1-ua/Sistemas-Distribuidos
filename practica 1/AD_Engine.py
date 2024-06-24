@@ -43,7 +43,7 @@ nmove = 1
 authenticated_clients = []
 DB_FILE = 'drones.json'
 TABLERO_FILE = 'tablero.json'
-
+d =0
 #WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
 WEATHER_API_URL = ""
 
@@ -339,6 +339,7 @@ def validar_token(token):
 
 def autentificar(client_socket, figuras, stop_event):
     global autentify
+    global d
     global coordDrones
     global authenticated_clients
     global HOST_DRON, PORT_DRON
@@ -346,7 +347,8 @@ def autentificar(client_socket, figuras, stop_event):
     data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
     print(f"data del drone para autentificar:{data}")
     texto,token = data.split(':')
-
+    drone_id = 0
+# while not drone_id:
     drone_id = validar_token(token)
     if drone_id:
         autentify = True
@@ -366,10 +368,10 @@ def autentificar(client_socket, figuras, stop_event):
         client_socket.send("Te has autentificado".encode('utf-8'))
         authenticated_clients.append(client_socket)
 
+        d+=1
         if len(authenticated_clients) == len(coordDrones):
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
-            
             espectaculo(client_socket, figuras, stop_event, drone_id)
     else:
         registrar_evento(
@@ -380,8 +382,9 @@ def autentificar(client_socket, figuras, stop_event):
         )
         print("Token inválido o expirado.")
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
+        d-=1
         client_socket.close()
-    
+
     # with open(DB_FILE, 'r') as file:
     #     drones = json.load(file)
     # drones = drones.get("drones", [])
@@ -437,6 +440,9 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
         ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
     )
     authenticated_clients =[]
+    
+    print(f"PARO EL ESPECTACULO {parar}")
+    parar = 0
     client_socket.close()
 
     
@@ -447,20 +453,20 @@ def handle_Cliente(figuras, stop_event):
     print("Servidor escuchando en el puerto 12345...")
     server_socket.listen(5)
     threads=[]
-    
-    while True:
+    global d
+    while d != len(figuras):
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
         client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
         client_handler.start()
         threads.append(client_handler)
 
-        if len(threads) == len(figuras):
-            
-            for thread in threads:
-                thread.join()
-        
-            break
+        # if parar == len(figuras):
+        #     print(f"PARAR TIENE {parar}")
+        #     for thread in threads:
+        #         thread.join()
+        #     print("VA A SALIR")
+        #     break
     
 
 ###################################################################################
@@ -645,7 +651,7 @@ def monitorear_temperatura(ciudad, stop_event):
         time.sleep(10)  # Espera 10 segundos antes de la siguiente verificación
 
 def main():
-    
+    global d
     readArgs()
     createTablero(FILAS,COLUMNAS)
     temperatura, ciudad = consultar()
@@ -666,8 +672,10 @@ def main():
     else:
         if temperatura is not None and temperatura > 0:
             for figura in figuras:
-                
+                print(f"VAMOS A HACER ESTA FIGURA {figura}")
                 handle_Cliente(figura["Drones"],stop_event)
+                d=0
+                print("SIGUIENTE FIGURA")
         else:
             print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
         
