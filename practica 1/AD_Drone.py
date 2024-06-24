@@ -413,6 +413,7 @@ def main():
                 
         elif opcion == 2:
             espectaculo()
+            print(CoordsI)
         elif opcion == 3:
             print("Gracias por utilizar esta opcion")
         else:

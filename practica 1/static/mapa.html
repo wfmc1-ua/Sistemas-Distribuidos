@@ -50,14 +50,17 @@
                 fila.forEach((celda, j) => {
                     const cell = document.createElement('td'); // Crea una nueva celda en la tabla
 
-                    if (celda.trim() === 'x') {
+                    if (celda === ' x ') {
                         // Si la celda está vacía en el JSON, la celda en la tabla HTML se mantiene vacía
                         cell.innerText = '';
                     } else {
-                        // Separamos el contenido de la celda en ID del dron y su estado
-                        const [dronId, estado] = celda.split(' (');
+                        // Separamos el contenido de la celda en IDs de drones y sus estados
+                        const drones = celda.split(', ');
+
+                        // Mostrar solo el primer dron en la casilla para evitar sobrecargar la vista
+                        const [dronId, estado] = drones[0].split(' (');
                         cell.innerText = dronId; // Asigna el ID del dron como texto de la celda
-                        const estadoLimpio = estado ? estado.replace(')', '') : '';
+                        const estadoLimpio = estado.replace(')', ''); // Limpia el estado quitando el paréntesis
 
                         // Aplica una clase CSS a la celda basada en el estado del dron
                         if (estadoLimpio === 'RUN') {
@@ -76,13 +79,7 @@
         // Función para obtener el tablero desde el servidor
         function obtenerTablero() {
             fetch('/get-tablero') // Realiza una solicitud GET al endpoint '/get-tablero'
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Error en la respuesta del servidor');
-                    }
-                })
+                .then(response => response.json()) // Convierte la respuesta a JSON
                 .then(data => {
                     if (data.status === 'success') {
                         actualizarTablero(data.data); // Actualiza el tablero con los datos recibidos
@@ -93,10 +90,10 @@
                 .catch(error => console.error('Error en la conexión:', error)); // Maneja cualquier error en la solicitud
         }
 
-        // Llama a la función obtenerTablero cada 5 segundos para actualizar el tablero periódicamente
-        obtenerTablero(); // Llama inmediatamente para cargar el tablero al inicio
-        setInterval(obtenerTablero, 5000);
+        // Llama a la función obtenerTablero cada 0.5 segundos para actualizar el tablero periódicamente
+        setInterval(obtenerTablero, 500);
     });
+
 </script>
 </body>
 </html>

@@ -43,6 +43,10 @@ nmove = 1
 authenticated_clients = []
 DB_FILE = 'drones.json'
 TABLERO_FILE = 'tablero.json'
+d =0
+
+# Diccionario para rastrear las posiciones actuales de los drones
+posiciones_drones = {}
 
 #WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
 WEATHER_API_URL = ""
@@ -279,7 +283,7 @@ def ReciveMovement(drones):
         # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
         # coordDrones[int(id) -1] = (x,y)
         # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
-        time.sleep(1)
+        time.sleep(0.5)
         if destino == "True":
             parar +=1
 
@@ -339,6 +343,7 @@ def validar_token(token):
 
 def autentificar(client_socket, figuras, stop_event):
     global autentify
+    global d
     global coordDrones
     global authenticated_clients
     global HOST_DRON, PORT_DRON
@@ -346,7 +351,8 @@ def autentificar(client_socket, figuras, stop_event):
     data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
     print(f"data del drone para autentificar:{data}")
     texto,token = data.split(':')
-
+    drone_id = 0
+# while not drone_id:
     drone_id = validar_token(token)
     if drone_id:
         autentify = True
@@ -366,10 +372,10 @@ def autentificar(client_socket, figuras, stop_event):
         client_socket.send("Te has autentificado".encode('utf-8'))
         authenticated_clients.append(client_socket)
 
+        d+=1
         if len(authenticated_clients) == len(coordDrones):
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
-            
             espectaculo(client_socket, figuras, stop_event, drone_id)
     else:
         registrar_evento(
@@ -380,8 +386,9 @@ def autentificar(client_socket, figuras, stop_event):
         )
         print("Token inválido o expirado.")
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
+        d-=1
         client_socket.close()
-    
+
     # with open(DB_FILE, 'r') as file:
     #     drones = json.load(file)
     # drones = drones.get("drones", [])
@@ -437,6 +444,9 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
         ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
     )
     authenticated_clients =[]
+    
+    print(f"PARO EL ESPECTACULO {parar}")
+    parar = 0
     client_socket.close()
 
     
@@ -447,20 +457,20 @@ def handle_Cliente(figuras, stop_event):
     print("Servidor escuchando en el puerto 12345...")
     server_socket.listen(5)
     threads=[]
-    
-    while True:
+    global d
+    while d != len(figuras):
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
         client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
         client_handler.start()
         threads.append(client_handler)
 
-        if len(threads) == len(figuras):
-            
-            for thread in threads:
-                thread.join()
-        
-            break
+        # if parar == len(figuras):
+        #     print(f"PARAR TIENE {parar}")
+        #     for thread in threads:
+        #         thread.join()
+        #     print("VA A SALIR")
+        #     break
     
 
 ###################################################################################
@@ -482,12 +492,7 @@ def save_database_tablero():
         json.dump(TABLERO, f, indent=4)
 
 # Actualizar la posición y el estado del dron en el tablero
-# Diccionario para rastrear las posiciones actuales de los drones
-# Diccionario para rastrear las posiciones actuales de los drones
-posiciones_drones = {}
-
-# Actualizar la posición y el estado del dron en el tablero
-def actualizar_tablero(x, y, dron_id, estado):
+def eliminar_dron_de_posicion_anterior(dron_id):
     global TABLERO, posiciones_drones
     
     dron_id_str = str(dron_id)
@@ -495,18 +500,44 @@ def actualizar_tablero(x, y, dron_id, estado):
     # Limpiar la posición anterior del dron, si existe
     if dron_id_str in posiciones_drones:
         prev_x, prev_y = posiciones_drones[dron_id_str]
-        # Solo limpia la posición anterior si la nueva no es la misma
-        if (prev_x, prev_y) != (x, y):
+        contenido_celda = TABLERO[prev_x][prev_y]
+        
+        # Separar los drones que están en la misma casilla
+        drones_en_celda = contenido_celda.split(', ')
+        
+        # Eliminar solo el dron que se está moviendo
+        drones_en_celda = [dron for dron in drones_en_celda if not dron.startswith(dron_id_str)]
+        
+        # Actualizar la casilla con los drones restantes o dejarla vacía
+        if drones_en_celda:
+            TABLERO[prev_x][prev_y] = ', '.join(drones_en_celda)
+        else:
             TABLERO[prev_x][prev_y] = ' x '
+
+
+
+# Actualizar la posición y el estado del dron en el tablero
+def actualizar_tablero(x, y, dron_id, estado):
+    global TABLERO, posiciones_drones
+    
+    dron_id_str = str(dron_id)
+    
+    # Eliminar el dron de su posición anterior
+    eliminar_dron_de_posicion_anterior(dron_id_str)
     
     # Actualizar la nueva posición y estado del dron
     if 0 <= x < 20 and 0 <= y < 20:
-        TABLERO[x][y] = f"{dron_id} ({estado})"
+        if TABLERO[x][y] == ' x ':
+            TABLERO[x][y] = f"{dron_id} ({estado})"
+        else:
+            TABLERO[x][y] += f", {dron_id} ({estado})"
     
     # Guardar la nueva posición del dron
     posiciones_drones[dron_id_str] = (x, y)
     
     save_database_tablero()
+
+
 
 
 
@@ -645,7 +676,7 @@ def monitorear_temperatura(ciudad, stop_event):
         time.sleep(10)  # Espera 10 segundos antes de la siguiente verificación
 
 def main():
-    
+    global d
     readArgs()
     createTablero(FILAS,COLUMNAS)
     temperatura, ciudad = consultar()
@@ -666,8 +697,10 @@ def main():
     else:
         if temperatura is not None and temperatura > 0:
             for figura in figuras:
-                
+                print(f"VAMOS A HACER ESTA FIGURA {figura}")
                 handle_Cliente(figura["Drones"],stop_event)
+                d=0
+                print("SIGUIENTE FIGURA")
         else:
             print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
         
