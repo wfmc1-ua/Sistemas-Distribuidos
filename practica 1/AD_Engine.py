@@ -45,6 +45,9 @@ DB_FILE = 'drones.json'
 TABLERO_FILE = 'tablero.json'
 d =0
 
+numero_Figura = 0
+
+
 # Diccionario para rastrear las posiciones actuales de los drones
 posiciones_drones = {}
 
@@ -306,12 +309,17 @@ def load_database_drones():
         with open(DB_FILE, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
-        return {"drones": []}
+        return {"drones": [], "espectaculo": {"estado": "INICIAL", "figuraNumero": 1}}
 
-# Guardar la base de datos de drones
 def save_database_drones(drones):
     with open(DB_FILE, 'w') as file:
         json.dump(drones, file, indent=4)
+
+# Modifica la función actualizar_estado para actualizar el estado en drones.json
+def actualizar_estado_espectaculo(nuevo_estado):
+    database = load_database_drones()
+    database["espectaculo"]["estado"] = nuevo_estado
+    save_database_drones(database)
 
 def actualizar_estado_dron(dron_id, nuevo_estado):
     drones = load_database_drones()
@@ -342,12 +350,10 @@ def validar_token(token):
     return None  # Token no encontrado
 
 def autentificar(client_socket, figuras, stop_event):
-    global autentify
     global d
-    global coordDrones
-    global authenticated_clients
+    global autentify, coordDrones, authenticated_clients
     global HOST_DRON, PORT_DRON
-    
+
     data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
     print(f"data del drone para autentificar:{data}")
     texto,token = data.split(':')
@@ -355,6 +361,9 @@ def autentificar(client_socket, figuras, stop_event):
 # while not drone_id:
     drone_id = validar_token(token)
     if drone_id:
+
+        actualizar_estado_espectaculo('AUTENTIFICANDO')
+
         autentify = True
         print(f"Dron {drone_id} autentificado con éxito")
 
@@ -410,6 +419,7 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
 
     load_or_generate_keys()
     actualizar_estado_dron(drone_id, "RUN")
+    actualizar_estado_espectaculo('EN_CURSO')
 
     for documento in drones:
         pos = documento['POS']
@@ -426,17 +436,16 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
         if parar == len(drones):
             fin = True
 
-    
-
     #     #client_socket.send("Sigue".encode('utf-8'))
-    
     if stop_event.is_set():
         print("Espectáculo detenido debido a baja temperatura.")
 
     if len(authenticated_clients) == len(coordDrones):
-
         for client in authenticated_clients:
             client.send("Termina".encode('utf-8'))
+
+    actualizar_estado_espectaculo('COMPLETADO')
+
     registrar_evento(
         evento='FINALIZACION DEL ESPECTACULO',
         descripcion='Todos los drones han finalizado',
@@ -676,7 +685,7 @@ def monitorear_temperatura(ciudad, stop_event):
         time.sleep(10)  # Espera 10 segundos antes de la siguiente verificación
 
 def main():
-    global d
+    global d, numero_Figura
     readArgs()
     createTablero(FILAS,COLUMNAS)
     temperatura, ciudad = consultar()
@@ -689,18 +698,19 @@ def main():
     with open('AwD_figuras.json', 'r') as file:# file es como le voy a llamar al archivo cuando se mete en la variable
         datos = json.load(file) # El archivo de json esta en la variable datos
 
-
-
     figuras = datos.get("figuras", [])  # Obtiene la lista de figuras
     if not figuras:
         print("No quedan figuras en el archivo JSON.")
     else:
         if temperatura is not None and temperatura > 0:
             for figura in figuras:
+                numero_Figura += 1
+                actualizar_estado_espectaculo('INICIAL')
                 print(f"VAMOS A HACER ESTA FIGURA {figura}")
                 handle_Cliente(figura["Drones"],stop_event)
                 d=0
                 print("SIGUIENTE FIGURA")
+                
         else:
             print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
         

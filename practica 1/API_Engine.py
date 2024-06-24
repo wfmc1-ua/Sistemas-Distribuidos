@@ -26,6 +26,15 @@ def get_tablero():
 @app.route('/<path:filename>', methods=['GET'])
 def serve_static(filename):
     return send_from_directory('static', filename)
+    
+@app.route('/get-estado', methods=['GET'])
+def get_estado():
+    with open('drones.json', 'r') as file:
+        data = json.load(file)
+    estado = data.get("espectaculo", {}).get("estado", "INICIAL")
+    figura_numero = data.get("espectaculo", {}).get("figuraNumero", 1)
+    return jsonify({'status': 'success', 'estado': estado, 'figuraNumero': figura_numero})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
