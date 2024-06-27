@@ -1,5 +1,4 @@
 
-from pymongo import MongoClient
 import random
 import socket
 import sys
@@ -91,24 +90,24 @@ def readArgs():
                 argumentos = sys.argv
 
                 # Verificar si se proporcionaron suficientes argumentos
-                if len(argumentos) == 3:  # El primer argumento es el nombre del script
+                if len(argumentos) == 2:  # El primer argumento es el nombre del script
                     # Asignar los valores de los puertos
                     mi_data = str(argumentos[1])
-                    data_E = str(argumentos[2])
+                    #data_E = str(argumentos[2])
                     
                     W = mi_data.split(":")
-                    E = data_E.split(":")
+                    #E = data_E.split(":")
                     
                     HOST = W[0]
                     PORT = int(W[1])
                     
-                    Host_ENGINE = E[0]
-                    PORT_ENGINE = int(E[1])
+                    #Host_ENGINE = E[0]
+                    #PORT_ENGINE = int(E[1])
                     
 
                     # Mostrar los valores asignados
-                    print(f"El valor de server_host es: {Host_ENGINE}")
-                    print(f"El valor de server_port es: {PORT_ENGINE}")
+                    print(f"El valor de server_host es: {HOST}")
+                    print(f"El valor de server_port es: {PORT}")
                     break  # Romper el bucle si los valores son válidos
 
                 else:
@@ -116,7 +115,7 @@ def readArgs():
                     sys.exit(1)  # Salir del programa si los argumentos no son suficientes
 
             except (ValueError, IndexError) as e:
-                print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT_E")
+                print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT")
     
 def main():
     global Host_ENGINE

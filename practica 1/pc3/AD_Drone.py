@@ -2,8 +2,6 @@ import datetime
 import os
 import socket
 from kafka import KafkaConsumer, KafkaProducer
-from confluent_kafka import Producer,Consumer,TopicPartition, KafkaException, KafkaError
-
 from colorama import init, Fore, Style
 import json
 import time
@@ -110,26 +108,31 @@ def reciveCoord():
     global CoordsI
     global Id
     global coord_cipher
+    print("ENTRA EN RECIVECOORD")
     consumer = KafkaConsumer(
         'coordenadas',
         bootstrap_servers=KAFKA_ADDR,
         auto_offset_reset='earliest',
         group_id='dron' + str(Id))
     try:
+        print(f"KAFKA ADDREESS {KAFKA_ADDR}")
+        print("ANTES DE QUE PAULA NO VAYA")
         for message in consumer:
             #message = next(consumer)
+            print("PAULA NO VA")
             encrypted_data = message.value
             print(f"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {encrypted_data}")
             # Descifrar los datos
             decrypted_data = coord_cipher.decrypt(encrypted_data)
             print(f"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {decrypted_data}")
             datos = json.loads(decrypted_data.decode('utf-8'))
+            print(f"LOS DATOS SON {datos}")
             coordinates , nDrones = datos.split(":")
-            if coordinates not in CoordsF:
-                print(f"Coordenadas a guardar: {coordinates}")
-                CoordsF.append(coordinates)
-                CoordsI.append((1,1))
-                
+            #if coordinates not in CoordsF:
+            print(f"Coordenadas a guardar: {coordinates}")
+            CoordsF.append(coordinates)
+            CoordsI.append((1,1))
+            
             if int(nDrones) == len(CoordsF):
                 break
         print(f"el dron {Id} tiene como coordenada final :{CoordsF[Id-1]}")
@@ -247,7 +250,7 @@ def imprimir_tablero(fin):
             if  i == len(fila)-1:
                 print("]")
                     
-def espectaculo():
+def autentificar():
     global esperar
     global CoordsI, CoordsF
     global Id, Token, ESTADO
@@ -265,7 +268,7 @@ def espectaculo():
         while not solicitar_token():
             print("Solicitando nuevo token...")
             time.sleep(8)
-        espectaculo()  # Reintenta la autenticación con el nuevo token
+        autentificar()  # Reintenta la autenticación con el nuevo token
         return
     print(" ESTOY AUTENTIFICADO ")
 
@@ -274,7 +277,15 @@ def espectaculo():
     while response != "All": 
         print("Estoy esperando para comenzar el espectaculo")
         response = client_socket.recv(1024).decode('utf-8')
-
+    espectaculo(client_socket)
+    
+def espectaculo(client_socket):
+    
+    global esperar
+    global CoordsI, CoordsF
+    global Id, Token, ESTADO
+    global TABLERO
+    
     ESTADO = "RUN"
     print("PREPARADO PARA RECIBIR MI COORENADA")
     reciveCoord()
@@ -318,16 +329,17 @@ def espectaculo():
     while esperar == True:
         ReciveMap()
         imprimir_tablero(fin)
-        
-        print("TERMINA")
-        
+                
         espera = client_socket.recv(1024).decode('utf-8')
-        print("PASA DEL ESPERA")
-        print(espera)
+        
         if espera == "Termina":
-            CoordsI = []
             CoordsF = []
+            if CoordsI[Id - 1] != (1,1):
+                espectaculo(client_socket)
+            CoordsI = []
+            
             esperar = False
+            print(f"al terminar la coordI es igual a {CoordsI}")
         
 
     client_socket.close() ## confirmacion que tu estas autentificado
@@ -406,13 +418,14 @@ def main():
         opcion = int(input("Opcion:"))
         if opcion == 1:
             if  Id == 0:
+                print(f"SE CONECTA A {HOST_REGISTRY} Y AL PUERTO {PORT_REGISTRY}")
                 Alias = input("Inserte un alias para el dron: ")
                 registrar()
             else:
                 print(f"Ya esta registrado con el id {Id}")
                 
         elif opcion == 2:
-            espectaculo()
+            autentificar()
             print(CoordsI)
         elif opcion == 3:
             print("Gracias por utilizar esta opcion")

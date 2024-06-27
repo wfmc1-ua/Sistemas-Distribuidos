@@ -1,7 +1,7 @@
 {
-    "drones": [],
+    "drones": [
+
+    ],
     "espectaculo": {
-        "estado": "COMPLETADO",
-        "figuraNumero": 1
     }
 }

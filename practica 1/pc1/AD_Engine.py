@@ -7,9 +7,7 @@ import requests
 import json
 import time
 from colorama import init, Fore, Style
-from confluent_kafka import Consumer,Producer, KafkaException, KafkaError
 from kafka import KafkaConsumer, KafkaProducer
-from pymongo import MongoClient
 import sys
 
 from cryptography.fernet import Fernet
@@ -185,7 +183,7 @@ def SendCoord(pos,nDrones):
         detalles={'coord_cipher': str(coord_cipher), 'Coordenada': pos, 'nDrones': nDrones},
         ip={'HOST_DRONE': HOST_DRON, 'PORT_DRON': PORT_DRON}
     )
-
+    print(f"KAFKA ADDRESS { KAFKA_ADDR}")
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR)
     topic = 'coordenadas'
     datos=pos + ":" + str(nDrones)
@@ -193,7 +191,7 @@ def SendCoord(pos,nDrones):
     # Cifrar los datos
     encrypted_data = coord_cipher.encrypt(coordinates_json)
     try:
-        print(nDrones)
+        print("MECACHIS")
         # Enviar el mensaje
         producer.send(topic, value=encrypted_data)
         producer.flush()
@@ -421,7 +419,8 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
     load_or_generate_keys()
     actualizar_estado_dron(drone_id, "RUN")
     actualizar_estado_espectaculo('EN_CURSO')
-
+    print(f"LLEGA HASTA EL INICIO DEL ESPECTACULO {drones}")
+    
     for documento in drones:
         pos = documento['POS']
         SendCoord(pos,len(drones))
@@ -446,7 +445,26 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
             client.send("Termina".encode('utf-8'))
 
     actualizar_estado_espectaculo('COMPLETADO')
+    
+    actualizar_estado_dron(drone_id, "RUN")
+    actualizar_estado_espectaculo('EN_CURSO')
+    
+    for i in range(len(drones)):
+        SendCoord("1,1",len(drones))
+    fin = False
 
+    while fin != True:
+        ReciveMovement(drones)
+        imprimir_tablero(False)
+        SendMap()
+        
+        if parar == len(drones):
+            fin = True
+    
+    if len(authenticated_clients) == len(coordDrones):
+        for client in authenticated_clients:
+            client.send("Termina".encode('utf-8'))
+    actualizar_estado_espectaculo('COMPLETADO')  
     registrar_evento(
         evento='FINALIZACION DEL ESPECTACULO',
         descripcion='Todos los drones han finalizado',
@@ -612,16 +630,16 @@ def readArgs():
                 argumentos = sys.argv
 
                 # Verificar si se proporcionaron suficientes argumentos
-                if len(argumentos) == 5:  # El primer argumento es el nombre del script
+                if len(argumentos) == 4:  # El primer argumento es el nombre del script
                     # Asignar los valores de los puertos
                     mi_data = str(argumentos[1])
                     data_Weather = str(argumentos[2])
-                    data_Dron = str(argumentos[3])
-                    KAFKA_ADDR = str(argumentos[4])
+                    #data_Dron = str(argumentos[3])
+                    KAFKA_ADDR = str(argumentos[3])
                     
                     E= mi_data.split(":")
                     W = data_Weather.split(":")
-                    D = data_Dron.split(":")
+                    #D = data_Dron.split(":")
                     
                     HOST=E[0]
                     PORT = int(E[1])
@@ -630,23 +648,23 @@ def readArgs():
                     PORT_WEATHER = int(W[1])
                     WEATHER_API_URL = f'http://{HOST_WEATHER}:{PORT_WEATHER}/api/clima'
                     
-                    HOST_DRON= D[0]
-                    PORT_DRON = int(D[1])
+                    # HOST_DRON= D[0]
+                    # PORT_DRON = int(D[1])
                     
 
                     # Mostrar los valores asignados
                     print(f"El valor de server_host es: {HOST}")
                     print(f"El valor de server_port para el Weather es: {PORT_WEATHER}")
-                    print(f"El valor de server_port para los drones es: {PORT_DRON}")
+                    # print(f"El valor de server_port para los drones es: {PORT_DRON}")
                     print(f"El valor de la ip de kafka es: {KAFKA_ADDR}")
                     break  # Romper el bucle si los valores son válidos
 
                 else:
-                    print("Por favor, proporcione los valores para HOST, PORT_WeatheR, PORT_Dron Y kafka_addr.")
+                    print("Por favor, proporcione los valores para HOST, PORT_WeatheR Y kafka_addr.")
                     sys.exit(1)  # Salir del programa si los argumentos no son suficientes
 
             except (ValueError, IndexError) as e:
-                print("Error: Asegúrate de proporcionar valores enteros para HOST, PORT_Weather, PORT_Dron y kafka_addr")
+                print("Error: Asegúrate de proporcionar valores enteros para HOST, PORT_Weather y kafka_addr")
     
 
 def monitorear_temperatura(ciudad, stop_event):

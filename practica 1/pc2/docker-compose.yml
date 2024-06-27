@@ -1,0 +1,38 @@
+version: '3.8'  # Asegúrate de usar la versión correcta de Docker Compose
+
+services:
+  zookeeper:
+    image: zookeeper:3.9.0
+    container_name: zookeeper
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka:9092,LISTENER_DOCKER_EXTERNAL://172.27.173.211:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+  python-app:
+    image: python:3.9-slim
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: sh -c "pip install Flask requests kafka-python  && python AD_Weather.py 0.0.0.0:1111"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: 172.27.173.211:9093
+    ports:
+      - "1111:1111"
+    depends_on:
+      - kafka
+    restart: always
