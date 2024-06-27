@@ -1,3 +1,4 @@
+import os
 import uuid
 from pymongo import MongoClient
 import socket
@@ -91,10 +92,8 @@ def request_token():
 
 def readArgs():
     
-    global HOST
-    global PORT
-    global HOST_DRON
-    global PORT_DRON
+    global HOST, PORT
+    global HOST_DRON, PORT_DRON
 
     while True:
             try:
@@ -129,7 +128,9 @@ def main():
     global HOST
     global PORT
     readArgs()
-    app.run(host=HOST, port=PORT)
+    cert_path = os.path.join(os.path.dirname(__file__), 'certs', 'cert.pem')
+    key_path = os.path.join(os.path.dirname(__file__), 'certs', 'key.pem')
+    app.run(host=HOST, port=PORT, ssl_context=(cert_path, key_path))
     #handle_Cliente()
 
 if __name__ == "__main__":

@@ -58,6 +58,67 @@
         .footer-space {
             height: 50px; /* Altura del espacio inferior */
         }
+        .auditoria-container {
+            max-height: 400px; /* Altura máxima del contenedor */
+            width: 80%;
+            border: 1px solid #000;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            margin-top: 30px;
+            border-radius: 5px;;
+            border-width: 5px;
+            border-color: #2C2626;
+            background-color: #E1E1E1;
+        }
+        .titleAuditoria {
+            font-size: 30px;
+        }
+        .auditoria {
+            display: none; /* Ocultar todas las auditorías por defecto */
+        }
+        .auditoria.active {
+            display: block; /* Mostrar solo la auditoría activa */
+        }
+
+        .auditoria-table th:first-child,
+        .auditoria-table td:first-child {
+            background-color: #A9A9A9;
+        }
+
+        .auditoria-table th:nth-child(2),
+        .auditoria-table td:nth-child(2) {
+            background-color: #f8f8f8;
+        }
+
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            border-radius: 15px;
+        }
+        .nav-buttons button {
+            padding: 5px 10px;
+            border-radius: 15px;
+            color:#f8f8f8;
+            background: #2C2626;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+        .auditoria-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .auditoria-table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        .auditoria-table .label {
+            font-weight: bold;
+            width: 30%;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +128,37 @@
     <div id="completado" class="completado" style="display: none;">FIGURA COMPLETADA</div>
     <table id="tablero"></table>
     <div id="estado"></div> <!-- Contenedor para el mensaje de estado -->
+    
+    <div class="header-space"></div>
+
+    <h1 class="titleAuditoria">Registro de Auditorías</h1>
+
+    <div class="auditoria-container" id="auditorias-temperatura">
+        <h2>Auditorías de Temperatura</h2>
+        <!-- Contenido dinámico de las auditorías de temperatura -->
+    </div>
+    <div class="nav-buttons">
+        <button id="prev-temperatura"><</button>
+        <button id="next-temperatura">></button>
+    </div>
+
+    <div class="auditoria-container" id="auditorias-informativa">
+        <h2>Auditorías Informativas</h2>
+        <!-- Contenido dinámico de las auditorías informativas -->
+    </div>
+    <div class="nav-buttons">
+        <button id="prev-informativa"><</button>
+        <button id="next-informativa">></button>
+    </div>
+
+    <div class="auditoria-container" id="auditorias-error">
+        <h2>Auditorías de Error</h2>
+        <!-- Contenido dinámico de las auditorías de error -->
+    </div>
+    <div class="nav-buttons">
+        <button id="prev-error"><</button>
+        <button id="next-error">></button>
+    </div>
 </div>
 <div class="footer-space"></div> <!-- Espacio inferior -->
 
@@ -75,6 +167,14 @@
         const tablero = document.getElementById('tablero');
         const estadoDiv = document.getElementById('estado'); // Referencia al contenedor del mensaje de estado
         const completadoDiv = document.getElementById('completado'); // Referencia al contenedor de la frase "FIGURA COMPLETADA"
+
+        // Variables para la navegación de auditorías
+        let currentTemperaturaIndex = 0;
+        let currentInformativaIndex = 0;
+        let currentErrorIndex = 0;
+        let temperaturaAuditorias = [];
+        let informativaAuditorias = [];
+        let errorAuditorias = [];
 
         // Función para actualizar el contenido del tablero HTML
         function actualizarTablero(data) {
@@ -138,7 +238,7 @@
 
         // Función para obtener el tablero desde el servidor
         function obtenerTablero() {
-            fetch('/get-tablero') // Realiza una solicitud GET al endpoint '/get-tablero'
+            fetch('https://localhost:443/get-tablero') // Realiza una solicitud GET al endpoint '/get-tablero'
                 .then(response => response.json()) // Convierte la respuesta a JSON
                 .then(data => {
                     if (data.status === 'success') {
@@ -152,7 +252,7 @@
 
         // Función para obtener el estado del espectáculo desde el servidor
         function obtenerEstado() {
-            fetch('/get-estado') // Realiza una solicitud GET al endpoint '/get-estado'
+            fetch('https://localhost:443/get-estado') // Realiza una solicitud GET al endpoint '/get-estado'
                 .then(response => response.json()) // Convierte la respuesta a JSON
                 .then(data => {
                     if (data.status === 'success') {
@@ -186,6 +286,125 @@
                 .catch(error => console.error('Error en la conexión:', error)); // Maneja cualquier error en la solicitud
         }
 
+        // Función para obtener las auditorías desde el servidor
+        function obtenerAuditorias() {
+            fetch('https://localhost:443/get-auditorias') // Realiza una solicitud GET al endpoint '/get-auditorias'
+                .then(response => response.json()) // Convierte la respuesta a JSON
+                .then(data => {
+                    if (data.status === 'success') {
+                        temperaturaAuditorias = data.data.filter(audit => audit['TIPO DE EVENTO'] === 'TEMPERATURA');
+                        informativaAuditorias = data.data.filter(audit => audit['TIPO DE EVENTO'] === 'INFORMATIVA');
+                        errorAuditorias = data.data.filter(audit => audit['TIPO DE EVENTO'] === 'ERROR');
+                        mostrarAuditoria('temperatura', 0);
+                        mostrarAuditoria('informativa', 0);
+                        mostrarAuditoria('error', 0);
+                    } else {
+                        console.error('Error al obtener las auditorías:', data.message); // Muestra el error en la consola
+                    }
+                })
+                .catch(error => console.error('Error en la conexión:', error)); // Maneja cualquier error en la solicitud
+        }
+
+        // Función para mostrar auditorías
+        function mostrarAuditoria(tipo, index) {
+            let auditorias, containerId, currentIndex;
+            switch (tipo) {
+                case 'temperatura':
+                    auditorias = temperaturaAuditorias;
+                    containerId = 'auditorias-temperatura';
+                    currentIndex = currentTemperaturaIndex;
+                    currentTemperaturaIndex = index;
+                    break;
+                case 'informativa':
+                    auditorias = informativaAuditorias;
+                    containerId = 'auditorias-informativa';
+                    currentIndex = currentInformativaIndex;
+                    currentInformativaIndex = index;
+                    break;
+                case 'error':
+                    auditorias = errorAuditorias;
+                    containerId = 'auditorias-error';
+                    currentIndex = currentErrorIndex;
+                    currentErrorIndex = index;
+                    break;
+            }
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; // Limpia el contenedor
+
+            if (auditorias.length > 0) {
+                const auditoria = auditorias[index];
+                const auditoriaDiv = document.createElement('div');
+                auditoriaDiv.classList.add('auditoria', 'active');
+                auditoriaDiv.innerHTML = `
+                    <table class="auditoria-table">
+                        <tr>
+                            <td class="label">TIPO DE EVENTO:</td>
+                            <td>${auditoria['TIPO DE EVENTO']}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Evento:</td>
+                            <td>${auditoria.Evento}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Descripcion:</td>
+                            <td>${auditoria.Descripcion}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Detalles:</td>
+                            <td>${JSON.stringify(auditoria.Detalles)}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fecha y Hora:</td>
+                            <td>${auditoria.Fecha_Hora}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">IP ENGINE:</td>
+                            <td>${JSON.stringify(auditoria.IP_ENGINE)}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">IP ORIGEN:</td>
+                            <td>${JSON.stringify(auditoria.IP_ORIGEN)}</td>
+                        </tr>
+                    </table>
+                `;
+                container.appendChild(auditoriaDiv);
+            }
+        }
+
+        // Event listeners para los botones de navegación
+        document.getElementById('prev-temperatura').addEventListener('click', () => {
+            if (currentTemperaturaIndex > 0) {
+                mostrarAuditoria('temperatura', currentTemperaturaIndex - 1);
+            }
+        });
+        document.getElementById('next-temperatura').addEventListener('click', () => {
+            if (currentTemperaturaIndex < temperaturaAuditorias.length - 1) {
+                mostrarAuditoria('temperatura', currentTemperaturaIndex + 1);
+            }
+        });
+
+        document.getElementById('prev-informativa').addEventListener('click', () => {
+            if (currentInformativaIndex > 0) {
+                mostrarAuditoria('informativa', currentInformativaIndex - 1);
+            }
+        });
+        document.getElementById('next-informativa').addEventListener('click', () => {
+            if (currentInformativaIndex < informativaAuditorias.length - 1) {
+                mostrarAuditoria('informativa', currentInformativaIndex + 1);
+            }
+        });
+
+        document.getElementById('prev-error').addEventListener('click', () => {
+            if (currentErrorIndex > 0) {
+                mostrarAuditoria('error', currentErrorIndex - 1);
+            }
+        });
+        document.getElementById('next-error').addEventListener('click', () => {
+            if (currentErrorIndex < errorAuditorias.length - 1) {
+                mostrarAuditoria('error', currentErrorIndex + 1);
+            }
+        });
+
         // Llama a la función obtenerTablero y obtenerEstado cada 5 segundos para actualizar el tablero y el estado periódicamente
         setInterval(() => {
             obtenerTablero();
@@ -195,6 +414,7 @@
         // Llama inicialmente para cargar los datos cuando se carga la página
         obtenerTablero();
         obtenerEstado();
+        obtenerAuditorias(); // Llama a obtenerAuditorias para cargar las auditorías al iniciar
     });
 </script>
 </body>

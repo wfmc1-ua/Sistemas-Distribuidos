@@ -1,0 +1,660 @@
+[
+    {
+        "TIPO DE EVENTO": "ERROR",
+        "Evento": "Conexion con Weather",
+        "Descripcion": "Error al conectar con AD_Weather servidor del clima",
+        "Detalles": "Posible caida del servidor del clima o no esta disponible en el intento 5",
+        "Fecha_Hora": "2024-06-26 23:13:45",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "ERROR",
+        "Evento": "Conexion con Weather",
+        "Descripcion": "Error al conectar con AD_Weather servidor del clima",
+        "Detalles": "Posible caida del servidor del clima o no esta disponible en el intento 4",
+        "Fecha_Hora": "2024-06-26 23:13:55",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "ERROR",
+        "Evento": "Conexion con Weather",
+        "Descripcion": "Error al conectar con AD_Weather servidor del clima",
+        "Detalles": "Posible caida del servidor del clima o no esta disponible en el intento 3",
+        "Fecha_Hora": "2024-06-26 23:14:04",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "ERROR",
+        "Evento": "Conexion con Weather",
+        "Descripcion": "Error al conectar con AD_Weather servidor del clima",
+        "Detalles": "Posible caida del servidor del clima o no esta disponible en el intento 2",
+        "Fecha_Hora": "2024-06-26 23:14:13",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 24
+        },
+        "Fecha_Hora": "2024-06-26 23:14:23",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 24
+        },
+        "Fecha_Hora": "2024-06-26 23:14:35",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 23
+        },
+        "Fecha_Hora": "2024-06-26 23:18:26",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 1,
+            "token": "ddd1e9e0-57b7-4f90-bd9e-79fb09cc1857"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:28",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 2,
+            "token": "a9722d85-e5ba-4361-822c-dadc4d8d88ea"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:36",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 23
+        },
+        "Fecha_Hora": "2024-06-26 23:18:39",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 3,
+            "token": "907d535c-2d34-4336-aafd-01f34d9af0ef"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:43",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 4,
+            "token": "2ceb062d-5c02-4214-beb3-69645c9e433c"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:50",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Generacion de Keys de cifrado Simetrico",
+        "Descripcion": "Keys generadas",
+        "Detalles": {
+            "map_cipher_key": "b0Ndj7G_Lq1_mpweE_z1ylqeviyJ-aHBbTsHYfxBV_s=",
+            "movement_cipher_key": "uohK51s7hWy7SKyb8VzsNyMzXCwC6tFJQnGMwFhMcKE=",
+            "coord_cipher_key": "3AJ-mz3ft2OlPDglGDN9MFRKzQZdpgAgBPSDzTGbtSw="
+        },
+        "Fecha_Hora": "2024-06-26 23:18:50",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000021E39FD6450>",
+            "Coordenada": "2,5",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-26 23:18:50",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000021E39FD6450>",
+            "Coordenada": "2,10",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-26 23:18:51",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 23
+        },
+        "Fecha_Hora": "2024-06-26 23:18:51",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000021E39FD6450>",
+            "Coordenada": "7,5",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-26 23:18:51",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "coord_cipher": "<cryptography.fernet.Fernet object at 0x0000021E39FD6450>",
+            "Coordenada": "7,10",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-26 23:18:51",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,1",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:52",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:53",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:55",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:56",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:57",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:18:59",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,1",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:00",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:01",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:03",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 23
+        },
+        "Fecha_Hora": "2024-06-26 23:19:04",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "localhost",
+            "PORT_WEATHER": 8888
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:04",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:06",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:07",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:08",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "2,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:10",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:11",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,5",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:12",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-26 23:19:14",
+        "IP_ENGINE": {
+            "HOST": "localhost",
+            "PORT": 5555
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "localhost",
+            "PORT_DRON": 7777
+        }
+    }
+]

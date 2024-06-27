@@ -35,6 +35,17 @@ def get_estado():
     figura_numero = data.get("espectaculo", {}).get("figuraNumero", 1)
     return jsonify({'status': 'success', 'estado': estado, 'figuraNumero': figura_numero})
 
+@app.route('/get-auditorias', methods=['GET'])
+def get_auditorias():
+    try:
+        with open('auditoria_log.json', 'r') as file:
+            auditorias = json.load(file)
+        return jsonify({'status': 'success', 'data': auditorias})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    cert_path = os.path.join(os.path.dirname(__file__), 'certs', 'cert.pem')
+    key_path = os.path.join(os.path.dirname(__file__), 'certs', 'key.pem')
+    app.run(host='0.0.0.0', port=443, debug=True, ssl_context=(cert_path, key_path))

@@ -2,6 +2,7 @@ import atexit
 from datetime import datetime
 import os
 import socket
+import ssl
 import threading
 import requests
 import json
@@ -53,34 +54,105 @@ posiciones_drones = {}
 
 #WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
 WEATHER_API_URL = ""
-
-def consultar():
-    ciudad = input("Indique la ciudad donde se realiza el espectaculo: ")
-    try:
-        response = requests.get(f"{WEATHER_API_URL}?ciudad={ciudad}")
-        if response.status_code == 200:
-            data = response.json()
-            temperatura = int(data['temperatura'])
-            return temperatura, ciudad
-        else:
-            print(f"Error al obtener el clima: {response.text}")
-            return None, ciudad
-    except requests.RequestException as e:
-        print(f"Error al conectar con AD_Weather: {e}")
-        
-        return None, ciudad
     
+
+                
+def readArgs():
+    
+    global HOST, PORT
+    global HOST_WEATHER, PORT_WEATHER
+    global WEATHER_API_URL
+    global HOST_DRON, PORT_DRON
+    global KAFKA_ADDR
+    
+    while True:
+            try:
+                # Obtener los argumentos de la línea de comandos
+                argumentos = sys.argv
+
+                # Verificar si se proporcionaron suficientes argumentos
+                if len(argumentos) == 5:  # El primer argumento es el nombre del script
+                    # Asignar los valores de los puertos
+                    mi_data = str(argumentos[1])
+                    data_Weather = str(argumentos[2])
+                    data_Dron = str(argumentos[3])
+                    KAFKA_ADDR = str(argumentos[4])
+                    
+                    E= mi_data.split(":")
+                    W = data_Weather.split(":")
+                    D = data_Dron.split(":")
+                    
+                    HOST=E[0]
+                    PORT = int(E[1])
+                    
+                    HOST_WEATHER = W[0]
+                    PORT_WEATHER = int(W[1])
+                    WEATHER_API_URL = f'https://{HOST_WEATHER}:{PORT_WEATHER}/api/clima'
+                    
+                    HOST_DRON= D[0]
+                    PORT_DRON = int(D[1])
+                    
+
+                    # Mostrar los valores asignados
+                    print(f"El valor de server_host es: {HOST}")
+                    print(f"El valor de server_port para el Weather es: {PORT_WEATHER}")
+                    print(f"El valor de server_port para los drones es: {PORT_DRON}")
+                    print(f"El valor de la ip de kafka es: {KAFKA_ADDR}")
+                    break  # Romper el bucle si los valores son válidos
+
+                else:
+                    print("Por favor, proporcione los valores para HOST, PORT_WeatheR, PORT_Dron Y kafka_addr.")
+                    sys.exit(1)  # Salir del programa si los argumentos no son suficientes
+
+            except (ValueError, IndexError) as e:
+                print("Error: Asegúrate de proporcionar valores enteros para HOST, PORT_Weather, PORT_Dron y kafka_addr")
+
+#-------------------------------------------------------------------------------------------------------------------------
+
+def load_database_drones():
+    try:
+        with open(DB_FILE, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {"drones": [], "espectaculo": {"estado": "INICIAL", "figuraNumero": 1}}
+
+def save_database_drones(drones):
+    with open(DB_FILE, 'w') as file:
+        json.dump(drones, file, indent=4)
+
+#-------------------------------------------------------------------------------------------------------------------------
+
+# Modifica la función actualizar_estado para actualizar el estado en drones.json
+def actualizar_estado_espectaculo(nuevo_estado):
+    database = load_database_drones()
+    database["espectaculo"]["estado"] = nuevo_estado
+    save_database_drones(database)
+
+def actualizar_estado_dron(dron_id, nuevo_estado):
+    drones = load_database_drones()
+    dron_id_str = str(dron_id)
+    if dron_id_str in drones:
+        drones[dron_id_str]['estado'] = nuevo_estado
+        print(f"Estado del dron {dron_id} actualizado a '{nuevo_estado}'.")
+    else:
+        drones[dron_id_str] = {'estado': nuevo_estado}
+        print(f"Añadido dron {dron_id} con estado '{nuevo_estado}'.")
+    save_database_drones(drones)
+
+#-------------------------------------------------------------------------------------------------------------------------
+
 # Función para registrar eventos de auditoría
-def registrar_evento(evento, descripcion, detalles, ip):
+def registrar_evento(tipo, evento, descripcion, detalles, ip):
     global HOST, PORT
     global map_cipher, movement_cipher, coord_cipher
     registro = {
-        'fecha_hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        'ip_ENGINE': {'HOST': HOST, 'PORT' : PORT},
-        'ip_ORIGEN': ip,
-        'evento': evento,
-        'descripcion': descripcion,
-        'detalles': detalles
+        'TIPO DE EVENTO' : tipo,
+        'Evento': evento,
+        'Descripcion': descripcion,
+        'Detalles': detalles, 
+        'Fecha_Hora': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'IP_ENGINE': {'HOST': HOST, 'PORT' : PORT},
+        'IP_ORIGEN': ip
     }
     
     log_file = 'auditoria_log.json'
@@ -101,6 +173,7 @@ def registrar_evento(evento, descripcion, detalles, ip):
     except Exception as e:
         print(f"Error al registrar evento: {e}")
 
+############################################### KEYS ###########################################################################
 
 # Incluir la función para cargar o generar claves
 def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file='coord_key.txt'):
@@ -146,6 +219,7 @@ def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movemen
         }
 
         registrar_evento(
+            tipo='INFORMATIVA',
             evento='Generacion de Keys de cifrado Simetrico',
             descripcion='Keys generadas',
             detalles=detalles,
@@ -154,6 +228,7 @@ def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movemen
 
     except Exception as e:
         registrar_evento(
+            tipo='ERROR',
             evento='Generacion de Keys de cifrado Simetrico - ERROR',
             descripcion='Error al cargar o generar claves',
             detalles={'error': str(e)},
@@ -180,6 +255,7 @@ def SendCoord(pos,nDrones):
     global coord_cipher
 
     registrar_evento(
+        tipo='INFORMATIVA',
         evento='Enviar coordenada a Dron',
         descripcion='Envio por Kafka encriptado con la clave',
         detalles={'coord_cipher': str(coord_cipher), 'Coordenada': pos, 'nDrones': nDrones},
@@ -199,6 +275,7 @@ def SendCoord(pos,nDrones):
         producer.flush()
     except Exception as e:
         registrar_evento(
+            tipo='ERROR',
             evento='Enviar coordenada a Dron - ERROR',
             descripcion='Fallo en el envio por Kafka encriptado con la clave',
             detalles={'coord_cipher': str(coord_cipher), 'Coordenada': pos, 'nDrones': nDrones},
@@ -270,6 +347,7 @@ def ReciveMovement(drones):
         y = int(y)
 
         registrar_evento(
+            tipo='INFORMATIVA',
             evento='Recepcion de movimiento de Dron',
             descripcion='Movimiento recibido',
             detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
@@ -286,12 +364,13 @@ def ReciveMovement(drones):
         # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
         # coordDrones[int(id) -1] = (x,y)
         # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
-        time.sleep(0.5)
+        time.sleep(1)
         if destino == "True":
             parar +=1
 
     except KeyboardInterrupt:
         registrar_evento(
+            tipo='ERROR',
             evento='Recepcion de movimiento de Dron - ERROR',
             descripcion='Fallo en Movimiento recibido',
             detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
@@ -302,188 +381,7 @@ def ReciveMovement(drones):
             
         consumer.close()
 
-############################### FUNCIONES KAFKA #####################################
-
-def load_database_drones():
-    try:
-        with open(DB_FILE, 'r') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return {"drones": [], "espectaculo": {"estado": "INICIAL", "figuraNumero": 1}}
-
-def save_database_drones(drones):
-    with open(DB_FILE, 'w') as file:
-        json.dump(drones, file, indent=4)
-
-# Modifica la función actualizar_estado para actualizar el estado en drones.json
-def actualizar_estado_espectaculo(nuevo_estado):
-    database = load_database_drones()
-    database["espectaculo"]["estado"] = nuevo_estado
-    save_database_drones(database)
-
-def actualizar_estado_dron(dron_id, nuevo_estado):
-    drones = load_database_drones()
-    dron_id_str = str(dron_id)
-    if dron_id_str in drones:
-        drones[dron_id_str]['estado'] = nuevo_estado
-        print(f"Estado del dron {dron_id} actualizado a '{nuevo_estado}'.")
-    else:
-        drones[dron_id_str] = {'estado': nuevo_estado}
-        print(f"Añadido dron {dron_id} con estado '{nuevo_estado}'.")
-    save_database_drones(drones)
-
-
-def validar_token(token):
-    database = load_database_drones()
-    for drone in database['drones']:
-        # Verifica que 'token' esté en el dron y que sea un diccionario
-        if 'token' in drone and isinstance(drone['token'], dict):
-            # Verifica si el token coincide
-            if drone['token']['value'] == token:
-                # Verifica si el token ha expirado
-                if drone['token']['expires_at'] > time.time():
-                    return drone['Id']  # Retorna el ID del dron
-                else:
-                    print(f"Token {token} ha expirado.")
-                    return None  # Token ha expirado
-    print(f"Token {token} no encontrado.")
-    return None  # Token no encontrado
-
-def autentificar(client_socket, figuras, stop_event):
-    global d
-    global autentify, coordDrones, authenticated_clients
-    global HOST_DRON, PORT_DRON
-
-    data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
-    print(f"data del drone para autentificar:{data}")
-    texto,token = data.split(':')
-    drone_id = 0
-# while not drone_id:
-    drone_id = validar_token(token)
-    if drone_id:
-        actualizar_estado_dron(drone_id, "-")
-        actualizar_tablero(1, 1, drone_id, "-")
-        actualizar_estado_espectaculo('AUTENTIFICANDO')
-
-        autentify = True
-        print(f"Dron {drone_id} autentificado con éxito")
-
-        registrar_evento(
-            evento='Autenticacion exitosa',
-            descripcion='Autenticacion de dron',
-            detalles={'drone_id': drone_id, 'token': token},
-            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
-        )
-
-        if len(coordDrones) != len(figuras):
-            for _ in range(len(figuras)):
-                coordDrones.append((1, 1))
-
-        client_socket.send("Te has autentificado".encode('utf-8'))
-        authenticated_clients.append(client_socket)
-
-        d+=1
-        if len(authenticated_clients) == len(coordDrones):
-            for client in authenticated_clients:
-                client.send("All".encode('utf-8'))
-            espectaculo(client_socket, figuras, stop_event, drone_id)
-    else:
-        registrar_evento(
-            evento='Autenticacion INVALIDA',
-            descripcion='Fallo en la Autenticacion de dron',
-            detalles={'drone_id': drone_id, 'token': token},
-            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
-        )
-        print("Token inválido o expirado.")
-        client_socket.send("No te puedes  autentificar".encode('utf-8'))
-        d-=1
-        client_socket.close()
-
-    # with open(DB_FILE, 'r') as file:
-    #     drones = json.load(file)
-    # drones = drones.get("drones", [])
-
-    # with lock: 
-    #     print(drones)
-    #     for dron in drones:
-
-    #         if dron['token'] == data:
-    #             autentify = True
-
-        
-def espectaculo(client_socket,drones,stop_event, drone_id):
-    
-    global parar
-    global authenticated_clients
-    global map_cipher, movement_cipher, coord_cipher
-    global HOST_DRON, PORT_DRON
-
-    load_or_generate_keys()
-    actualizar_estado_dron(drone_id, "RUN")
-    actualizar_estado_espectaculo('EN_CURSO')
-
-    for documento in drones:
-        pos = documento['POS']
-        SendCoord(pos,len(drones))
-        print(f"Enviando coordenada {pos} ")
-        
-    fin = False
-
-    while fin != True:
-        ReciveMovement(drones)
-        imprimir_tablero(False)
-        SendMap()
-        
-        if parar == len(drones):
-            fin = True
-
-    #     #client_socket.send("Sigue".encode('utf-8'))
-    if stop_event.is_set():
-        print("Espectáculo detenido debido a baja temperatura.")
-
-    if len(authenticated_clients) == len(coordDrones):
-        for client in authenticated_clients:
-            client.send("Termina".encode('utf-8'))
-
-    actualizar_estado_espectaculo('COMPLETADO')
-
-    registrar_evento(
-        evento='FINALIZACION DEL ESPECTACULO',
-        descripcion='Todos los drones han finalizado',
-        detalles="",
-        ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
-    )
-    authenticated_clients =[]
-    
-    print(f"PARO EL ESPECTACULO {parar}")
-    parar = 0
-    client_socket.close()
-
-    
-def handle_Cliente(figuras, stop_event):
-    global authenticated_clients
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOST, PORT))
-    print("Servidor escuchando en el puerto 12345...")
-    server_socket.listen(5)
-    threads=[]
-    global d
-    while d != len(figuras):
-        client_socket, addr = server_socket.accept()
-        print(f"Conexión aceptada de {addr}")
-        client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
-        client_handler.start()
-        threads.append(client_handler)
-
-        # if parar == len(figuras):
-        #     print(f"PARAR TIENE {parar}")
-        #     for thread in threads:
-        #         thread.join()
-        #     print("VA A SALIR")
-        #     break
-    
-
-###################################################################################
+##################################### TABLERO ##############################################
 
 # Cargar el tablero desde el archivo
 def load_database_tablero():
@@ -500,6 +398,8 @@ def save_database_tablero():
     global TABLERO
     with open(TABLERO_FILE, 'w') as f:
         json.dump(TABLERO, f, indent=4)
+
+# ------------------------------------------------------------------------------------
 
 # Actualizar la posición y el estado del dron en el tablero
 def eliminar_dron_de_posicion_anterior(dron_id):
@@ -523,8 +423,6 @@ def eliminar_dron_de_posicion_anterior(dron_id):
             TABLERO[prev_x][prev_y] = ', '.join(drones_en_celda)
         else:
             TABLERO[prev_x][prev_y] = ' x '
-
-
 
 # Actualizar la posición y el estado del dron en el tablero
 def actualizar_tablero(x, y, dron_id, estado):
@@ -550,10 +448,6 @@ def actualizar_tablero(x, y, dron_id, estado):
     posiciones_drones[dron_id_str] = (x, y)
     
     save_database_tablero()
-
-
-
-
 
 def createTablero(filas, columnas):
 
@@ -594,100 +488,251 @@ def imprimir_tablero(fin=False):
             
             if  i == len(fila)-1:
                 print("]")
-                
-def readArgs():
-    
-    global HOST
-    global PORT
-    global HOST_WEATHER
-    global PORT_WEATHER
-    global HOST_DRON
-    global PORT_DRON
-    global KAFKA_ADDR
-    global WEATHER_API_URL
-    
-    while True:
-            try:
-                # Obtener los argumentos de la línea de comandos
-                argumentos = sys.argv
 
-                # Verificar si se proporcionaron suficientes argumentos
-                if len(argumentos) == 5:  # El primer argumento es el nombre del script
-                    # Asignar los valores de los puertos
-                    mi_data = str(argumentos[1])
-                    data_Weather = str(argumentos[2])
-                    data_Dron = str(argumentos[3])
-                    KAFKA_ADDR = str(argumentos[4])
-                    
-                    E= mi_data.split(":")
-                    W = data_Weather.split(":")
-                    D = data_Dron.split(":")
-                    
-                    HOST=E[0]
-                    PORT = int(E[1])
-                    
-                    HOST_WEATHER = W[0]
-                    PORT_WEATHER = int(W[1])
-                    WEATHER_API_URL = f'http://{HOST_WEATHER}:{PORT_WEATHER}/api/clima'
-                    
-                    HOST_DRON= D[0]
-                    PORT_DRON = int(D[1])
-                    
+#################################################################################################################################33
 
-                    # Mostrar los valores asignados
-                    print(f"El valor de server_host es: {HOST}")
-                    print(f"El valor de server_port para el Weather es: {PORT_WEATHER}")
-                    print(f"El valor de server_port para los drones es: {PORT_DRON}")
-                    print(f"El valor de la ip de kafka es: {KAFKA_ADDR}")
-                    break  # Romper el bucle si los valores son válidos
-
+def validar_token(token):
+    database = load_database_drones()
+    for drone in database['drones']:
+        # Verifica que 'token' esté en el dron y que sea un diccionario
+        if 'token' in drone and isinstance(drone['token'], dict):
+            # Verifica si el token coincide
+            if drone['token']['value'] == token:
+                # Verifica si el token ha expirado
+                if drone['token']['expires_at'] > time.time():
+                    return drone['Id']  # Retorna el ID del dron
                 else:
-                    print("Por favor, proporcione los valores para HOST, PORT_WeatheR, PORT_Dron Y kafka_addr.")
-                    sys.exit(1)  # Salir del programa si los argumentos no son suficientes
+                    print(f"Token {token} ha expirado.")
+                    return None  # Token ha expirado
+    print(f"Token {token} no encontrado.")
+    return None  # Token no encontrado
 
-            except (ValueError, IndexError) as e:
-                print("Error: Asegúrate de proporcionar valores enteros para HOST, PORT_Weather, PORT_Dron y kafka_addr")
+def autentificar(client_socket, figuras, stop_event):
+    global d
+    global autentify, coordDrones, authenticated_clients
+    global HOST_DRON, PORT_DRON
+
+    data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
+    print(f"data del drone para autentificar:{data}")
+    texto,token = data.split(':')
+    drone_id = 0
+# while not drone_id:
+    drone_id = validar_token(token)
+    if drone_id:
+        actualizar_estado_dron(drone_id, "-")
+        actualizar_tablero(1, 1, drone_id, "-")
+        actualizar_estado_espectaculo('AUTENTIFICANDO')
+
+        autentify = True
+        print(f"Dron {drone_id} autentificado con éxito")
+
+        registrar_evento(
+            tipo='INFORMATIVA',
+            evento='Autenticacion exitosa',
+            descripcion='Autenticacion de dron',
+            detalles={'drone_id': drone_id, 'token': token},
+            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
+
+        if len(coordDrones) != len(figuras):
+            for _ in range(len(figuras)):
+                coordDrones.append((1, 1))
+
+        client_socket.send("Te has autentificado".encode('utf-8'))
+        authenticated_clients.append(client_socket)
+
+        d+=1
+        if len(authenticated_clients) == len(coordDrones):
+            for client in authenticated_clients:
+                client.send("All".encode('utf-8'))
+            espectaculo(client_socket, figuras, stop_event, drone_id)
+    else:
+        registrar_evento(
+            tipo= 'INFORMATIVA',
+            evento='Autenticacion INVALIDA',
+            descripcion='Fallo en la Autenticacion de dron, Token expirado o Inválido',
+            detalles={'drone_id': drone_id, 'token': token},
+            ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+        )
+        print("Token inválido o expirado.")
+        client_socket.send("No te puedes  autentificar".encode('utf-8'))
+        d-=1
+        client_socket.close()
+        
+def espectaculo(client_socket,drones,stop_event, drone_id):
     
+    global parar
+    global authenticated_clients
+    global map_cipher, movement_cipher, coord_cipher
+    global HOST_DRON, PORT_DRON
 
-def monitorear_temperatura(ciudad, stop_event):
+    load_or_generate_keys()
+    actualizar_estado_dron(drone_id, "RUN")
+    actualizar_estado_espectaculo('EN_CURSO')
+
+    for documento in drones:
+        pos = documento['POS']
+        SendCoord(pos,len(drones))
+        print(f"Enviando coordenada {pos} ")
+        
+    fin = False
+
+    while fin != True:
+        ReciveMovement(drones)
+        imprimir_tablero(False)
+        SendMap()
+        
+        if parar == len(drones):
+            fin = True
+
+    #     #client_socket.send("Sigue".encode('utf-8'))
+    if stop_event.is_set():
+        print("Espectáculo detenido debido a baja temperatura.")
+
+    if len(authenticated_clients) == len(coordDrones):
+        for client in authenticated_clients:
+            client.send("Termina".encode('utf-8'))
+
+    actualizar_estado_espectaculo('COMPLETADO')
+
+    registrar_evento(
+        tipo='INFORMATIVA',
+        evento='FINALIZACION DEL ESPECTACULO',
+        descripcion='Todos los drones han finalizado',
+        detalles="",
+        ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+    )
+    authenticated_clients =[]
+    
+    print(f"PARO EL ESPECTACULO {parar}")
+    parar = 0
+    client_socket.close()
+
+    
+def handle_Cliente(figuras, stop_event):
+    global authenticated_clients
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((HOST, PORT))
+    print("Servidor escuchando en el puerto 12345...")
+    server_socket.listen(5)
+    threads=[]
+    global d
+    while d != len(figuras):
+        client_socket, addr = server_socket.accept()
+        print(f"Conexión aceptada de {addr}")
+        client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
+        client_handler.start()
+        threads.append(client_handler)
+
+######################################## Funciones para el consultar el clima ###########################################################
+
+def detener_programa():
+    print("El servidor del clima se ha caído. No es posible realizar ningún espectáculo.")
+    os._exit(1)
+
+
+def consultar():
     global HOST_WEATHER, PORT_WEATHER
-
-    while not stop_event.is_set():
+    ciudad = input("Indique la ciudad donde se realiza el espectaculo: ")
+    intentos = 5
+    while intentos > 0:
         try:
-            response = requests.get(f"{WEATHER_API_URL}?ciudad={ciudad}")
+            response = requests.get(f"{WEATHER_API_URL}?ciudad={ciudad}", timeout=5, verify=False)
             if response.status_code == 200:
                 data = response.json()
                 temperatura = int(data['temperatura'])
-                print(f"Temperatura actual en {ciudad}: {temperatura}°C")
+                return temperatura, ciudad
+            else:
+                print(f"Error al obtener el clima: {response.text}")
+                return False, ciudad
+        except requests.RequestException:
+            print(f"Error al conectar con AD_Weather. ")
+            print(f"Quedan {intentos-1} intentos")
+            detalle = 'Posible caida del servidor del clima o no esta disponible en el intento ' + str(intentos)
+            registrar_evento(
+                tipo='ERROR',
+                evento='Conexion con Weather',
+                descripcion='Error al conectar con AD_Weather servidor del clima',
+                detalles= detalle,
+                ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+            )
+            intentos -= 1
+            time.sleep(5)  # Espera 2 segundos antes de intentar nuevamente
+    if intentos == 0:
+        detalle = 'Posible caida del servidor del clima o no esta disponible. Quedan ' + str(intentos) + ' INTENTOS para la ' +  'Ciudad ' + ciudad
+        registrar_evento(
+            tipo='ERROR',
+            evento='AD_Weather NO DISPONIBLE',
+            descripcion='Error al conectar con AD_Weather servidor del clima',
+            detalles=detalle,
+            ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+        )
+        print("Se ha caído el AD_Weather. No se pudo obtener la temperatura.")
+        detener_programa()
 
-                registrar_evento(
-                    evento='Comprobacion de temperatura',
-                    descripcion='Temperatura valida',
-                    detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
-                    ip={'HOST_WEATHER' : HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
-                )
+def monitorear_temperatura(ciudad, stop_event):
+    global HOST_WEATHER, PORT_WEATHER
+    while not stop_event.is_set():
+        intentos = 5
+        while intentos > 0:
+            try:
+                response = requests.get(f"{WEATHER_API_URL}?ciudad={ciudad}", timeout=5, verify=False)
+                if response.status_code == 200:
+                    data = response.json()
+                    temperatura = int(data['temperatura'])
+                    print(f"Temperatura actual en {ciudad}: {temperatura}°C")
 
-                if temperatura <= 0:
                     registrar_evento(
+                        tipo='TEMPERATURA',
                         evento='Comprobacion de temperatura',
-                        descripcion='Temperatura INvalida',
+                        descripcion='Temperatura valida',
                         detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
                         ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER': PORT_WEATHER}
                     )
-                    print("Temperatura demasiado baja. Finalizando espectáculo.")
-                    stop_event.set()  # Detiene el espectáculo
-            else:
+
+                    if temperatura <= 0:
+                        registrar_evento(
+                            tipo='TEMPERATURA',
+                            evento='Comprobacion de temperatura',
+                            descripcion='Temperatura INvalida',
+                            detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
+                            ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER': PORT_WEATHER}
+                        )
+                        print("Temperatura demasiado baja. Finalizando espectáculo.")
+                        stop_event.set()  # Detiene el espectáculo
+                    break
+                else:
+                    print(f"Error al obtener el clima: {response.text}")
+                    break
+            except requests.RequestException:
+                print(f"Error al conectar con AD_Weather")
+                detalle = 'Posible caida del servidor del clima o no esta disponible. Quedan ' + str(intentos) + ' INTENTOS para la ' +  'Ciudad' + ciudad
                 registrar_evento(
-                    evento='Obtencion de la temperatura - ERROR',
-                    descripcion='Temperatura INvalida',
-                    detalles={'Ciudad': ciudad, 'Temperatura': temperatura},
-                    ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER': PORT_WEATHER}
+                    tipo='ERROR',
+                    evento='AD_Weather NO DISPONIBLE',
+                    descripcion='Error al conectar con AD_Weather servidor del clima',
+                    detalles=detalle,
+                    ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
                 )
-                print(f"Error al obtener el clima: {response.text}")
-        except requests.RequestException as e:
-            print(f"Error al conectar con AD_Weather: {e}")
+                intentos -= 1
+                time.sleep(2)  # Espera 2 segundos antes de intentar nuevamente
+
+        if intentos == 0:
+            print("Se ha caído el AD_Weather. No se pudo obtener la temperatura.")
+            detalle = 'Posible caida del servidor del clima o no esta disponible. Quedan ' + str(intentos) + ' INTENTOS para la ' +  'Ciudad' + ciudad
+            registrar_evento(
+                tipo='ERROR',
+                evento='AD_Weather NO DISPONIBLE',
+                descripcion='Error al conectar con AD_Weather servidor del clima',
+                detalles= detalle,
+                ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
+            )
+            detener_programa()
 
         time.sleep(10)  # Espera 10 segundos antes de la siguiente verificación
+
+
+######################################################################################################################################
 
 def main():
     global d, numero_Figura
@@ -695,36 +740,37 @@ def main():
     createTablero(FILAS,COLUMNAS)
     temperatura, ciudad = consultar()
     print(f"TEMPERATURA: {temperatura}")
-
-    stop_event = threading.Event()
-    monitor_thread = threading.Thread(target=monitorear_temperatura, args=(ciudad, stop_event))
-    monitor_thread.start()
-    
-    with open('AwD_figuras.json', 'r') as file:# file es como le voy a llamar al archivo cuando se mete en la variable
-        datos = json.load(file) # El archivo de json esta en la variable datos
-
-    figuras = datos.get("figuras", [])  # Obtiene la lista de figuras
-    if not figuras:
-        print("No quedan figuras en el archivo JSON.")
-    else:
-        if temperatura is not None and temperatura > 0:
-            for figura in figuras:
-                numero_Figura += 1
-                actualizar_estado_espectaculo('INICIAL')
-                print(f"VAMOS A HACER ESTA FIGURA {figura}")
-                handle_Cliente(figura["Drones"],stop_event)
-                d=0
-                print("SIGUIENTE FIGURA")
-                
-        else:
-            print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
+    if temperatura != False:
+        stop_event = threading.Event()
+        monitor_thread = threading.Thread(target=monitorear_temperatura, args=(ciudad, stop_event))
+        monitor_thread.start()
         
-        stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
-        monitor_thread.join()
-    
-    # Registrar la función de eliminación para que se ejecute al finalizar
-    atexit.register(delete_key_files)
-    
+        with open('AwD_figuras.json', 'r') as file:# file es como le voy a llamar al archivo cuando se mete en la variable
+            datos = json.load(file) # El archivo de json esta en la variable datos
+
+        figuras = datos.get("figuras", [])  # Obtiene la lista de figuras
+        if not figuras:
+            print("No quedan figuras en el archivo JSON.")
+        else:
+            if temperatura is not None and temperatura > 0:
+                for figura in figuras:
+                    numero_Figura += 1
+                    actualizar_estado_espectaculo('INICIAL')
+                    print(f"VAMOS A HACER ESTA FIGURA {figura}")
+                    handle_Cliente(figura["Drones"],stop_event)
+                    d=0
+                    print("SIGUIENTE FIGURA")
+                    
+            else:
+                print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
+            
+            stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
+            monitor_thread.join()
+        
+        # Registrar la función de eliminación para que se ejecute al finalizar
+        atexit.register(delete_key_files)
+    else:
+        print("NO SE HA PODIDO OBTENER LA TEMPERATURA")
 
 if __name__ == "__main__":
     main()

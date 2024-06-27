@@ -1,4 +1,5 @@
 
+import os
 from pymongo import MongoClient
 import random
 import socket
@@ -15,7 +16,7 @@ PORT_ENGINE = ""
 app = Flask(__name__)
 
 # API Key de OpenWeather
-API_KEY = 'b8480b4264c16a8e8ac372939983013c'
+API_KEY = None
 BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
 #Funciones
@@ -53,7 +54,6 @@ def consultar():
         data = client_socket.recv(1024).decode('utf-8')
         print(f"Se solicita la temperatura de la siguiente ciudad: {data}")
 
-        # Llamar a la API de OpenWeather en lugar de la base de datos local @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Paula
         url = f'{BASE_URL}?q={data}&appid={API_KEY}&units=metric'
         response = requests.get(url)
         
@@ -66,14 +66,7 @@ def consultar():
                 enviar = 'Error: No se encontró la temperatura'
         else:
             enviar = 'Error: No se pudo obtener el clima'
-        ##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Paula
-        #filtro = {"ciudad" : data}
-        #result = collection.find(filtro)
-        #for doc in result:
-        #    enviar = doc["temperatura"]
-        #    break
-        
-        #enviar =str(enviar)
+
         client_socket.send(enviar.encode('utf-8'))
         client_socket.close()
 
@@ -89,7 +82,6 @@ def readArgs():
             try:
                 # Obtener los argumentos de la línea de comandos
                 argumentos = sys.argv
-
                 # Verificar si se proporcionaron suficientes argumentos
                 if len(argumentos) == 3:  # El primer argumento es el nombre del script
                     # Asignar los valores de los puertos
@@ -101,16 +93,14 @@ def readArgs():
                     
                     HOST = W[0]
                     PORT = int(W[1])
-                    
+                
                     Host_ENGINE = E[0]
                     PORT_ENGINE = int(E[1])
                     
-
                     # Mostrar los valores asignados
                     print(f"El valor de server_host es: {Host_ENGINE}")
                     print(f"El valor de server_port es: {PORT_ENGINE}")
                     break  # Romper el bucle si los valores son válidos
-
                 else:
                     print("Por favor, proporcione los valores para HOST y PORT.")
                     sys.exit(1)  # Salir del programa si los argumentos no son suficientes
@@ -119,13 +109,17 @@ def readArgs():
                 print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT_E")
     
 def main():
-    global Host_ENGINE
-    global PORT_ENGINE
-    global HOST
-    global PORT
-    readArgs()
+    global Host_ENGINE, PORT_ENGINE
+    global HOST, PORT
+    global API_KEY
 
-    app.run(host=HOST, port=PORT)
+    readArgs()
+    API_KEY = input("Indique la API_Key para acceder a OpenWeather: ")
+
+    cert_path = os.path.join(os.path.dirname(__file__), 'certs', 'cert.pem')
+    key_path = os.path.join(os.path.dirname(__file__), 'certs', 'key.pem')
+    app.run(host=HOST, port=PORT, ssl_context=(cert_path, key_path))
+
     #consultar()
 
 

@@ -9,7 +9,7 @@ import json
 import time
 import sys
 import requests
-
+import ssl
 from cryptography.fernet import Fernet
 
 # CIFRADO SIMÉTRICO
@@ -38,31 +38,59 @@ CoordsF = []
 CoordsI = []
 TABLERO = []
 esperar = True
+PARARTODO = False
 ESTADO = None
 
 def registrar():
     global REGISTER_URL
     global Id, Token, Alias
-    response = requests.post(REGISTER_URL, json={'alias': Alias})
-    if response.status_code == 200:
-        result = response.json()
-        Id = result.get('Id')
-        Token = result.get('token')
-        print(f"Dron registrado con ID: {Id} y Token: {Token}")
-        return True
-    print(f"Error al registrar dron: {response.text}")
+
+    intentos = 5  # Número de intentos para intentar conectar
+    while intentos > 0:
+        try:
+            response = requests.post(REGISTER_URL, json={'alias': Alias}, verify=False)
+            if response.status_code == 200:
+                result = response.json()
+                Id = result.get('Id')
+                Token = result.get('token')
+                print(f"Dron registrado con ID: {Id} y Token: {Token}")
+                return True
+            else:
+                print(f"Error al registrar dron: {response.text}")
+                return False
+        except requests.RequestException:
+            print("Error al conectar con AD_Registry.")
+            intentos -= 1
+            print(f"Quedan {intentos} intentos")
+            time.sleep(2)  # Espera 2 segundos antes de intentar nuevamente
+
+    print("Se ha caído el AD_Registry. No se pudo registrar el dron.")
     return False
 
 def solicitar_token():
     global REQUEST_TOKEN_URL
     global Id, Token
-    response = requests.post(REQUEST_TOKEN_URL, json={'Id': Id})
-    if response.status_code == 200:
-        Token = response.json().get('token')
-        print(f"Nuevo token recibido: {Token}")
-        return True
-    print(f"Error al solicitar token: {response.text}")
+
+    intentos = 5  # Número de intentos para intentar conectar
+    while intentos > 0:
+        try:
+            response = requests.post(REQUEST_TOKEN_URL, json={'Id': Id}, verify=False)
+            if response.status_code == 200:
+                Token = response.json().get('token')
+                print(f"Nuevo token recibido: {Token}")
+                return True
+            else:
+                print(f"Error al solicitar token: {response.text}")
+                return False
+        except requests.RequestException:
+            print("Error al conectar con AD_Registry.")
+            intentos -= 1
+            print(f"Quedan {intentos} intentos")
+            time.sleep(2)  # Espera 2 segundos antes de intentar nuevamente
+
+    print("Se ha caído el AD_Registry. No se pudo solicitar el token.")
     return False
+
 
 
 # Incluir la función para cargar o generar claves
@@ -105,61 +133,89 @@ def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movemen
 
 #####################################33 FUNCIONES KAFKA ##########################################3
 def reciveCoord():
-    
-    global CoordsF
-    global CoordsI
+    global PARARTODO
+    global CoordsF, CoordsI
     global Id
     global coord_cipher
-    consumer = KafkaConsumer(
-        'coordenadas',
-        bootstrap_servers=KAFKA_ADDR,
-        auto_offset_reset='earliest',
-        group_id='dron' + str(Id))
-    try:
-        for message in consumer:
-            #message = next(consumer)
-            encrypted_data = message.value
-            print(f"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {encrypted_data}")
-            # Descifrar los datos
-            decrypted_data = coord_cipher.decrypt(encrypted_data)
-            print(f"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {decrypted_data}")
-            datos = json.loads(decrypted_data.decode('utf-8'))
-            coordinates , nDrones = datos.split(":")
-            if coordinates not in CoordsF:
-                print(f"Coordenadas a guardar: {coordinates}")
-                CoordsF.append(coordinates)
-                CoordsI.append((1,1))
-                
-            if int(nDrones) == len(CoordsF):
-                break
-        print(f"el dron {Id} tiene como coordenada final :{CoordsF[Id-1]}")
-    except KeyboardInterrupt:
-        print("Interrupcion del usuario")
-    finally:
+    intentos = 5  # Número de intentos para intentar conectar
+
+    while intentos > 0:
+        try:
+            consumer = KafkaConsumer(
+                'coordenadas',
+                bootstrap_servers=KAFKA_ADDR,
+                auto_offset_reset='earliest',
+                group_id='dron' + str(Id))
             
-        consumer.close()
+            for message in consumer:
+                encrypted_data = message.value
+                # Descifrar los datos
+                decrypted_data = coord_cipher.decrypt(encrypted_data)
+    
+                datos = json.loads(decrypted_data.decode('utf-8'))
+                coordinates, nDrones = datos.split(":")
+                if coordinates not in CoordsF:
+                    print(f"Coordenadas a guardar: {coordinates}")
+                    CoordsF.append(coordinates)
+                    CoordsI.append((1, 1))
+
+                if int(nDrones) == len(CoordsF):
+                    break
+            print(f"El dron {Id} tiene como coordenada final: {CoordsF[Id - 1]}")
+            break  # Salir del bucle si se completa con éxito
+        except Exception:
+            print(f"Error al intentar consumir la coordenada de AD_Engine:")
+            print("Posible caida del AD_Engine")
+            intentos -= 1
+            print(f"Quedan {intentos} ")
+            time.sleep(2)  # Espera 2 segundos antes de intentar nuevamente
+        finally:
+            if 'consumer' in locals():
+                consumer.close()
+
+    if intentos == 0:
+        print("Se ha caído AD_Engine o Kafka. No se pudo recibir coordenadas.")
+        PARARTODO = True
+
+
 
 def ReciveMap():
-    global TABLERO
+    global TABLERO, PARARTODO
     global CoordsI
     global Id
-    consumer = KafkaConsumer(
-    'mapa',
-    bootstrap_servers=KAFKA_ADDR,
-    auto_offset_reset='earliest',
-    group_id='dron' + str(Id))
-    try:
-        message = next(consumer)
-        encrypted_data = message.value
-        # Descifrar los datos
-        decrypted_data = map_cipher.decrypt(encrypted_data)
-        datos = json.loads(decrypted_data.decode('utf-8'))
-        TABLERO = datos['mapa']
-        
-    except KeyboardInterrupt:
-        print("Interrupcion del usuario")
-    finally:
-        consumer.close()
+    intentos = 5  # Número de intentos para intentar conectar
+
+    while intentos > 0:
+        try:
+            consumer = KafkaConsumer(
+                'mapa',
+                bootstrap_servers=KAFKA_ADDR,
+                auto_offset_reset='earliest',
+                group_id='dron' + str(Id))
+
+            message = next(consumer)
+            encrypted_data = message.value
+            # Descifrar los datos
+            decrypted_data = map_cipher.decrypt(encrypted_data)
+            datos = json.loads(decrypted_data.decode('utf-8'))
+            TABLERO = datos['mapa']
+            break  # Salir del bucle si se completa con éxito
+        except Exception:
+            print(f"Error al intentar consumir el mapa de AD_Engine:")
+            print("Posible caida del AD_Engine")
+            intentos -= 1
+            print(f"Quedan {intentos} ")
+            time.sleep(2)  # Espera 2 segundos antes de intentar nuevamente
+        finally:
+            if 'consumer' in locals():
+                consumer.close()
+
+    if intentos == 0:
+        print("Se ha caído AD_Engine o Kafka. No se pudo recibir el mapa.")
+        PARARTODO = True
+
+
+
                     
 def SendMovement(move,destino):
     
@@ -248,90 +304,106 @@ def imprimir_tablero(fin):
                 print("]")
                     
 def espectaculo():
-    global esperar
+    global esperar, PARARTODO
     global CoordsI, CoordsF
     global Id, Token, ESTADO
     global TABLERO
-    
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOST_ENGINE, PORT_ENGINE)) # Establece conexion
-    solicitud = "Solicitud de registro del dron:" + Token 
-    client_socket.send(solicitud.encode('utf-8')) # Envio de solicitud
-    response = client_socket.recv(1024).decode('utf-8')
-    print(f"Respuesta del Engine: {response}")
 
-    if response == "No te puedes  autentificar":
-        print("Solicitando nuevo token...")
-        while not solicitar_token():
-            print("Solicitando nuevo token...")
-            time.sleep(8)
-        espectaculo()  # Reintenta la autenticación con el nuevo token
-        return
-    print(" ESTOY AUTENTIFICADO ")
-
-    load_or_generate_keys()
-
-    while response != "All": 
-        print("Estoy esperando para comenzar el espectaculo")
+    try:
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((HOST_ENGINE, PORT_ENGINE))  # Establece conexion
+        solicitud = "Solicitud de registro del dron:" + Token 
+        client_socket.send(solicitud.encode('utf-8'))  # Envio de solicitud
         response = client_socket.recv(1024).decode('utf-8')
+        print(f"Respuesta del Engine: {response}")
 
-    ESTADO = "RUN"
-    print("PREPARADO PARA RECIBIR MI COORENADA")
-    reciveCoord()
-    print("Tengo mi coordenada")
-    
-    x,y = CoordsF[Id-1].split(',')
-    x = int(x)
-    y = int(y)
-    
-    movimiento=selectMove()
-    CoordsI[Id - 1] = movimiento
-    
-    if movimiento == (x,y):
-        destino = "True"
-    else:
-        destino = "False"
-        
-    SendMovement(movimiento,destino)
-    ReciveMap()
-    imprimir_tablero(False)
-    
-    while destino != "True":
-        movimiento=selectMove()
-        
-        if movimiento == (x,y):
-            destino = "True"
-        else:
-            destino = "False"
-        
-        CoordsI[Id - 1] = movimiento
-        SendMovement(movimiento,destino)
-        
-        ReciveMap()
-        
-        fin = False
-        if CoordsI[Id-1] == CoordsF[Id-1]:
-            fin = True
-        imprimir_tablero(fin)
+        if response == "No te puedes  autentificar":
+            print("Solicitando nuevo token...")
+            while not solicitar_token():
+                print("Solicitando nuevo token...")
+                time.sleep(8)
+            espectaculo()  # Reintenta la autenticación con el nuevo token
+            return
+        print(" ESTOY AUTENTIFICADO ")
 
-    ESTADO = "END"    
-    while esperar == True:
-        ReciveMap()
-        imprimir_tablero(fin)
-        
-        print("TERMINA")
-        
-        espera = client_socket.recv(1024).decode('utf-8')
-        print("PASA DEL ESPERA")
-        print(espera)
-        if espera == "Termina":
-            CoordsI = []
-            CoordsF = []
-            esperar = False
-        
+        load_or_generate_keys()
 
-    client_socket.close() ## confirmacion que tu estas autentificado
-    
+        while response != "All": 
+            print("Estoy esperando para comenzar el espectaculo")
+            try:
+                response = client_socket.recv(1024).decode('utf-8')
+            except ConnectionResetError:
+                print("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
+                PARARTODO = True
+                break
+
+        while not PARARTODO:
+            ESTADO = "RUN"
+            print("PREPARADO PARA RECIBIR MI COORENADA")
+            reciveCoord()
+            print("Tengo mi coordenada")
+            
+            x, y = CoordsF[Id-1].split(',')
+            x = int(x)
+            y = int(y)
+            
+            movimiento = selectMove()
+            CoordsI[Id - 1] = movimiento
+            
+            if movimiento == (x, y):
+                destino = "True"
+            else:
+                destino = "False"
+                
+            SendMovement(movimiento, destino)
+            ReciveMap()
+            imprimir_tablero(False)
+            
+            while destino != "True":
+                movimiento = selectMove()
+                
+                if movimiento == (x, y):
+                    destino = "True"
+                else:
+                    destino = "False"
+                
+                CoordsI[Id - 1] = movimiento
+                SendMovement(movimiento, destino)
+                
+                ReciveMap()
+                
+                fin = False
+                if CoordsI[Id-1] == CoordsF[Id-1]:
+                    fin = True
+                imprimir_tablero(fin)
+
+            ESTADO = "END"    
+            while esperar:
+                ReciveMap()
+                imprimir_tablero(fin)
+                
+                print("TERMINA")
+                
+                try:
+                    espera = client_socket.recv(1024).decode('utf-8')
+                except ConnectionResetError:
+                    print("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
+                    PARARTODO = True
+                    break
+                print("PASA DEL ESPERA")
+                print(espera)
+                if espera == "Termina":
+                    CoordsI = []
+                    CoordsF = []
+                    esperar = False
+
+        client_socket.close()  # confirmacion que tu estas autentificado
+        if PARARTODO:
+            sys.exit("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
+    except ConnectionRefusedError:
+        print("No se pudo conectar al AD_Engine. Verifique si el servidor está en funcionamiento.")
+        sys.exit("El AD_Engine se ha caído. No es posible realizar ningún espectáculo.")
+
 def readArgs():
     
     global HOST
@@ -370,8 +442,8 @@ def readArgs():
                     HOST_REGISTRY = R[0]
                     PORT_REGISTRY = int(R[1])
 
-                    REGISTER_URL = f'http://{HOST_REGISTRY}:{PORT_REGISTRY}/register'
-                    REQUEST_TOKEN_URL = f'http://{HOST_REGISTRY}:{PORT_REGISTRY}/request-token'
+                    REGISTER_URL = f'https://{HOST_REGISTRY}:{PORT_REGISTRY}/register'
+                    REQUEST_TOKEN_URL = f'https://{HOST_REGISTRY}:{PORT_REGISTRY}/request-token'
                     
                     # Mostrar los valores asignados
                     print(f"El valor de HOST es: {HOST}")
