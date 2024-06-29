@@ -11,16 +11,12 @@ from colorama import init, Fore, Style
 from kafka import KafkaConsumer, KafkaProducer
 import sys
 
-
 # CIFRADO SIMÉTRICO
 # Crear cifradores para cada clave
 # map_cipher = None
 # movement_cipher = None
 # coord_cipher = None
 
-# client = MongoClient("mongodb://localhost:27017/")
-# db = client['SD']
-# collection = db['Figuras']
 ##### CONSTANTES ######
 FILAS = 20
 COLUMNAS = 20
@@ -51,8 +47,6 @@ posiciones_drones = {}
 
 #WEATHER_API_URL = 'http://localhost:5000/api/clima'  # URL de la API REST de AD_Weather
 WEATHER_API_URL = ""
-    
-
 
 # ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 # ssl_context.options |= ssl.OP_NO_SSLv2
@@ -69,12 +63,9 @@ WEATHER_API_URL = ""
 
 def readArgs():
     
-    global HOST
-    global PORT
-    global HOST_WEATHER
-    global PORT_WEATHER
-    global HOST_DRON
-    global PORT_DRON
+    global HOST, PORT
+    global HOST_WEATHER, PORT_WEATHER
+    global HOST_DRON, PORT_DRON
     global KAFKA_ADDR
     global WEATHER_API_URL
     
@@ -104,7 +95,6 @@ def readArgs():
                     
                     # HOST_DRON= D[0]
                     # PORT_DRON = int(D[1])
-                    
 
                     # Mostrar los valores asignados
                     print(f"El valor de server_host es: {HOST}")
@@ -183,81 +173,6 @@ def registrar_evento(tipo, evento, descripcion, detalles, ip):
     except Exception as e:
         print(f"Error al registrar evento: {e}")
 
-############################################### KEYS ###########################################################################
-
-# # Incluir la función para cargar o generar claves
-# def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file='coord_key.txt'):
-#     global map_cipher, movement_cipher, coord_cipher
-#     global HOST, PORT
-#     try:
-#         if os.path.exists(map_key_file):
-#             with open(map_key_file, 'rb') as file:
-#                 map_key = file.read()
-#         else:
-#             map_key = Fernet.generate_key()
-#             with open(map_key_file, 'wb') as file:
-#                 file.write(map_key)
-
-#         if os.path.exists(movement_key_file):
-#             with open(movement_key_file, 'rb') as file:
-#                 movement_key = file.read()
-#         else:
-#             movement_key = Fernet.generate_key()
-#             with open(movement_key_file, 'wb') as file:
-#                 file.write(movement_key)
-        
-#         if os.path.exists(coord_key_file):
-#             with open(coord_key_file, 'rb') as file:
-#                 coord_key = file.read()
-#         else:
-#             coord_key = Fernet.generate_key()
-#             with open(coord_key_file, 'wb') as file:
-#                 file.write(map_key)
-
-#         map_cipher = Fernet(map_key)
-#         movement_cipher = Fernet(movement_key)
-#         coord_cipher = Fernet(coord_key)
-#         print(f"Map_cipher: {map_cipher}")
-#         print(f"Movement_cipher: {movement_cipher}")
-#         print(f"Coord_cipher: {coord_cipher}")
-
-#         # Creación de detalles para el registro de auditoría
-#         detalles = {
-#             'map_cipher_key': map_key.decode('utf-8'),
-#             'movement_cipher_key': movement_key.decode('utf-8'),
-#             'coord_cipher_key': coord_key.decode('utf-8')
-#         }
-
-#         registrar_evento(
-#             tipo='INFORMATIVA',
-#             evento='Generacion de Keys de cifrado Simetrico',
-#             descripcion='Keys generadas',
-#             detalles=detalles,
-#             ip={'HOST_DRON': HOST_DRON, 'PORT_DRON' : PORT_DRON}
-#         )
-
-#     except Exception as e:
-#         registrar_evento(
-#             tipo='ERROR',
-#             evento='Generacion de Keys de cifrado Simetrico - ERROR',
-#             descripcion='Error al cargar o generar claves',
-#             detalles={'error': str(e)},
-#             ip={'HOST': HOST, 'PORT': PORT}
-#         )
-#         print(f"Error al cargar o generar claves: {e}")
-
-# def delete_key_files():
-#     for key_file in ['map_key.txt', 'movement_key.txt', 'coord_key.txt']:
-#         try:
-#             if os.path.exists(key_file):
-#                 os.remove(key_file)
-#                 print(f"Archivo '{key_file}' eliminado.")
-#             else:
-#                 print(f"Archivo '{key_file}' no existe o ya fue eliminado.")
-#         except Exception as e:
-#             print(f"Error al eliminar el archivo '{key_file}': {e}")
-
-
 ############################### FUNCIONES KAFKA #####################################
 
 def SendCoord(pos,nDrones):
@@ -293,7 +208,7 @@ def SendCoord(pos,nDrones):
         registrar_evento(
             tipo='ERROR',
             evento='Enviar coordenada a Dron - ERROR',
-            descripcion='Fallo en el envio por Kafka encriptado con la clave',
+            descripcion=f'Fallo en el envio por Kafka: {e}',
             detalles={'Coordenada': pos, 'nDrones': nDrones},
             ip={'HOST_DRONE': HOST_DRON, 'PORT_DRON': PORT_DRON}
         )
@@ -328,6 +243,14 @@ def SendMap():
         producer.send(topic, value=map_json)
         producer.flush()
     except Exception as e:
+        registrar_evento(
+            tipo='ERROR',
+            evento='Enviar el mapa a Dron - ERROR',
+            descripcion=f'Fallo en el envio por Kafka: {e}',
+            detalles={},
+            ip={'HOST_DRONE': HOST_DRON, 'PORT_DRON': PORT_DRON}
+        )
+
         print(f"Error al enviar el mapa: {e}")
     finally:
         producer.close()  
@@ -351,18 +274,13 @@ def ReciveMovement(drones):
     )
     
     while intentos > 0:
-        try:
-        
+        try:   
             message = next(consumer)
-
-            # Obtener el mensaje cifrado
             data = message.value
             
-            # Desencriptar los datos
-            #decrypted_data = movement_cipher.decrypt(encrypted_data)
+            #decrypted_data = movement_cipher.decrypt(encrypted_data) # Desencriptar los datos
             
             # Convertir los datos desencriptados de nuevo a JSON
-
             datos = json.loads(data.decode('utf-8'))
             
             id ,movimiento,destino, estado = datos.split(":")
@@ -388,26 +306,27 @@ def ReciveMovement(drones):
             # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
             # coordDrones[int(id) -1] = (x,y)
             # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
+
             time.sleep(0.5)
             if destino == "True":
                 parar +=1
 
-        except KeyboardInterrupt:
+        except Exception as e:
             registrar_evento(
                 tipo='ERROR',
                 evento='Recepcion de movimiento de Dron - ERROR',
-                descripcion='Fallo en Movimiento recibido',
+                descripcion=f'Fallo en Movimiento recibido: {e}',
                 detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
                 ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
             )
-            print("Interrupcion del usuario")
         finally:
-                
             consumer.close()
+
     if intentos == 0:
         print("Se cayo un dron")
         parar += 1
         d -= 1
+
 ##################################### TABLERO ##############################################
 
 # Cargar el tablero desde el archivo
@@ -477,31 +396,18 @@ def actualizar_tablero(x, y, dron_id, estado):
     save_database_tablero()
 
 def createTablero(filas, columnas):
-
     global TABLERO
     for i in range(filas):
         fila = []
         for j in range(columnas):
             fila.append(' x ')
         TABLERO.append(fila) 
-        
-# def actualizar_tablero(x,y,id,avanza=False):
-    
-#     global TABLERO
-    
-#     if 0 <= x <len(TABLERO) and 0 <= y <len(TABLERO):
-#         if avanza == False:
-#             TABLERO[x][y]=' x '
-#         else:
-#             TABLERO[x][y] = "" + str(id) + ""
 
-def imprimir_tablero(fin=False):
-    
+def imprimir_tablero(fin=False):   
     global TABLERO
     
     print()
     print()
-    
     for fila in TABLERO:
         print("[",end="")   
         for i,x in enumerate(fila):
@@ -583,9 +489,10 @@ def autentificar(client_socket, figuras, stop_event):
         )
         print("Token inválido o expirado.")
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
-        d-=1
+        d-=1 ########################################################################################3
         client_socket.close()
-        
+# ___________________________________________________________________________________________________
+
 def espectaculo(client_socket,drones,stop_event, drone_id):
     
     global parar
@@ -616,11 +523,13 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
         print("Espectáculo detenido debido a baja temperatura.")
 
     if len(authenticated_clients) == len(coordDrones):
+        actualizar_estado_espectaculo('COMPLETADO')
+        time.sleep(5)
         for client in authenticated_clients:
             client.send("Termina".encode('utf-8'))
 
-    actualizar_estado_espectaculo('COMPLETADO')
-    
+    # ------------------------------- VOLVER A LA (1,1) ---------------------------------------
+
     actualizar_estado_dron(drone_id, "RUN")
     actualizar_estado_espectaculo('EN_CURSO')
     
@@ -653,15 +562,17 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
     parar = 0
     client_socket.close()
 
-    
-def handle_Cliente(figuras, stop_event):
-    global authenticated_clients
+
+def handle_client(figuras, stop_event):
+    global authenticated_clients, d
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOST, PORT))
-    print("Servidor escuchando en el puerto 12345...")
+    print()
+    print(f"Servidor escuchando en el puerto {PORT}")
+    print()
     server_socket.listen(5)
     threads=[]
-    global d
+    
     while d != len(figuras):
         client_socket, addr = server_socket.accept()
         print(f"Conexión aceptada de {addr}")
@@ -674,7 +585,6 @@ def handle_Cliente(figuras, stop_event):
 def detener_programa():
     print("El servidor del clima se ha caído. No es posible realizar ningún espectáculo.")
     os._exit(1)
-
 
 def consultar():
     global HOST_WEATHER, PORT_WEATHER
@@ -690,14 +600,14 @@ def consultar():
             else:
                 print(f"Error al obtener el clima: {response.text}")
                 return False, ciudad
-        except requests.RequestException:
+        except requests.RequestException as e:
             print(f"Error al conectar con AD_Weather. ")
             print(f"Quedan {intentos-1} intentos")
             detalle = 'Posible caida del servidor del clima o no esta disponible en el intento ' + str(intentos)
             registrar_evento(
                 tipo='ERROR',
                 evento='Conexion con Weather',
-                descripcion='Error al conectar con AD_Weather servidor del clima',
+                descripcion=f'Error al conectar con AD_Weather servidor del clima: {e}',
                 detalles= detalle,
                 ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
             )
@@ -708,7 +618,7 @@ def consultar():
         registrar_evento(
             tipo='ERROR',
             evento='AD_Weather NO DISPONIBLE',
-            descripcion='Error al conectar con AD_Weather servidor del clima',
+            descripcion='Error al conectar con AD_Weather servidor del clima TRAS 5 INTENTOS',
             detalles=detalle,
             ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
         )
@@ -749,13 +659,13 @@ def monitorear_temperatura(ciudad, stop_event):
                 else:
                     print(f"Error al obtener el clima: {response.text}")
                     break
-            except requests.RequestException:
+            except requests.RequestException as e:
                 print(f"Error al conectar con AD_Weather")
                 detalle = 'Posible caida del servidor del clima o no esta disponible. Quedan ' + str(intentos) + ' INTENTOS para la ' +  'Ciudad' + ciudad
                 registrar_evento(
                     tipo='ERROR',
                     evento='AD_Weather NO DISPONIBLE',
-                    descripcion='Error al conectar con AD_Weather servidor del clima',
+                    descripcion=f'Error al conectar con AD_Weather servidor del clima: {e}',
                     detalles=detalle,
                     ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
                 )
@@ -768,7 +678,7 @@ def monitorear_temperatura(ciudad, stop_event):
             registrar_evento(
                 tipo='ERROR',
                 evento='AD_Weather NO DISPONIBLE',
-                descripcion='Error al conectar con AD_Weather servidor del clima',
+                descripcion='Error al conectar con AD_Weather servidor del clima: TRAS 5 INTENTOS',
                 detalles= detalle,
                 ip={'HOST_WEATHER': HOST_WEATHER, 'PORT_WEATHER' : PORT_WEATHER}
             )
@@ -781,11 +691,14 @@ def monitorear_temperatura(ciudad, stop_event):
 
 def main():
     global d, numero_Figura
+
     readArgs()
     createTablero(FILAS,COLUMNAS)
+
     temperatura, ciudad = consultar()
     print(f"TEMPERATURA: {temperatura}")
     if temperatura != False:
+        
         stop_event = threading.Event()
         monitor_thread = threading.Thread(target=monitorear_temperatura, args=(ciudad, stop_event))
         monitor_thread.start()
@@ -798,13 +711,17 @@ def main():
             print("No quedan figuras en el archivo JSON.")
         else:
             if temperatura is not None and temperatura > 0:
+                print(" ******** ART WITH DRONES ******** ")
                 for figura in figuras:
                     numero_Figura += 1
                     actualizar_estado_espectaculo('INICIAL')
+                    print()
+                    print()
                     print(f"VAMOS A HACER ESTA FIGURA {figura}")
-                    handle_Cliente(figura["Drones"],stop_event)
+                    handle_client(figura["Drones"],stop_event)
                     d=0
-                    print("SIGUIENTE FIGURA")
+                print(" ######## FIN DEL ESPECTACULO ######## ")
+                print(" ******** ART WITH DRONES ******** ")
                     
             else:
                 print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
@@ -819,3 +736,77 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+############################################### KEYS ###########################################################################
+
+# # Incluir la función para cargar o generar claves
+# def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file='coord_key.txt'):
+#     global map_cipher, movement_cipher, coord_cipher
+#     global HOST, PORT
+#     try:
+#         if os.path.exists(map_key_file):
+#             with open(map_key_file, 'rb') as file:
+#                 map_key = file.read()
+#         else:
+#             map_key = Fernet.generate_key()
+#             with open(map_key_file, 'wb') as file:
+#                 file.write(map_key)
+
+#         if os.path.exists(movement_key_file):
+#             with open(movement_key_file, 'rb') as file:
+#                 movement_key = file.read()
+#         else:
+#             movement_key = Fernet.generate_key()
+#             with open(movement_key_file, 'wb') as file:
+#                 file.write(movement_key)
+        
+#         if os.path.exists(coord_key_file):
+#             with open(coord_key_file, 'rb') as file:
+#                 coord_key = file.read()
+#         else:
+#             coord_key = Fernet.generate_key()
+#             with open(coord_key_file, 'wb') as file:
+#                 file.write(map_key)
+
+#         map_cipher = Fernet(map_key)
+#         movement_cipher = Fernet(movement_key)
+#         coord_cipher = Fernet(coord_key)
+#         print(f"Map_cipher: {map_cipher}")
+#         print(f"Movement_cipher: {movement_cipher}")
+#         print(f"Coord_cipher: {coord_cipher}")
+
+#         # Creación de detalles para el registro de auditoría
+#         detalles = {
+#             'map_cipher_key': map_key.decode('utf-8'),
+#             'movement_cipher_key': movement_key.decode('utf-8'),
+#             'coord_cipher_key': coord_key.decode('utf-8')
+#         }
+
+#         registrar_evento(
+#             tipo='INFORMATIVA',
+#             evento='Generacion de Keys de cifrado Simetrico',
+#             descripcion='Keys generadas',
+#             detalles=detalles,
+#             ip={'HOST_DRON': HOST_DRON, 'PORT_DRON' : PORT_DRON}
+#         )
+
+#     except Exception as e:
+#         registrar_evento(
+#             tipo='ERROR',
+#             evento='Generacion de Keys de cifrado Simetrico - ERROR',
+#             descripcion='Error al cargar o generar claves',
+#             detalles={'error': str(e)},
+#             ip={'HOST': HOST, 'PORT': PORT}
+#         )
+#         print(f"Error al cargar o generar claves: {e}")
+
+# def delete_key_files():
+#     for key_file in ['map_key.txt', 'movement_key.txt', 'coord_key.txt']:
+#         try:
+#             if os.path.exists(key_file):
+#                 os.remove(key_file)
+#                 print(f"Archivo '{key_file}' eliminado.")
+#             else:
+#                 print(f"Archivo '{key_file}' no existe o ya fue eliminado.")
+#         except Exception as e:
+#             print(f"Error al eliminar el archivo '{key_file}': {e}")
