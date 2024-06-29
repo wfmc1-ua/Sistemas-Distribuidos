@@ -1,24 +1,41 @@
 services:
-  python-app:
+  registry:
+    image: python:3.9-slim
+    container_name: registry
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: >
+      sh -c "pip install Flask requests &&
+      python AD_Registry.py 0.0.0.0:2222"
+    ports:
+      - 2222:2222
+  api-engine:
     image: python:3.9-slim
     volumes:
       - .:/app
     working_dir: /app
     command: >
-      sh -c "pip install Flask requests && 
-      python AD_Registry.py 0.0.0.0:2222"
+      sh -c "pip install Flask && python API_Engine.py"
     ports:
-      - 2222:2222
+      - 443:443
 
-  python-app2:
+  frontend:
+    image: frontimage
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+      
+  engine:
     image: python:3.9-slim
+    container_name: engine
     volumes:
-      - .:/app2
-    working_dir: /app2
+      - .:/app
+    working_dir: /app
     command: >
-      sh -c "apt-get update && apt-get install -y python3-pip &&
-      pip install Flask requests colorama kafka-python cryptography colorama && 
-      python AD_Engine.py 0.0.0.0:3333 0.0.0.0:1111 172.27.173.211:9093"
+      sh -c "pip install Flask requests colorama kafka-python  colorama && 
+      python AD_Engine.py 0.0.0.0:3333 172.27.173.211:1111 172.27.173.211:9093"
     ports:
       - 3333:3333
 

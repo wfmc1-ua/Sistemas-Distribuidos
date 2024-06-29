@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Drones</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            background-color: #f8f8f8; /* Fondo claro para estética */
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 50px; /* Espacio superior para cabecera invisible */
+            margin-bottom: 50px; /* Espacio inferior para pie de página invisible */
+        }
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        td, th {
+            border: 1px solid black;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .dron-run {
+            background-color: #FF3636;
+        }
+        .dron-end {
+            background-color: #0BF103;
+        }
+        .dron-preparado {
+            background-color: azure;
+        }
+        .completado {
+            background-color: #ECB872;
+            border: 2px solid #C8934C;
+            border-radius: 2px;
+            padding: 10px;
+            margin: 10px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .header-space {
+            height: 50px; /* Altura del espacio superior */
+        }
+        .footer-space {
+            height: 50px; /* Altura del espacio inferior */
+        }
+        .auditoria-container {
+            max-height: 400px; /* Altura máxima del contenedor */
+            width: 80%;
+            border: 1px solid #000;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            margin-top: 30px;
+            border-radius: 5px;;
+            border-width: 5px;
+            border-color: #2C2626;
+            background-color: #E1E1E1;
+        }
+        .titleAuditoria {
+            font-size: 30px;
+        }
+        .auditoria {
+            display: none; /* Ocultar todas las auditorías por defecto */
+        }
+        .auditoria.active {
+            display: block; /* Mostrar solo la auditoría activa */
+        }
+
+        .auditoria-table th:first-child,
+        .auditoria-table td:first-child {
+            background-color: #A9A9A9;
+        }
+
+        .auditoria-table th:nth-child(2),
+        .auditoria-table td:nth-child(2) {
+            background-color: #f8f8f8;
+        }
+
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            border-radius: 15px;
+        }
+        .nav-buttons button {
+            padding: 5px 10px;
+            border-radius: 15px;
+            color:#f8f8f8;
+            background: #2C2626;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-left: 5px;
+        }
+        .auditoria-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .auditoria-table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+        .auditoria-table .label {
+            font-weight: bold;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+<div class="header-space"></div> <!-- Espacio superior -->
+<div class="container">
+    <h1>******** ART WITH DRONES ********</h1>
+    <div id="completado" class="completado" style="display: none;">FIGURA COMPLETADA</div>
+    <table id="tablero"></table>
+    <div id="estado"></div> <!-- Contenedor para el mensaje de estado -->
+    
+    <div class="header-space"></div>
+
+    <h1 class="titleAuditoria">Registro de Auditorías</h1>
+
+    <div class="auditoria-container" id="auditorias-temperatura">
+        <h2>Auditorías de Temperatura</h2>
+        <!-- Contenido dinámico de las auditorías de temperatura -->
+    </div>
+    <div class="nav-buttons">
+        <button id="prev-temperatura"><</button>
+        <button id="next-temperatura">></button>
+    </div>
+
+    <div class="auditoria-container" id="auditorias-informativa">
+        <h2>Auditorías Informativas</h2>
+        <!-- Contenido dinámico de las auditorías informativas -->
+    </div>
+    <div class="nav-buttons">
+        <button id="prev-informativa"><</button>
+        <button id="next-informativa">></button>
+    </div>
+
+    <div class="auditoria-container" id="auditorias-error">
+        <h2>Auditorías de Error</h2>
+        <!-- Contenido dinámico de las auditorías de error -->
+    </div>
+    <div class="nav-buttons">
+        <button id="prev-error"><</button>
+        <button id="next-error">></button>
+    </div>
+</div>
+<div class="footer-space"></div> <!-- Espacio inferior -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tablero = document.getElementById('tablero');
+        const estadoDiv = document.getElementById('estado'); // Referencia al contenedor del mensaje de estado
+        const completadoDiv = document.getElementById('completado'); // Referencia al contenedor de la frase "FIGURA COMPLETADA"
+
+        // Variables para la navegación de auditorías
+        let currentTemperaturaIndex = 0;
+        let currentInformativaIndex = 0;
+        let currentErrorIndex = 0;
+        let temperaturaAuditorias = [];
+        let informativaAuditorias = [];
+        let errorAuditorias = [];
+
+        // Función para actualizar el contenido del tablero HTML
+        function actualizarTablero(data) {
+            tablero.innerHTML = ''; // Limpia el tablero actual
+
+            // Crear fila de encabezado con números de columna
+            const headerRow = document.createElement('tr');
+            const emptyHeaderCell = document.createElement('th');
+            headerRow.appendChild(emptyHeaderCell);
+            for (let i = 1; i <= data[0].length; i++) {
+                const headerCell = document.createElement('th');
+                headerCell.innerText = i;
+                headerRow.appendChild(headerCell);
+            }
+            tablero.appendChild(headerRow);
+
+            // Itera sobre cada fila del tablero recibido
+            data.forEach((fila, i) => {
+                const row = document.createElement('tr'); // Crea una nueva fila en la tabla
+                const headerCell = document.createElement('th');
+                headerCell.innerText = i + 1; // Agrega el número de la fila
+                row.appendChild(headerCell);
+
+                // Itera sobre cada celda de la fila
+                fila.forEach((celda, j) => {
+                    const cell = document.createElement('td'); // Crea una nueva celda en la tabla
+
+                    if (celda.trim() === 'x' || celda.trim() === '') {
+                        // Si la celda está vacía en el JSON, la celda en la tabla HTML se mantiene vacía
+                        cell.innerText = '';
+                    } else {
+                        // Separamos los drones en la celda
+                        const drones = celda.split(', ');
+                        // Elegimos el primer dron de la lista (o podríamos elegir uno al azar)
+                        const [dronId, estado] = drones[0].split(' (');
+                        cell.innerText = dronId; // Asigna el ID del dron como texto de la celda
+                        const estadoLimpio = estado.replace(')', ''); // Limpia el estado quitando el paréntesis
+
+                        // Aplica una clase CSS a la celda basada en el estado del dron
+                        if (estadoLimpio === 'RUN') {
+                            cell.classList.add('dron-run'); // Colorea de rojo si el estado es RUN
+                        } else if (estadoLimpio === 'END') {
+                            cell.classList.add('dron-end'); // Colorea de verde si el estado es END
+                        } else if (estadoLimpio === '-') {
+                            cell.classList.add('dron-preparado'); // Colorea de verde si el estado es END
+                        }
+                    }
+                    row.appendChild(cell); // Agrega la celda a la fila
+                });
+
+                // Asegurar que todas las filas tengan el mismo número de celdas, incluso si están vacías
+                for (let j = fila.length; j < data[0].length; j++) {
+                    const cell = document.createElement('td');
+                    cell.innerText = '';
+                    row.appendChild(cell);
+                }
+
+                tablero.appendChild(row); // Agrega la fila completa al tablero
+            });
+        }
+
+        // Función para obtener el tablero desde el servidor
+        function obtenerTablero() {
+            fetch('https://localhost/get-tablero') // Realiza una solicitud GET al endpoint '/get-tablero'
+                .then(response => response.json()) // Convierte la respuesta a JSON
+                .then(data => {
+                    if (data.status === 'success') {
+                        actualizarTablero(data.data); // Actualiza el tablero con los datos recibidos
+                    } else {
+                        console.error('Error al obtener el tablero:', data.message); // Muestra el error en la consola
+                    }
+                })
+                .catch(error => console.error('Error en la conexión:', error)); // Maneja cualquier error en la solicitud
+        }
+
+        // Función para obtener el estado del espectáculo desde el servidor
+        function obtenerEstado() {
+            fetch('https://localhost/get-estado') // Realiza una solicitud GET al endpoint '/get-estado'
+                .then(response => response.json()) // Convierte la respuesta a JSON
+                .then(data => {
+                    if (data.status === 'success') {
+                        let mensaje = `Figura ${data.figuraNumero}: `;
+                        switch (data.estado) {
+                            case 'INICIAL':
+                                mensaje += 'Espacio inicial sin ningún dron. Espectáculo no iniciado';
+                                completadoDiv.style.display = 'none'; // Oculta el rectángulo
+                                break;
+                            case 'AUTENTIFICANDO':
+                                mensaje += 'Drones esperando al comienzo del espectáculo.';
+                                completadoDiv.style.display = 'none'; // Oculta el rectángulo
+                                break;
+                            case 'EN_CURSO':
+                                mensaje += 'Espectáculo en curso. Drones posicionándose';
+                                completadoDiv.style.display = 'none'; // Oculta el rectángulo
+                                break;
+                            case 'COMPLETADO':
+                                mensaje += 'Figura completada. Drones en espera de nuevas instrucciones';
+                                completadoDiv.style.display = 'block'; // Muestra el rectángulo
+                                break;
+                            default:
+                                mensaje += 'Estado desconocido';
+                                completadoDiv.style.display = 'none'; // Oculta el rectángulo
+                        }
+                        estadoDiv.innerText = mensaje; // Actualiza el contenedor del estado con el mensaje
+                    } else {
+                        console.error('Error al obtener el estado:', data.message); // Muestra el error en la consola
+                    }
+                })
+                .catch(error => console.error('Error en la conexión:', error)); // Maneja cualquier error en la solicitud
+        }
+
+        // Función para obtener las auditorías desde el servidor
+        function obtenerAuditorias() {
+            fetch('https://localhost/get-auditorias') // Realiza una solicitud GET al endpoint '/get-auditorias'
+                .then(response => response.json()) // Convierte la respuesta a JSON
+                .then(data => {
+                    if (data.status === 'success') {
+                        temperaturaAuditorias = data.data.filter(audit => audit['TIPO DE EVENTO'] === 'TEMPERATURA');
+                        informativaAuditorias = data.data.filter(audit => audit['TIPO DE EVENTO'] === 'INFORMATIVA');
+                        errorAuditorias = data.data.filter(audit => audit['TIPO DE EVENTO'] === 'ERROR');
+                        mostrarAuditoria('temperatura', 0);
+                        mostrarAuditoria('informativa', 0);
+                        mostrarAuditoria('error', 0);
+                    } else {
+                        console.error('Error al obtener las auditorías:', data.message); // Muestra el error en la consola
+                    }
+                })
+                .catch(error => console.error('Error en la conexión:', error)); // Maneja cualquier error en la solicitud
+        }
+
+        // Función para mostrar auditorías
+        function mostrarAuditoria(tipo, index) {
+            let auditorias, containerId, currentIndex;
+            switch (tipo) {
+                case 'temperatura':
+                    auditorias = temperaturaAuditorias;
+                    containerId = 'auditorias-temperatura';
+                    currentIndex = currentTemperaturaIndex;
+                    currentTemperaturaIndex = index;
+                    break;
+                case 'informativa':
+                    auditorias = informativaAuditorias;
+                    containerId = 'auditorias-informativa';
+                    currentIndex = currentInformativaIndex;
+                    currentInformativaIndex = index;
+                    break;
+                case 'error':
+                    auditorias = errorAuditorias;
+                    containerId = 'auditorias-error';
+                    currentIndex = currentErrorIndex;
+                    currentErrorIndex = index;
+                    break;
+            }
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; // Limpia el contenedor
+
+            if (auditorias.length > 0) {
+                const auditoria = auditorias[index];
+                const auditoriaDiv = document.createElement('div');
+                auditoriaDiv.classList.add('auditoria', 'active');
+                auditoriaDiv.innerHTML = `
+                    <table class="auditoria-table">
+                        <tr>
+                            <td class="label">TIPO DE EVENTO:</td>
+                            <td>${auditoria['TIPO DE EVENTO']}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Evento:</td>
+                            <td>${auditoria.Evento}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Descripcion:</td>
+                            <td>${auditoria.Descripcion}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Detalles:</td>
+                            <td>${JSON.stringify(auditoria.Detalles)}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fecha y Hora:</td>
+                            <td>${auditoria.Fecha_Hora}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">IP ENGINE:</td>
+                            <td>${JSON.stringify(auditoria.IP_ENGINE)}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">IP ORIGEN:</td>
+                            <td>${JSON.stringify(auditoria.IP_ORIGEN)}</td>
+                        </tr>
+                    </table>
+                `;
+                container.appendChild(auditoriaDiv);
+            }
+        }
+
+        // Event listeners para los botones de navegación
+        document.getElementById('prev-temperatura').addEventListener('click', () => {
+            if (currentTemperaturaIndex > 0) {
+                mostrarAuditoria('temperatura', currentTemperaturaIndex - 1);
+            }
+        });
+        document.getElementById('next-temperatura').addEventListener('click', () => {
+            if (currentTemperaturaIndex < temperaturaAuditorias.length - 1) {
+                mostrarAuditoria('temperatura', currentTemperaturaIndex + 1);
+            }
+        });
+
+        document.getElementById('prev-informativa').addEventListener('click', () => {
+            if (currentInformativaIndex > 0) {
+                mostrarAuditoria('informativa', currentInformativaIndex - 1);
+            }
+        });
+        document.getElementById('next-informativa').addEventListener('click', () => {
+            if (currentInformativaIndex < informativaAuditorias.length - 1) {
+                mostrarAuditoria('informativa', currentInformativaIndex + 1);
+            }
+        });
+
+        document.getElementById('prev-error').addEventListener('click', () => {
+            if (currentErrorIndex > 0) {
+                mostrarAuditoria('error', currentErrorIndex - 1);
+            }
+        });
+        document.getElementById('next-error').addEventListener('click', () => {
+            if (currentErrorIndex < errorAuditorias.length - 1) {
+                mostrarAuditoria('error', currentErrorIndex + 1);
+            }
+        });
+
+        // Llama a la función obtenerTablero y obtenerEstado cada 5 segundos para actualizar el tablero y el estado periódicamente
+        setInterval(() => {
+            obtenerTablero();
+            obtenerEstado();
+        }, 5000);
+
+        // Llama inicialmente para cargar los datos cuando se carga la página
+        obtenerTablero();
+        obtenerEstado();
+        obtenerAuditorias(); // Llama a obtenerAuditorias para cargar las auditorías al iniciar
+    });
+</script>
+</body>
+</html>

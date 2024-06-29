@@ -1,12 +1,13 @@
 services:
-  python-app:
+  drone:
     image: python:3.9-slim
+    container_name: drone
     volumes:
       - .:/app
     working_dir: /app
-    command: >
-      sh -c "pip install cryptography requests kafka-python colorama  && 
-      python AD_Drone.py 0.0.0.0:4444 0.0.0.0:2222 0.0.0.0:3333 192.168.1.143:9093"
+    command: > 
+      sh -c "pip install requests kafka-python colorama  && 
+      python AD_Drone.py 0.0.0.0:4444 192.168.1.39:2222 192.168.1.39:3333 192.168.1.39:9093"
     ports:
       - 4444:4444
     stdin_open: true # Añadir esta línea
