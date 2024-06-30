@@ -117,7 +117,6 @@ def ReciveCoord():
     intentos = 5  # Número de intentos para intentar conectar
 
     while intentos > 0:
-        print("ENTRA EN EL WHILE")
         try:
             consumer = KafkaConsumer(
                 'coordenadas',
@@ -127,10 +126,8 @@ def ReciveCoord():
                 # security_protocol='SSL',
                 # ssl_context=ssl_context,
             )
-            print("CREA EL CONSUMIDOR")
             for message in consumer:
                 
-                print("ENTRA EN EL FOR")
                 data = message.value
                 # Descifrar los datos
                 # print(f"LO QUE RECIBE ENCRIPTADO ES -> {encrypted_data}")
@@ -141,11 +138,9 @@ def ReciveCoord():
                 datos = json.loads(data.decode('utf-8'))
                 coordinates, nDrones = datos.split(":")
 
-                print(f"Coordenadas a guardar: {coordinates}")
                 CoordsF.append(coordinates)
                 CoordsI.append((1, 1))
-                print(f"LAS COORDENADAS INICIALES SON : {CoordsI}")
-                print(f"LAS COORDENADAS FINALES SON { CoordsF}")
+
                 if int(nDrones) == len(CoordsF):
                     break
             print(f"El dron {Id} tiene como coordenada final: {CoordsF[Id - 1]}")
@@ -232,9 +227,7 @@ def SendMovement(move,destino):
     
     try:
         # Enviar el mensaje
-        print("ESTOY ENVIANDO MOVIMIENTOS")
         producer.send(topic, value=coordinates_json)
-        print("he enviado MOVIMIENTOS")
 
         producer.flush()
     except Exception as e:
@@ -314,7 +307,6 @@ def autentificar():
         solicitud = "Solicitud de registro del dron:" + Token 
         client_socket.send(solicitud.encode('utf-8'))  # Envio de solicitud
         response = client_socket.recv(1024).decode('utf-8')
-        print(f"Respuesta del Engine: {response}")
 
         if response == "No te puedes  autentificar":
             print("Solicitando nuevo token...")
@@ -323,7 +315,6 @@ def autentificar():
                 time.sleep(8)
             autentificar()  # Reintenta la autenticación con el nuevo token
             return
-        print(" ESTOY AUTENTIFICADO ")
 
         #load_or_generate_keys()
         while response != "All": 
@@ -354,9 +345,7 @@ def espectaculo(client_socket):
 
     while not PARARTODO or  not finEspectaculo:
         ESTADO = "RUN"
-        print("PREPARADO PARA RECIBIR MI COORENADA")
         ReciveCoord()
-        print("Tengo mi coordenada")
         
         x, y = CoordsF[Id-1].split(',')
         x = int(x)
@@ -398,15 +387,12 @@ def espectaculo(client_socket):
             ReciveMap()
             imprimir_tablero(fin)
             
-            print("TERMINA")
             
             try:
                 espera = client_socket.recv(1024).decode('utf-8')
                 if espera == "Termina":
-                    print("ENTRA AL IF DE TERMINA")
                     if CoordsI[Id - 1] != (1,1):
                         espectaculo(client_socket) # VOLVER A LA 1,1
-                        print(f"al terminar la coordI es igual a {CoordsI}")
                         
                     CoordsI = []
 
@@ -421,7 +407,6 @@ def espectaculo(client_socket):
         esperar = True
         if finEspectaculo:
             break
-    print("SE TERMINO  EL ESPECTACULO")
     client_socket.close()  # confirmacion que tu estas autentificado
     if PARARTODO:
         print()
@@ -525,7 +510,7 @@ def main():
                 
         elif opcion == 2:
             autentificar()
-            print(CoordsI)
+            print(f"termino la figura empieza la siguiente con las coordenadas iniciales a : {CoordsI}")
         elif opcion == 3:
             print("Gracias por utilizar esta opcion")
         else:

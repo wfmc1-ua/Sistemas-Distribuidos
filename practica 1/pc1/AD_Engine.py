@@ -180,7 +180,6 @@ def SendCoord(pos,nDrones):
     global KAFKA_ADDR
     # global ssl_context
 
-    print(f"KAFKA ADDRESS { KAFKA_ADDR}")
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR 
         # security_protocol='SSL',
         # ssl_context=ssl_context,
@@ -259,80 +258,6 @@ def SendMap():
     finally:
         producer.close()  
         
-# def ReciveMovement(drones):
-    
-#     global parar,d
-#     global coordDrones
-#     global HOST_DRON, PORT_DRON
-#     global KAFKA_ADDR
-#     # global ssl_context
-#     intentos = 5
-#     consumer = KafkaConsumer(
-#         'movimiento',
-#         bootstrap_servers=KAFKA_ADDR,
-#         auto_offset_reset='earliest',
-#         group_id='engine'
-#         # security_protocol='SSL',
-#         # ssl_context=ssl_context,
-#     )
-#     print("DESPUES DE CREAR CONSUMIDOR DE RECIVIR MOVIMIENTO")
-#     id = 0
-#     movimiento = 0
-#     destino = 0
-#     while intentos > 0:
-#         try:   
-#             message = next(consumer)
-#             print("DESPUES DE COGER UN MENSAJE")
-#             data = message.value
-#             print("DESPUES DE QUE COGIERA EL VALOR DEL MENSAJE")
-#             #decrypted_data = movement_cipher.decrypt(encrypted_data) # Desencriptar los datos
-            
-#             # Convertir los datos desencriptados de nuevo a JSON
-#             datos = json.loads(data.decode('utf-8'))
-#             print("EN LA DESCODIFICACION DEL MENSAJE")
-#             id ,movimiento,destino, estado = datos.split(":")
-#             x, y = movimiento.split(',')
-#             x = int(x)
-#             y = int(y)
-
-#             registrar_evento(
-#                 tipo='INFORMATIVA',
-#                 evento='Recepcion de movimiento de Dron',
-#                 descripcion='Movimiento recibido',
-#                 detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
-#                 ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
-#             )
-
-#             if destino == "True":
-#                 estado = "END"  # Actualizamos el estado a "END" cuando el dron llega a su destino
-#             else:
-#                 estado = "RUN"  # Mantenemos el estado "RUN" mientras se está moviendo
-
-#             actualizar_estado_dron(id, estado)
-#             actualizar_tablero(x, y, id, estado)
-#             # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
-#             # coordDrones[int(id) -1] = (x,y)
-#             # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
-
-#             time.sleep(0.5)
-#             if destino == "True":
-#                 parar +=1
-
-#         except Exception as e:
-#             registrar_evento(
-#                 tipo='ERROR',
-#                 evento='Recepcion de movimiento de Dron - ERROR',
-#                 descripcion=f'Fallo en Movimiento recibido: {e}',
-#                 detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
-#                 ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
-#             )
-#         finally:
-#             consumer.close()
-
-#     if intentos == 0:
-#         print("Se cayo un dron")
-#         parar += 1
-#         d -= 1
 
 def ReciveMovement():
     global parar, activos
@@ -521,7 +446,6 @@ def autentificar(client_socket, figuras, stop_event):
     global HOST_DRON, PORT_DRON
 
     data = client_socket.recv(1024).decode('utf-8') # Recibe del dron su texto, token e id
-    print(f"data del drone para autentificar:{data}")
     texto,token = data.split(':')
     drone_id = 0
 # while not drone_id:
@@ -550,7 +474,6 @@ def autentificar(client_socket, figuras, stop_event):
         authenticated_clients.append(client_socket)
 
         activos+=1
-        print(len(authenticated_clients))    
         if len(authenticated_clients) >= len(coordDrones):
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
@@ -587,7 +510,6 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
     fin = False
 
     while fin != True:
-        print("ANTES DE RECIVIR MOVIMIENTO")
         ReciveMovement()
         imprimir_tablero(False)
         SendMap()
@@ -626,7 +548,7 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
         for client in authenticated_clients:
             client.send("Termina".encode('utf-8'))
     actualizar_estado_dron(drone_id,'-') 
-    actualizar_estado_espectaculo('INICIAL')                
+    actualizar_estado_espectaculo('INICIAL')
     registrar_evento(
         tipo='INFORMATIVA',
         evento='FINALIZACION DEL ESPECTACULO',
@@ -637,7 +559,6 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
     client_socket.close()
     authenticated_clients =[]
     
-    print(f"PARO EL ESPECTACULO {parar}")
     parar = 0
 
 
@@ -685,6 +606,7 @@ def handle_client(figuras, stop_event ,client_stop_event):
                 client_handler.start()
                 threads.append(client_handler)
 
+            client_stop_event.set()  # Detenemos todos los hilos de clientes
             # Esperar a que todos los hilos de autentificación terminen
             for thread in threads:
                 thread.join()
@@ -842,7 +764,6 @@ def main():
                     actualizar_estado_espectaculo('INICIAL')
                     print()
                     print()
-                    print(f"VAMOS A HACER ESTA FIGURA {figura}")
                     client_stop_event = threading.Event()
                     handle_client(figura["Drones"],stop_event,client_stop_event)
                     print("SIGUIENTE FIGURA")
