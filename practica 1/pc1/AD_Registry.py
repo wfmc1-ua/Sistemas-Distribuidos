@@ -6,15 +6,13 @@ import sys
 import json
 import time
 from flask import Flask, request, jsonify
-#client = MongoClient("mongodb://localhost:27017/")
+
 ##### CONSTANTES ########
 HOST = "localhost"
 PORT = 6666
 HOST_DRON = ""
 PORT_DRON = 0
 ##### VARIABLES #########
-#db = client['SD']
-#collection = db['Drones']
 ID= 1
 IDs_lock = threading.Lock() # para evitar que la comunicacion entre hilos altere de forma
                             # no deseada los ids
@@ -125,8 +123,7 @@ def readArgs():
                 print("Error: Asegúrate de proporcionar valores enteros para HOST y PORT")
         
 def main():
-    global HOST
-    global PORT
+    global HOST, PORT
     readArgs()
     cert_path = os.path.join(os.path.dirname(__file__), 'certs', 'cert.pem')
     key_path = os.path.join(os.path.dirname(__file__), 'certs', 'key.pem')

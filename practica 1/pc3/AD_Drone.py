@@ -53,7 +53,7 @@ ESTADO = None
 # ssl_context.verify_mode = ssl.CERT_REQUIRED
 # ssl_context.load_verify_locations('/app/certs/kafka/ca-cert.pem')  # Archivo PEM con el certificado de la CA
 
-
+################################################## AD_Registry ###############################################################3
 
 def registrar():
     global REGISTER_URL
@@ -105,48 +105,9 @@ def solicitar_token():
     print("Se ha caído el AD_Registry. No se pudo solicitar el token.")
     return False
 
-
-
-# # Incluir la función para cargar o generar claves
-# def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file = 'coord_key.txt'):
-#     global map_cipher, movement_cipher, coord_cipher
-
-#     try:
-#         if os.path.exists(map_key_file):
-#             with open(map_key_file, 'rb') as file:
-#                 map_key = file.read()
-#         else:
-#             map_key = Fernet.generate_key()
-#             with open(map_key_file, 'wb') as file:
-#                 file.write(map_key)
-
-#         if os.path.exists(movement_key_file):
-#             with open(movement_key_file, 'rb') as file:
-#                 movement_key = file.read()
-#         else:
-#             movement_key = Fernet.generate_key()
-#             with open(movement_key_file, 'wb') as file:
-#                 file.write(movement_key)
-        
-#         if os.path.exists(coord_key_file):
-#             with open(coord_key_file, 'rb') as file:
-#                 coord_key = file.read()
-#         else:
-#             coord_key = Fernet.generate_key()
-#             with open(coord_key_file, 'wb') as file:
-#                 file.write(coord_key)
-
-#         map_cipher = Fernet(map_key)
-#         movement_cipher = Fernet(movement_key)
-#         coord_cipher = Fernet(coord_key)
-#         print(f"Map_cipher: {map_cipher}")
-#         print(f"Movement_cipher: {movement_cipher}")
-#         print(f"Coord_cipher: {coord_cipher}")
-#     except Exception as e:
-#         print(f"Error al cargar o generar claves: {e}")
-
 #####################################33 FUNCIONES KAFKA ##########################################3
-def reciveCoord():
+
+def ReciveCoord():
     global PARARTODO
     global CoordsF, CoordsI
     global Id
@@ -203,9 +164,8 @@ def reciveCoord():
         print("Se ha caído AD_Engine o Kafka. No se pudo recibir coordenadas.")
         PARARTODO = True
 
-
-
 def ReciveMap():
+
     global TABLERO, PARARTODO
     global CoordsI
     global Id
@@ -245,9 +205,6 @@ def ReciveMap():
         print("Se ha caído AD_Engine o Kafka. No se pudo recibir el mapa.")
         PARARTODO = True
 
-
-
-                    
 def SendMovement(move,destino):
     
     global CoordsI, ESTADO
@@ -278,12 +235,10 @@ def SendMovement(move,destino):
     finally:
         producer.close()
 
-#####################################33 FUNCIONES KAFKA ##########################################3
+####################################################################3##########################################3
 
 def selectMove():
-    
-    global CoordsI
-    global CoordsF
+    global CoordsI, CoordsF
     global Id
 
     # Definir los movimientos posibles
@@ -319,9 +274,7 @@ def selectMove():
     return bestmove
 
 def imprimir_tablero(fin):
-    
-    global Id
-    global TABLERO
+    global TABLERO, Id
     print()
     print()
 
@@ -339,7 +292,9 @@ def imprimir_tablero(fin):
             
             if  i == len(fila)-1:
                 print("]")
-                    
+
+##########################################################################################################################
+
 def autentificar():
     global esperar, PARARTODO
     global CoordsI, CoordsF
@@ -375,9 +330,11 @@ def autentificar():
                 break
         espectaculo(client_socket)
     except ConnectionRefusedError:
+        print()
         print("No se pudo conectar al AD_Engine. Verifique si el servidor está en funcionamiento.")
-        sys.exit("El AD_Engine se ha caído. No es posible realizar ningún espectáculo.")
-       
+        print("El AD_Engine se ha caído. No es posible realizar ningún espectáculo.")
+        sys.exit(1)
+    
 def espectaculo(client_socket):
     global esperar, PARARTODO
     global CoordsI, CoordsF
@@ -387,7 +344,7 @@ def espectaculo(client_socket):
     while not PARARTODO:
         ESTADO = "RUN"
         print("PREPARADO PARA RECIBIR MI COORENADA")
-        reciveCoord()
+        ReciveCoord()
         print("Tengo mi coordenada")
         
         x, y = CoordsF[Id-1].split(',')
@@ -416,7 +373,6 @@ def espectaculo(client_socket):
             
             CoordsI[Id - 1] = movimiento
             SendMovement(movimiento, destino)
-            
             ReciveMap()
             
             fin = False
@@ -437,11 +393,12 @@ def espectaculo(client_socket):
                 if espera == "Termina":
                     CoordsF = []
                     if CoordsI[Id - 1] != (1,1):
-                        espectaculo(client_socket)
+                        espectaculo(client_socket) # VOLVER A LA 1,1
                     CoordsI = []
-            
-                    esperar = False
+
                     print(f"al terminar la coordI es igual a {CoordsI}")
+                    esperar = False
+
             except ConnectionResetError:
                 print("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
                 PARARTODO = True
@@ -449,19 +406,18 @@ def espectaculo(client_socket):
 
     client_socket.close()  # confirmacion que tu estas autentificado
     if PARARTODO:
-        sys.exit("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
+        print()
+        print("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
+        sys.exit(1)
+
+#########################################################################################################################3
 
 def readArgs():
-    
-    global HOST
-    global PORT
-    global HOST_ENGINE
-    global PORT_ENGINE
-    global HOST_REGISTRY
-    global PORT_REGISTRY
+    global HOST, PORT
+    global HOST_ENGINE, PORT_ENGINE
+    global HOST_REGISTRY, PORT_REGISTRY
     global KAFKA_ADDR
-    global REGISTER_URL
-    global REQUEST_TOKEN_URL
+    global REGISTER_URL, REQUEST_TOKEN_URL
     
     while True:
             try:
@@ -509,12 +465,10 @@ def readArgs():
     
 def main():
     
-    global Id
-    global Alias
+    global Id, Alias
     global KAFKA_ADDR   
-    global certs_dir
+    #global certs_dir
     opcion = 0
-    
     readArgs()
     # ssl_context = ssl.create_default_context()
     # ssl_context.load_cert_chain(
@@ -559,8 +513,45 @@ def main():
         else:
             print("ERROR: No es una opcion valida")
 
-    
-
-
 if __name__ == "__main__":
     main()
+
+
+
+# # Incluir la función para cargar o generar claves
+# def load_or_generate_keys(map_key_file='map_key.txt', movement_key_file='movement_key.txt', coord_key_file = 'coord_key.txt'):
+#     global map_cipher, movement_cipher, coord_cipher
+
+#     try:
+#         if os.path.exists(map_key_file):
+#             with open(map_key_file, 'rb') as file:
+#                 map_key = file.read()
+#         else:
+#             map_key = Fernet.generate_key()
+#             with open(map_key_file, 'wb') as file:
+#                 file.write(map_key)
+
+#         if os.path.exists(movement_key_file):
+#             with open(movement_key_file, 'rb') as file:
+#                 movement_key = file.read()
+#         else:
+#             movement_key = Fernet.generate_key()
+#             with open(movement_key_file, 'wb') as file:
+#                 file.write(movement_key)
+        
+#         if os.path.exists(coord_key_file):
+#             with open(coord_key_file, 'rb') as file:
+#                 coord_key = file.read()
+#         else:
+#             coord_key = Fernet.generate_key()
+#             with open(coord_key_file, 'wb') as file:
+#                 file.write(coord_key)
+
+#         map_cipher = Fernet(map_key)
+#         movement_cipher = Fernet(movement_key)
+#         coord_cipher = Fernet(coord_key)
+#         print(f"Map_cipher: {map_cipher}")
+#         print(f"Movement_cipher: {movement_cipher}")
+#         print(f"Coord_cipher: {coord_cipher}")
+#     except Exception as e:
+#         print(f"Error al cargar o generar claves: {e}")

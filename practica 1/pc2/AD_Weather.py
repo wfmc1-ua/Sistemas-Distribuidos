@@ -19,6 +19,9 @@ API_KEY = None
 BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
 #Funciones
+def load_api_key(filename):
+    with open(filename, 'r') as file:
+        return file.read().strip()
 
 @app.route('/api/clima', methods=['GET'])
 def get_weather():
@@ -41,41 +44,38 @@ def get_weather():
         print(f"Error al obtener el clima: {response.text}")
         return jsonify({'error': 'No se pudo obtener el clima'}), response.status_code
 
-def consultar():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOST, PORT))
-    print("Servidor escuchando en el puerto 2222...")
-    server_socket.listen(5)
-    while True:
-        client_socket, addr = server_socket.accept()
-        print(f"Conexión aceptada de {addr}")
+# def consultar():
+#     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     server_socket.bind((HOST, PORT))
+#     print("Servidor escuchando en el puerto 2222...")
+#     server_socket.listen(5)
+#     while True:
+#         client_socket, addr = server_socket.accept()
+#         print(f"Conexión aceptada de {addr}")
         
-        data = client_socket.recv(1024).decode('utf-8')
-        print(f"Se solicita la temperatura de la siguiente ciudad: {data}")
+#         data = client_socket.recv(1024).decode('utf-8')
+#         print(f"Se solicita la temperatura de la siguiente ciudad: {data}")
 
-        url = f'{BASE_URL}?q={data}&appid={API_KEY}&units=metric'
-        response = requests.get(url)
+#         url = f'{BASE_URL}?q={data}&appid={API_KEY}&units=metric'
+#         response = requests.get(url)
         
-        if response.status_code == 200:
-            weather_data = response.json()
-            temperatura = weather_data.get('main', {}).get('temp')
-            if temperatura is not None:
-                enviar = str(temperatura)
-            else:
-                enviar = 'Error: No se encontró la temperatura'
-        else:
-            enviar = 'Error: No se pudo obtener el clima'
+#         if response.status_code == 200:
+#             weather_data = response.json()
+#             temperatura = weather_data.get('main', {}).get('temp')
+#             if temperatura is not None:
+#                 enviar = str(temperatura)
+#             else:
+#                 enviar = 'Error: No se encontró la temperatura'
+#         else:
+#             enviar = 'Error: No se pudo obtener el clima'
 
-        client_socket.send(enviar.encode('utf-8'))
-        client_socket.close()
+#         client_socket.send(enviar.encode('utf-8'))
+#         client_socket.close()
 
 
 def readArgs():
-    
-    global HOST
-    global PORT
-    global Host_ENGINE
-    global PORT_ENGINE
+    global HOST, PORT
+    global Host_ENGINE, PORT_ENGINE
 
     while True:
             try:
@@ -113,7 +113,9 @@ def main():
     global API_KEY
 
     readArgs()
-    API_KEY = input("Indique la API_Key para acceder a OpenWeather: ")
+    API_KEY = load_api_key('api_key.txt')
+    print(f"Usando API Key: {API_KEY}")
+    print()
     print(HOST)
     cert_path = os.path.join(os.path.dirname(__file__), 'certs', 'cert.pem')
     key_path = os.path.join(os.path.dirname(__file__), 'certs', 'key.pem')

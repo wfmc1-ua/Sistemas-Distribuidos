@@ -3,5 +3,6 @@
 
     ],
     "espectaculo": {
+        "estado": "INICIAL"
     }
 }
