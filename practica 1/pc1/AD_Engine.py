@@ -244,7 +244,6 @@ def SendMap():
         # Enviar el mensaje
         producer.send(topic, value=map_json)
         producer.flush()
-        print(f"ENVIE EL MAPA")
     except Exception as e:
         registrar_evento(
             tipo='ERROR',
@@ -606,7 +605,6 @@ def handle_client(figuras, stop_event ,client_stop_event):
                 client_handler.start()
                 threads.append(client_handler)
 
-            client_stop_event.set()  # Detenemos todos los hilos de clientes
             # Esperar a que todos los hilos de autentificación terminen
             for thread in threads:
                 thread.join()

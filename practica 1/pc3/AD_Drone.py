@@ -510,7 +510,7 @@ def main():
                 
         elif opcion == 2:
             autentificar()
-            print(f"termino la figura empieza la siguiente con las coordenadas iniciales a : {CoordsI}")
+            print(f"termino la figura empieza la siguiente ")
         elif opcion == 3:
             print("Gracias por utilizar esta opcion")
         else:
