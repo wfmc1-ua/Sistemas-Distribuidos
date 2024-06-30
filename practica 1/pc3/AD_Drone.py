@@ -111,6 +111,7 @@ def ReciveCoord():
     global PARARTODO
     global CoordsF, CoordsI
     global Id
+    global KAFKA_ADDR
     # global ssl_context
     
     intentos = 5  # Número de intentos para intentar conectar
@@ -143,7 +144,8 @@ def ReciveCoord():
                 print(f"Coordenadas a guardar: {coordinates}")
                 CoordsF.append(coordinates)
                 CoordsI.append((1, 1))
-
+                print(f"LAS COORDENADAS INICIALES SON : {CoordsI}")
+                print(f"LAS COORDENADAS FINALES SON { CoordsF}")
                 if int(nDrones) == len(CoordsF):
                     break
             print(f"El dron {Id} tiene como coordenada final: {CoordsF[Id - 1]}")
@@ -169,6 +171,7 @@ def ReciveMap():
     global TABLERO, PARARTODO
     global CoordsI
     global Id
+    global KAFKA_ADDR
     # global ssl_context
     
     intentos = 5  # Número de intentos para intentar conectar
@@ -208,6 +211,7 @@ def ReciveMap():
 def SendMovement(move,destino):
     
     global CoordsI, ESTADO
+    global KAFKA_ADDR
     # global ssl_context
     
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR 
@@ -228,7 +232,10 @@ def SendMovement(move,destino):
     
     try:
         # Enviar el mensaje
+        print("ESTOY ENVIANDO MOVIMIENTOS")
         producer.send(topic, value=coordinates_json)
+        print("he enviado MOVIMIENTOS")
+
         producer.flush()
     except Exception as e:
         print(f"Error al enviar las coordenadas: {e}")
@@ -319,21 +326,22 @@ def autentificar():
         print(" ESTOY AUTENTIFICADO ")
 
         #load_or_generate_keys()
-
         while response != "All": 
             print("Estoy esperando para comenzar el espectaculo")
             try:
                 response = client_socket.recv(1024).decode('utf-8')
+                print(f"el recibe un {response}")
             except ConnectionResetError:
                 print("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
                 PARARTODO = True
                 break
+        print("ANTES DEL  BUCLE DE ALL")
         espectaculo(client_socket)
     except ConnectionRefusedError:
         print()
         print("No se pudo conectar al AD_Engine. Verifique si el servidor está en funcionamiento.")
         print("El AD_Engine se ha caído. No es posible realizar ningún espectáculo.")
-        sys.exit(1)
+        #sys.exit(1)
     
 def espectaculo(client_socket):
     global esperar, PARARTODO
@@ -341,7 +349,10 @@ def espectaculo(client_socket):
     global Id, Token, ESTADO
     global TABLERO
     
-    while not PARARTODO:
+    finEspectaculo = False
+    CoordsF = []
+
+    while not PARARTODO or  not finEspectaculo:
         ESTADO = "RUN"
         print("PREPARADO PARA RECIBIR MI COORENADA")
         ReciveCoord()
@@ -381,7 +392,8 @@ def espectaculo(client_socket):
                 fin = True
             imprimir_tablero(fin)
 
-        ESTADO = "END"    
+        ESTADO = "END"
+        fin = True    
         while esperar:
             ReciveMap()
             imprimir_tablero(fin)
@@ -391,24 +403,30 @@ def espectaculo(client_socket):
             try:
                 espera = client_socket.recv(1024).decode('utf-8')
                 if espera == "Termina":
-                    CoordsF = []
+                    print("ENTRA AL IF DE TERMINA")
                     if CoordsI[Id - 1] != (1,1):
                         espectaculo(client_socket) # VOLVER A LA 1,1
+                        print(f"al terminar la coordI es igual a {CoordsI}")
+                        
                     CoordsI = []
 
-                    print(f"al terminar la coordI es igual a {CoordsI}")
                     esperar = False
-
+                    finEspectaculo = True
+                    if esperar == False:
+                        break
             except ConnectionResetError:
                 print("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
                 PARARTODO = True
                 break
-
+        esperar = True
+        if finEspectaculo:
+            break
+    print("SE TERMINO  EL ESPECTACULO")
     client_socket.close()  # confirmacion que tu estas autentificado
     if PARARTODO:
         print()
         print("El AD_Engine se ha caído. No es posible continuar el espectáculo.")
-        sys.exit(1)
+        #sys.exit(1)
 
 #########################################################################################################################3
 

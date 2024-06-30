@@ -35,7 +35,7 @@ services:
     working_dir: /app
     command: >
       sh -c "pip install Flask requests colorama kafka-python  colorama && 
-      python AD_Engine.py 0.0.0.0:3333 172.27.173.211:1111 172.27.173.211:9093"
+      python AD_Engine.py 0.0.0.0:3333 172.27.173.211:1111 172.27.173.211:4444 172.27.173.211:9093"
     ports:
       - 3333:3333
 

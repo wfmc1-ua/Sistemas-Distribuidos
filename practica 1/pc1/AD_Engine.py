@@ -37,7 +37,7 @@ nmove = 1
 authenticated_clients = []
 DB_FILE = 'drones.json'
 TABLERO_FILE = 'tablero.json'
-d = 0
+activos = 0
 
 numero_Figura = 0
 
@@ -75,16 +75,16 @@ def readArgs():
                 argumentos = sys.argv
 
                 # Verificar si se proporcionaron suficientes argumentos
-                if len(argumentos) == 4:  # El primer argumento es el nombre del script
+                if len(argumentos) == 5:  # El primer argumento es el nombre del script
                     # Asignar los valores de los puertos
                     mi_data = str(argumentos[1])
                     data_Weather = str(argumentos[2])
-                    #data_Dron = str(argumentos[3])
-                    KAFKA_ADDR = str(argumentos[3])
+                    data_Dron = str(argumentos[3])
+                    KAFKA_ADDR = str(argumentos[4])
                     
                     E= mi_data.split(":")
                     W = data_Weather.split(":")
-                    #D = data_Dron.split(":")
+                    D = data_Dron.split(":")
                     
                     HOST=E[0]
                     PORT = int(E[1])
@@ -93,13 +93,13 @@ def readArgs():
                     PORT_WEATHER = int(W[1])
                     WEATHER_API_URL = f'https://{HOST_WEATHER}:{PORT_WEATHER}/api/clima'
                     
-                    # HOST_DRON= D[0]
-                    # PORT_DRON = int(D[1])
+                    HOST_DRON= D[0]
+                    PORT_DRON = int(D[1])
 
                     # Mostrar los valores asignados
                     print(f"El valor de server_host es: {HOST}")
                     print(f"El valor de server_port para el Weather es: {PORT_WEATHER}")
-                    # print(f"El valor de server_port para los drones es: {PORT_DRON}")
+                    print(f"El valor de server_port para los drones es: {PORT_DRON}")
                     print(f"El valor de la ip de kafka es: {KAFKA_ADDR}")
                     break  # Romper el bucle si los valores son válidos
 
@@ -177,6 +177,7 @@ def registrar_evento(tipo, evento, descripcion, detalles, ip):
 
 def SendCoord(pos,nDrones):
     global HOST_DRON, PORT_DRON
+    global KAFKA_ADDR
     # global ssl_context
 
     print(f"KAFKA ADDRESS { KAFKA_ADDR}")
@@ -204,6 +205,7 @@ def SendCoord(pos,nDrones):
         # Enviar el mensaje
         producer.send(topic, value=coordinates_json)
         producer.flush()
+        print(f"ENVIO COORDENADAS")
     except Exception as e:
         registrar_evento(
             tipo='ERROR',
@@ -220,6 +222,7 @@ def SendMap():
     
     global coordDrones
     global TABLERO
+    global KAFKA_ADDR
     # global ssl_context
     
     producer = KafkaProducer(bootstrap_servers=KAFKA_ADDR 
@@ -242,6 +245,7 @@ def SendMap():
         # Enviar el mensaje
         producer.send(topic, value=map_json)
         producer.flush()
+        print(f"ENVIE EL MAPA")
     except Exception as e:
         registrar_evento(
             tipo='ERROR',
@@ -255,22 +259,92 @@ def SendMap():
     finally:
         producer.close()  
         
-def ReciveMovement(drones):
+# def ReciveMovement(drones):
     
-    global parar,d
+#     global parar,d
+#     global coordDrones
+#     global HOST_DRON, PORT_DRON
+#     global KAFKA_ADDR
+#     # global ssl_context
+#     intentos = 5
+#     consumer = KafkaConsumer(
+#         'movimiento',
+#         bootstrap_servers=KAFKA_ADDR,
+#         auto_offset_reset='earliest',
+#         group_id='engine'
+#         # security_protocol='SSL',
+#         # ssl_context=ssl_context,
+#     )
+#     print("DESPUES DE CREAR CONSUMIDOR DE RECIVIR MOVIMIENTO")
+#     id = 0
+#     movimiento = 0
+#     destino = 0
+#     while intentos > 0:
+#         try:   
+#             message = next(consumer)
+#             print("DESPUES DE COGER UN MENSAJE")
+#             data = message.value
+#             print("DESPUES DE QUE COGIERA EL VALOR DEL MENSAJE")
+#             #decrypted_data = movement_cipher.decrypt(encrypted_data) # Desencriptar los datos
+            
+#             # Convertir los datos desencriptados de nuevo a JSON
+#             datos = json.loads(data.decode('utf-8'))
+#             print("EN LA DESCODIFICACION DEL MENSAJE")
+#             id ,movimiento,destino, estado = datos.split(":")
+#             x, y = movimiento.split(',')
+#             x = int(x)
+#             y = int(y)
+
+#             registrar_evento(
+#                 tipo='INFORMATIVA',
+#                 evento='Recepcion de movimiento de Dron',
+#                 descripcion='Movimiento recibido',
+#                 detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
+#                 ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+#             )
+
+#             if destino == "True":
+#                 estado = "END"  # Actualizamos el estado a "END" cuando el dron llega a su destino
+#             else:
+#                 estado = "RUN"  # Mantenemos el estado "RUN" mientras se está moviendo
+
+#             actualizar_estado_dron(id, estado)
+#             actualizar_tablero(x, y, id, estado)
+#             # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
+#             # coordDrones[int(id) -1] = (x,y)
+#             # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
+
+#             time.sleep(0.5)
+#             if destino == "True":
+#                 parar +=1
+
+#         except Exception as e:
+#             registrar_evento(
+#                 tipo='ERROR',
+#                 evento='Recepcion de movimiento de Dron - ERROR',
+#                 descripcion=f'Fallo en Movimiento recibido: {e}',
+#                 detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
+#                 ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+#             )
+#         finally:
+#             consumer.close()
+
+#     if intentos == 0:
+#         print("Se cayo un dron")
+#         parar += 1
+#         d -= 1
+
+def ReciveMovement():
+    global parar, activos
     global coordDrones
     global HOST_DRON, PORT_DRON
-    # global ssl_context
+
     intentos = 5
     consumer = KafkaConsumer(
         'movimiento',
         bootstrap_servers=KAFKA_ADDR,
         auto_offset_reset='earliest',
-        enable_auto_commit=True,
-        max_poll_interval_ms = 10000,
         group_id='engine'
-        # security_protocol='SSL',
-        # ssl_context=ssl_context,
     )
     
     while intentos > 0:
@@ -278,22 +352,20 @@ def ReciveMovement(drones):
             message = next(consumer)
             data = message.value
             
-            #decrypted_data = movement_cipher.decrypt(encrypted_data) # Desencriptar los datos
-            
-            # Convertir los datos desencriptados de nuevo a JSON
+            # Convertir los datos de JSON
             datos = json.loads(data.decode('utf-8'))
             
-            id ,movimiento,destino, estado = datos.split(":")
+            id, movimiento, destino, estado = datos.split(":")
             x, y = movimiento.split(',')
             x = int(x)
             y = int(y)
-
+            print(f"El movimiento recibido es {(x,y)}")
             registrar_evento(
                 tipo='INFORMATIVA',
                 evento='Recepcion de movimiento de Dron',
                 descripcion='Movimiento recibido',
                 detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
-                ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+                ip={'HOST_DRON': HOST_DRON, 'PORT_DRON': PORT_DRON}
             )
 
             if destino == "True":
@@ -303,30 +375,33 @@ def ReciveMovement(drones):
 
             actualizar_estado_dron(id, estado)
             actualizar_tablero(x, y, id, estado)
-            # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,False)
-            # coordDrones[int(id) -1] = (x,y)
-            # actualizar_tablero(coordDrones[int(id) -1][0],coordDrones[int(id) -1][1],id,True)
 
-            time.sleep(0.5)
+            #time.sleep(0.5)
             if destino == "True":
-                parar +=1
+                parar += 1
+            break  # Si el mensaje se procesa correctamente, salir del bucle
 
         except Exception as e:
+            print(f"Error al intentar consumir el movimiento de AD_Drone: {e}")
+            print("Posible caida de uno de los Drones")
+            intentos -= 1
+            print(f"Quedan {intentos} intentos por si se reincorpora")
+            time.sleep(2)  # Espera 2 segundos antes de intentar nuevamente
+
             registrar_evento(
                 tipo='ERROR',
                 evento='Recepcion de movimiento de Dron - ERROR',
                 descripcion=f'Fallo en Movimiento recibido: {e}',
-                detalles={'id': id, 'movimiento': movimiento, 'destino': destino},
-                ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
+                detalles={'id': 'Desconocido', 'movimiento': 'Desconocido', 'destino': 'Desconocido'},
+                ip={'HOST_DRON': HOST_DRON, 'PORT_DRON': PORT_DRON}
             )
         finally:
             consumer.close()
 
     if intentos == 0:
-        print("Se cayo un dron")
+        print("Se ha caído un Dron. El espectáculo se hará con un dron menos")
         parar += 1
-        d -= 1
-
+        activos -= 1
 ##################################### TABLERO ##############################################
 
 # Cargar el tablero desde el archivo
@@ -441,7 +516,7 @@ def validar_token(token):
     return None  # Token no encontrado
 
 def autentificar(client_socket, figuras, stop_event):
-    global d
+    global activos
     global autentify, coordDrones, authenticated_clients
     global HOST_DRON, PORT_DRON
 
@@ -474,8 +549,9 @@ def autentificar(client_socket, figuras, stop_event):
         client_socket.send("Te has autentificado".encode('utf-8'))
         authenticated_clients.append(client_socket)
 
-        d+=1
-        if len(authenticated_clients) == len(coordDrones):
+        activos+=1
+        print(len(authenticated_clients))    
+        if len(authenticated_clients) >= len(coordDrones):
             for client in authenticated_clients:
                 client.send("All".encode('utf-8'))
             espectaculo(client_socket, figuras, stop_event, drone_id)
@@ -489,7 +565,7 @@ def autentificar(client_socket, figuras, stop_event):
         )
         print("Token inválido o expirado.")
         client_socket.send("No te puedes  autentificar".encode('utf-8'))
-        d-=1 ########################################################################################3
+        activos-=1 ########################################################################################3
         client_socket.close()
 # ___________________________________________________________________________________________________
 
@@ -511,7 +587,8 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
     fin = False
 
     while fin != True:
-        ReciveMovement(drones)
+        print("ANTES DE RECIVIR MOVIMIENTO")
+        ReciveMovement()
         imprimir_tablero(False)
         SendMap()
         
@@ -522,14 +599,14 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
     if stop_event.is_set():
         print("Espectáculo detenido debido a baja temperatura.")
 
-    if len(authenticated_clients) == len(coordDrones):
+    if len(authenticated_clients) >= len(coordDrones):
         actualizar_estado_espectaculo('COMPLETADO')
         time.sleep(5)
         for client in authenticated_clients:
             client.send("Termina".encode('utf-8'))
 
     # ------------------------------- VOLVER A LA (1,1) ---------------------------------------
-
+    parar = 0
     actualizar_estado_dron(drone_id, "RUN")
     actualizar_estado_espectaculo('EN_CURSO')
     
@@ -538,17 +615,18 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
     fin = False
 
     while fin != True:
-        ReciveMovement(drones)
+        ReciveMovement()
         imprimir_tablero(False)
         SendMap()
         
         if parar == len(drones):
             fin = True
             
-    if len(authenticated_clients) == len(coordDrones):
+    if len(authenticated_clients) >= len(coordDrones):
         for client in authenticated_clients:
-            client.send("Termina".encode('utf-8')) 
-                    
+            client.send("Termina".encode('utf-8'))
+    actualizar_estado_dron(drone_id,'-') 
+    actualizar_estado_espectaculo('INICIAL')                
     registrar_evento(
         tipo='INFORMATIVA',
         evento='FINALIZACION DEL ESPECTACULO',
@@ -556,29 +634,77 @@ def espectaculo(client_socket,drones,stop_event, drone_id):
         detalles="",
         ip={'HOST_DRON' : HOST_DRON, 'PORT_DRON' : PORT_DRON}
     )
+    client_socket.close()
     authenticated_clients =[]
     
     print(f"PARO EL ESPECTACULO {parar}")
     parar = 0
-    client_socket.close()
 
 
-def handle_client(figuras, stop_event):
-    global authenticated_clients, d
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOST, PORT))
-    print()
-    print(f"Servidor escuchando en el puerto {PORT}")
-    print()
-    server_socket.listen(5)
-    threads=[]
+# def handle_client(figuras, stop_event):
+#     global authenticated_clients, activos
+#     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     server_socket.bind((HOST, PORT))
+#     print()
+#     print(f"Servidor escuchando en el puerto {PORT}")
+#     print()
+#     server_socket.listen(5)
+#     threads=[]
     
-    while d != len(figuras):
-        client_socket, addr = server_socket.accept()
-        print(f"Conexión aceptada de {addr}")
-        client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
-        client_handler.start()
-        threads.append(client_handler)
+#     while activos != len(figuras):
+#         client_socket, addr = server_socket.accept()
+#         print(f"Conexión aceptada de {addr}")
+#         client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
+#         client_handler.start()
+#         threads.append(client_handler)
+#         if activos == len(figuras):
+#             print(f"PARAR TIENE {parar}")
+#             for thread in threads:
+                
+#                 thread.join()
+
+                
+def handle_client(figuras, stop_event ,client_stop_event):
+    global authenticated_clients, activos
+    
+    server_socket = None
+
+    while not client_stop_event.is_set():
+        threads = []
+        try:
+            server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            server_socket.bind((HOST, PORT))
+            print(f"Servidor escuchando en el puerto {PORT}")
+            server_socket.listen(5)
+
+            while activos != len(figuras) and not client_stop_event.is_set():
+                client_socket, addr = server_socket.accept()
+                print(f"Conexión aceptada de {addr}")
+                client_handler = threading.Thread(target=autentificar, args=(client_socket, figuras, stop_event))
+                client_handler.start()
+                threads.append(client_handler)
+
+            # Esperar a que todos los hilos de autentificación terminen
+            for thread in threads:
+                thread.join()
+            print("Todos los hilos de autentificación han terminado")
+
+        except Exception as e:
+            print(f"Error en handle_client: {e}")
+        finally:
+            client_stop_event.set()  # Detenemos todos los hilos de clientes
+            for thread in threads:
+                if thread.is_alive():
+                    thread.join()  # Asegurarse de que todos los hilos se cierren
+            if server_socket:
+                server_socket.shutdown(socket.SHUT_RDWR)
+                server_socket.close()  # Cerramos el socket del servidor para detener nuevas conexiones
+                print("Servidor cerrado")
+
+        break  # Salir del bucle principal después de cerrar el servidor
+
+    print("Ciclo de manejo de clientes terminado")
 
 ######################################## Funciones para el consultar el clima ###########################################################
 
@@ -690,7 +816,7 @@ def monitorear_temperatura(ciudad, stop_event):
 ######################################################################################################################################
 
 def main():
-    global d, numero_Figura
+    global activos, numero_Figura
 
     readArgs()
     createTablero(FILAS,COLUMNAS)
@@ -698,7 +824,6 @@ def main():
     temperatura, ciudad = consultar()
     print(f"TEMPERATURA: {temperatura}")
     if temperatura != False:
-        
         stop_event = threading.Event()
         monitor_thread = threading.Thread(target=monitorear_temperatura, args=(ciudad, stop_event))
         monitor_thread.start()
@@ -718,15 +843,17 @@ def main():
                     print()
                     print()
                     print(f"VAMOS A HACER ESTA FIGURA {figura}")
-                    handle_client(figura["Drones"],stop_event)
-                    d=0
+                    client_stop_event = threading.Event()
+                    handle_client(figura["Drones"],stop_event,client_stop_event)
+                    print("SIGUIENTE FIGURA")
+                    activos=0
                 print(" ######## FIN DEL ESPECTACULO ######## ")
                 print(" ******** ART WITH DRONES ******** ")
                     
             else:
                 print("No se puede iniciar el espectáculo.  Temperatura no adecuada.")
             
-            stop_event.set()  # Asegúrate de detener el hilo de monitoreo al finalizar
+            stop_event.set()
             monitor_thread.join()
         
         # Registrar la función de eliminación para que se ejecute al finalizar

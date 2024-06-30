@@ -1,3 +1,4778 @@
 [
-    
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:15:27",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:15:38",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:15:48",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:15:59",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:16:10",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 1,
+            "token": "9a45ff44-0307-4f8e-b774-b096f7cab7c9"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 2,
+            "token": "b3ad84ef-7944-41d0-a986-d250a9e66392"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:22",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "ERROR",
+        "Evento": "AD_Weather NO DISPONIBLE",
+        "Descripcion": "Error al conectar con AD_Weather servidor del clima: HTTPSConnectionPool(host='192.168.1.39', port=1111): Read timed out. (read timeout=5)",
+        "Detalles": "Posible caida del servidor del clima o no esta disponible. Quedan 5 INTENTOS para la CiudadMadrid",
+        "Fecha_Hora": "2024-06-30 17:16:25",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:16:29",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 3,
+            "token": "8c6921fd-c404-4eae-95fd-12e8ae00a3fe"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:29",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 4,
+            "token": "fcf11746-cd66-4333-bc6c-837639e12230"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "2,5",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:16:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "2,10",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:16:38",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "7,5",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:16:39",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "7,10",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:16:39",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:16:39",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,1",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:42",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:16:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:53",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:16:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,1",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:01",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:17:02",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:08",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:12",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:17:13",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:19",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:23",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:17:24",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "2,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:30",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,5",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:33",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:17:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:37",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "3,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:41",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:44",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "6,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:48",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "ERROR",
+        "Evento": "AD_Weather NO DISPONIBLE",
+        "Descripcion": "Error al conectar con AD_Weather servidor del clima: HTTPSConnectionPool(host='192.168.1.39', port=1111): Read timed out. (read timeout=5)",
+        "Detalles": "Posible caida del servidor del clima o no esta disponible. Quedan 5 INTENTOS para la CiudadMadrid",
+        "Fecha_Hora": "2024-06-30 17:17:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "4,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:51",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:17:53",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:55",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "7,5",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:17:59",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "5,8",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:02",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:18:03",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,8",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:06",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "6,9",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:09",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,9",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:13",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:18:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,10",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:17",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,10",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:20",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:18:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:18:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:18:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:18:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:18:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,9",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:30",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,9",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:33",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:37",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:18:40",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "6,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:41",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,8",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:44",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,8",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:48",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:18:51",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:51",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:55",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:18:59",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:19:01",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:02",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:06",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:10",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:19:13",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:13",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:17",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:20",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "6,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:24",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:19:24",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:28",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:31",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:19:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:38",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:42",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:19:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:49",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:53",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:19:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:19:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:00",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:07",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:20:07",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "FINALIZACION DEL ESPECTACULO",
+        "Descripcion": "Todos los drones han finalizado",
+        "Detalles": "",
+        "Fecha_Hora": "2024-06-30 17:20:08",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "9a45ff44-0307-4f8e-b774-b096f7cab7c9"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:14",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 1,
+            "token": "38836b35-a642-4adf-8453-2c66c530d163"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:14",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "b3ad84ef-7944-41d0-a986-d250a9e66392"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:16",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 2,
+            "token": "d329370c-b9d4-44e5-88a9-ea3ec3c0d590"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:16",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "8c6921fd-c404-4eae-95fd-12e8ae00a3fe"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:19",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 3,
+            "token": "517dc7c4-645a-4bca-9667-98992b146b5a"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:19",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:20:19",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "fcf11746-cd66-4333-bc6c-837639e12230"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:21",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 4,
+            "token": "d61d7505-4a22-4697-ba82-3acc330d6cd9"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:21",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "2,2",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:20:21",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "4,4",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:20:21",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "6,6",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:20:21",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "8,8",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:20:21",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,2",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:25",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:28",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:20:29",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:32",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:36",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:39",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:20:40",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:43",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:47",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "4,4",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:20:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:54",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:20:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:01",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:21:01",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:05",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "6,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:08",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "6,6",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:12",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:21:12",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "8,8",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:19",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:21:22",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:21:24",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:21:24",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:21:24",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:21:25",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:28",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:32",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:21:33",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:39",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "6,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:42",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:21:43",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:53",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:21:55",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:21:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:00",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:22:05",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:08",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:11",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:22:16",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:18",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:22",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "FINALIZACION DEL ESPECTACULO",
+        "Descripcion": "Todos los drones han finalizado",
+        "Detalles": "",
+        "Fecha_Hora": "2024-06-30 17:22:22",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:22:27",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:22:38",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "38836b35-a642-4adf-8453-2c66c530d163"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:38",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 1,
+            "token": "6b901cba-d799-4ac9-ac31-498c129ab755"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:39",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "d329370c-b9d4-44e5-88a9-ea3ec3c0d590"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:41",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 2,
+            "token": "4bfc54fa-ab07-4af9-b40c-b3098e410f9f"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:41",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "517dc7c4-645a-4bca-9667-98992b146b5a"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:43",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 3,
+            "token": "5c6ba280-b48c-4393-b64a-b59c08017626"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:43",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "d61d7505-4a22-4697-ba82-3acc330d6cd9"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:45",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 4,
+            "token": "ade9090e-b2c7-406c-bcbb-a6c603d6792d"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:45",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "2,2",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:22:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "4,4",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:22:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "6,6",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:22:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "8,8",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:22:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:22:49",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,2",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:53",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:22:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:23:00",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:00",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:08",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:23:11",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:11",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "4,4",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:19",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:23:22",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:22",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:29",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:23:32",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "6,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:33",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "6,6",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:37",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:40",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:23:43",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "8,8",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:44",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:23:49",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:23:49",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:23:49",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "1,1",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:23:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "7,7",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:53",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:23:53",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:23:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:00",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:24:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:08",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:11",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "6,6",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:24:15",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:18",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:22",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:24:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:26",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:29",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:33",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:24:36",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:37",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:40",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:44",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:24:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "4",
+            "movimiento": "1,1",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:24:47",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "FINALIZACION DEL ESPECTACULO",
+        "Descripcion": "Todos los drones han finalizado",
+        "Detalles": "",
+        "Fecha_Hora": "2024-06-30 17:24:48",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:24:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:25:09",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:25:20",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "6b901cba-d799-4ac9-ac31-498c129ab755"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:25",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 1,
+            "token": "8601409f-91e6-4c11-90c2-b89a8d091a10"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:25",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "4bfc54fa-ab07-4af9-b40c-b3098e410f9f"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:29",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 2,
+            "token": "7633b5c8-c7fc-4bcd-8ad6-63133c760b00"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:30",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:25:31",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "5c6ba280-b48c-4393-b64a-b59c08017626"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:32",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 3,
+            "token": "9808ecf9-5383-4936-bb53-cfe123f1f1be"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:32",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion INVALIDA",
+        "Descripcion": "Fallo en la Autenticacion de dron, Token expirado o Inv\u00e1lido",
+        "Detalles": {
+            "drone_id": null,
+            "token": "ade9090e-b2c7-406c-bcbb-a6c603d6792d"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Autenticacion exitosa",
+        "Descripcion": "Autenticacion de dron",
+        "Detalles": {
+            "drone_id": 4,
+            "token": "a47cd96a-35a1-49ed-8289-714d097409d0"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "2,2",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:25:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "4,4",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:25:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "6,6",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:25:36",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Enviar coordenada a Dron",
+        "Descripcion": "Envio por Kafka encriptado con la clave",
+        "Detalles": {
+            "Coordenada": "8,8",
+            "nDrones": 4
+        },
+        "Fecha_Hora": "2024-06-30 17:25:36",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRONE": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:39",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:25:42",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "2,2",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:43",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "1",
+            "movimiento": "2,2",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:46",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:50",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:25:52",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "3,3",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:54",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "2",
+            "movimiento": "4,4",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:25:57",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "4,4",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:26:01",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:26:02",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "5,5",
+            "destino": "False"
+        },
+        "Fecha_Hora": "2024-06-30 17:26:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "INFORMATIVA",
+        "Evento": "Recepcion de movimiento de Dron",
+        "Descripcion": "Movimiento recibido",
+        "Detalles": {
+            "id": "3",
+            "movimiento": "6,6",
+            "destino": "True"
+        },
+        "Fecha_Hora": "2024-06-30 17:26:08",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_DRON": "192.168.1.39",
+            "PORT_DRON": 4444
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:26:13",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:26:23",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:26:33",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:26:44",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:26:54",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:27:04",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:27:14",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:27:25",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:27:35",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:27:45",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    },
+    {
+        "TIPO DE EVENTO": "TEMPERATURA",
+        "Evento": "Comprobacion de temperatura",
+        "Descripcion": "Temperatura valida",
+        "Detalles": {
+            "Ciudad": "Madrid",
+            "Temperatura": 25
+        },
+        "Fecha_Hora": "2024-06-30 17:27:56",
+        "IP_ENGINE": {
+            "HOST": "0.0.0.0",
+            "PORT": 3333
+        },
+        "IP_ORIGEN": {
+            "HOST_WEATHER": "192.168.1.39",
+            "PORT_WEATHER": 1111
+        }
+    }
 ]
